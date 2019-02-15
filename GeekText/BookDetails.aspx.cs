@@ -17,7 +17,7 @@ namespace GeekText
             if(!this.IsPostBack)
             {
                 string constr = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
-                string query = "Select * from Books;";
+                string query = "Select * from dbo.Book;";
 
                 using (SqlConnection con = new SqlConnection(constr))
                 {

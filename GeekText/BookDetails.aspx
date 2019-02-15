@@ -6,9 +6,9 @@
     <div id ="BookDisplayDetailsDiv">
         <asp:GridView ID ="BookDetailsGridView" runat ="server" AutoGenerateColumns ="false">
             <Columns>
-                <asp:BoundField DataField ="Name" HeaderText="BookName" ItemStyle-Width="150px" />
-                <asp:BoundField DataField ="Author" HeaderText="Author" ItemStyle-Width="150px" />
-                <asp:BoundField DataField ="Genre" HeaderText="Genre" ItemStyle-Width="150px" />
+                <asp:BoundField DataField ="bookTitle" HeaderText="bookTitle" ItemStyle-Width="150px" />
+                <asp:BoundField DataField ="bookAuthor" HeaderText="bookAuthor" ItemStyle-Width="150px" />
+                <asp:BoundField DataField ="bookPrice" HeaderText="bookPrice" ItemStyle-Width="150px" />
             </Columns>
         </asp:GridView>
     </div>

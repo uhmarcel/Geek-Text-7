@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BookDetails.aspx" />
+    <Content Include="BookPageTemplate.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -177,6 +178,13 @@
       <DependentUpon>BookDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BookPageTemplate.aspx.cs">
+      <DependentUpon>BookPageTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BookPageTemplate.aspx.designer.cs">
+      <DependentUpon>BookPageTemplate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
