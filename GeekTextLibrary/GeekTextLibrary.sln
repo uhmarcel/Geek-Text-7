@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekText", "GeekText\GeekText.csproj", "{5913C6A5-9A30-4CA1-9230-AF29472838A5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekTextLibrary", "GeekTextLibrary\GeekTextLibrary\GeekTextLibrary.csproj", "{5A85725B-E06A-4E85-910B-482DA8E0551A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekTextLibrary", "GeekTextLibrary\GeekTextLibrary.csproj", "{5A85725B-E06A-4E85-910B-482DA8E0551A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5913C6A5-9A30-4CA1-9230-AF29472838A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5913C6A5-9A30-4CA1-9230-AF29472838A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5913C6A5-9A30-4CA1-9230-AF29472838A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5913C6A5-9A30-4CA1-9230-AF29472838A5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5A85725B-E06A-4E85-910B-482DA8E0551A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5A85725B-E06A-4E85-910B-482DA8E0551A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A85725B-E06A-4E85-910B-482DA8E0551A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -26,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {EB76A1CB-B66E-4CE5-8AC2-4B34C2015918}
+		SolutionGuid = {46247FD2-087A-463A-AC6D-FBFD2D4CA5B9}
 	EndGlobalSection
 EndGlobal

@@ -148,3 +148,5 @@ C:\Users\Red_K\Desktop\GeekText\GeekText\obj\Debug\GeekText.csproj.CoreCompileIn
 C:\Users\Red_K\Desktop\GeekText\GeekText\obj\Debug\GeekText.csproj.CopyComplete
 C:\Users\Red_K\Desktop\GeekText\GeekText\obj\Debug\GeekText.dll
 C:\Users\Red_K\Desktop\GeekText\GeekText\obj\Debug\GeekText.pdb
+C:\Users\Red_K\Desktop\GeekText\GeekText\bin\GeekTextLibrary.dll
+C:\Users\Red_K\Desktop\GeekText\GeekText\bin\GeekTextLibrary.pdb

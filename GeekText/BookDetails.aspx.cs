@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
 using System.Configuration;
+using GeekTextLibrary;
+using System.Data;
+using System.Web.UI.WebControls;
 
 namespace GeekText
 {
@@ -16,29 +13,16 @@ namespace GeekText
         {
             if(!this.IsPostBack)
             {
-                string constr = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
-                string query = "Select * from dbo.Book;";
-
-                using (SqlConnection con = new SqlConnection(constr))
-                {
-                    using (SqlCommand cmd = new SqlCommand(query))
-                    {
-                        using (SqlDataAdapter sda = new SqlDataAdapter())
-                        {
-                            cmd.Connection = con;
-                            sda.SelectCommand = cmd;
-                            using (DataSet ds = new DataSet())
-                            {
-                                sda.Fill(ds);
-                                BookDetailsGridView.DataSource = ds.Tables[0];
-                                BookDetailsGridView.DataBind();
-                            }
-                        }
-                    }
-                }
+                DataSet ds = new BookManager().getAllBooksInDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                BookDetailsGridView.DataSource = ds.Tables[0];
+                BookDetailsGridView.DataBind();
             }
         }
 
-        
+        protected void BookDetailsGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            e.Row.Attributes.Add("onclick", "location.href=('bookpage?ISBN=" + e.Row.Cells[0].Text + "')");
+        }
+
     }
 }
