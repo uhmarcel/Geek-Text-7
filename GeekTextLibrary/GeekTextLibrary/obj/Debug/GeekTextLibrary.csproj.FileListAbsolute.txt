@@ -1,0 +1,12 @@
+C:\Users\dramd\source\repos\GeekTextLibrary\GeekTextLibrary\bin\Debug\GeekTextLibrary.dll
+C:\Users\dramd\source\repos\GeekTextLibrary\GeekTextLibrary\bin\Debug\GeekTextLibrary.pdb
+C:\Users\dramd\source\repos\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csprojAssemblyReference.cache
+C:\Users\dramd\source\repos\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csproj.CoreCompileInputs.cache
+C:\Users\dramd\source\repos\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.dll
+C:\Users\dramd\source\repos\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.pdb
+C:\Users\Red_K\Desktop\GeekText\GeekTextLibrary\GeekTextLibrary\bin\Debug\GeekTextLibrary.dll
+C:\Users\Red_K\Desktop\GeekText\GeekTextLibrary\GeekTextLibrary\bin\Debug\GeekTextLibrary.pdb
+C:\Users\Red_K\Desktop\GeekText\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csprojAssemblyReference.cache
+C:\Users\Red_K\Desktop\GeekText\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Red_K\Desktop\GeekText\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.dll
+C:\Users\Red_K\Desktop\GeekText\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.pdb

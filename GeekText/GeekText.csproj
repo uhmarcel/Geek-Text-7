@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BookDetails.aspx" />
+    <Content Include="BookPage.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -177,6 +178,13 @@
       <DependentUpon>BookDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BookPage.aspx.cs">
+      <DependentUpon>BookPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BookPage.aspx.designer.cs">
+      <DependentUpon>BookPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -230,6 +238,12 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeekTextLibrary\GeekTextLibrary\GeekTextLibrary.csproj">
+      <Project>{5a85725b-e06a-4e85-910b-482da8e0551a}</Project>
+      <Name>GeekTextLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
