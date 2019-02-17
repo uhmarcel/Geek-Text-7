@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GeekTextLibrary
 {
-    class PublishingInfo
+   public class PublishingInfo
     {
-        private string location { get; set; }
-        private int copyrightYear { get; set; }
-        private string publishingCompany { get; set; }
+        public string location { get; set; }
+        public int copyrightYear { get; set; }
+        public string publishingCompany { get; set; }
     }
 }

@@ -150,3 +150,5 @@ C:\Users\Red_K\Desktop\GeekText\GeekText\obj\Debug\GeekText.dll
 C:\Users\Red_K\Desktop\GeekText\GeekText\obj\Debug\GeekText.pdb
 C:\Users\Red_K\Desktop\GeekText\GeekText\bin\GeekTextLibrary.dll
 C:\Users\Red_K\Desktop\GeekText\GeekText\bin\GeekTextLibrary.pdb
+C:\Users\Dustin\Source\Repos\GeekText\GeekText\bin\GeekTextLibrary.dll
+C:\Users\Dustin\Source\Repos\GeekText\GeekText\bin\GeekTextLibrary.pdb

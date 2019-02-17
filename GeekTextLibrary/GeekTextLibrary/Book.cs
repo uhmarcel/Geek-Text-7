@@ -10,15 +10,16 @@ namespace GeekTextLibrary
 {
     public class Book
     {
-        private List<string> genre { get; set; }
-        private string title { get; set; }
-        private string description { get; set; }
-        private PublishingInfo publishingInfo { get; set; }
-        private List<Author> bookAuthor { get; set; }
-        private float bookRating { get; set; }
-        private List<string> userComment { get; set; }
-        private double price { get; set; }
-        private int ISBN { get; set; }
+        public  string genre { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public PublishingInfo publishingInfo { get; set; }
+        public Author bookAuthor { get; set; }
+        public float bookRating { get; set; }
+        public List<string> userComment { get; set; }
+        public double price { get; set; }
+        public string ISBN { get; set; }
+        public byte[] bookCover { get; set; }
     }
 
 }

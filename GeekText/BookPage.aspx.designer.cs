@@ -11,5 +11,41 @@ namespace GeekText {
     
     
     public partial class BookPageTemplate {
+        
+        /// <summary>
+        /// Book_Name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Book_Name;
+        
+        /// <summary>
+        /// Book_Author control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Book_Author;
+        
+        /// <summary>
+        /// Book_description control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Book_description;
+        
+        /// <summary>
+        /// BookDetailsGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView BookDetailsGridView;
     }
 }

@@ -12,13 +12,24 @@ namespace GeekText
 {
     public partial class BookPageTemplate : System.Web.UI.Page
     {
-        public DataSet pageBook; // this dont work
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            try
             {
-                DataSet pageBook = new BookManager().getBookByISBN(Request.QueryString["ISBN"], ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                if (!this.IsPostBack)
+                {
+                    Book bookToBeDisplayed = new Book();
+                    string ISBN = Request.QueryString["ISBN"];
+                    List<Book> allBooks = new BookManager().getlistofAllBooksInDB((ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString));
+                    bookToBeDisplayed = allBooks.FirstOrDefault(o => o.ISBN == ISBN);
+                    Book_Name.Text = bookToBeDisplayed.title;
+                    Book_Author.Text = bookToBeDisplayed.bookAuthor.authorName;
+                    Book_description.Text = bookToBeDisplayed.description;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
     }

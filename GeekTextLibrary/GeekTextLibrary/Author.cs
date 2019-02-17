@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace GeekTextLibrary
 {
-    class Author
+    public class Author
     {
-        private string authorName { get; set; }
-        private string shortBio { get; set; }
-        private int authorId { get; set; }
+        public string authorName { get; set; }
+        public string shortBio { get; set; }
+        public int authorId { get; set; }
     }
 }
