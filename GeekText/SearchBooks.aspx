@@ -31,7 +31,7 @@
                     <asp:BoundField DataField ="description" HeaderText="Description" />
                 <asp:TemplateField headertext="Cart" ItemStyle-Width="50px">
                     <ItemTemplate>
-                        <asp:Literal id="Literal1" runat="server" text='<a href="/Shopping_Car"><span class="glyphicon glyphicon-shopping-cart"></span></a>'></asp:Literal>
+                        <asp:Literal id="Literal1" runat="server" text='<a href="/Shopping_Cart"><span class="glyphicon glyphicon-shopping-cart"></span></a>'></asp:Literal>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

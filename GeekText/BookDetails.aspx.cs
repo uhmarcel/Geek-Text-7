@@ -12,7 +12,7 @@ namespace GeekText
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!this.IsPostBack)
+            if (!this.IsPostBack)
             {
                 bindGridView();
             }
@@ -20,27 +20,26 @@ namespace GeekText
 
         protected void bindGridView()
         {
-            List<Book> allBooks = new BookManager().getlistofAllBooksInDB((ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString));
-            BookDetailsGridView.DataSource =allBooks;
+            List<Book> allBooks = new BookManager().getlistofAllBooksInDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            BookDetailsGridView.DataSource = allBooks;
             BookDetailsGridView.DataBind();
         }
 
-        
+
         protected void ViewButton_Click(object sender, EventArgs e)
         {
             try
             {
-
                 var closeLink = (Control)sender;
                 GridViewRow row = (GridViewRow)closeLink.NamingContainer;
                 string ISBN = row.Cells[0].Text;
-                Response.Redirect("bookPage.aspx?ISBN=" + ISBN );
+                Response.Redirect("bookPage.aspx?ISBN=" + ISBN);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
+
         }
     }
 }

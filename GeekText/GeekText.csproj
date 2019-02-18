@@ -113,6 +113,7 @@
   <ItemGroup>
     <Content Include="BookDetails.aspx" />
     <Content Include="BookPage.aspx" />
+    <Content Include="BookPage.js" />
     <Content Include="Login.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -161,7 +162,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="SearchBooks.aspx" />
-    <Content Include="Shopping_Car.aspx" />
+    <Content Include="Shopping_Cart.aspx" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -212,12 +213,12 @@
     <Compile Include="SearchBooks.aspx.designer.cs">
       <DependentUpon>SearchBooks.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Shopping_Car.aspx.cs">
-      <DependentUpon>Shopping_Car.aspx</DependentUpon>
+    <Compile Include="Shopping_Cart.aspx.cs">
+      <DependentUpon>Shopping_Cart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Shopping_Car.aspx.designer.cs">
-      <DependentUpon>Shopping_Car.aspx</DependentUpon>
+    <Compile Include="Shopping_Cart.aspx.designer.cs">
+      <DependentUpon>Shopping_Cart.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

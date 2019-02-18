@@ -7,6 +7,8 @@ SET QUOTED_IDENTIFIER ON
 
 -------------- CREATE TABLES --------------
 
+DROP TABLE IF EXISTS [dbo].[shoppingCart]
+DROP TABLE IF EXISTS [dbo].[BookReview]
 DROP TABLE IF EXISTS [dbo].[CreditCard]
 DROP TABLE IF EXISTS [dbo].[Address]
 DROP TABLE IF EXISTS [dbo].[Author]
@@ -28,6 +30,7 @@ CREATE TABLE [dbo].[Book](
 	[bookAuthor] [nvarchar](max) NULL,
 	[bookGenre] [nvarchar](max) NULL,
 	[bookCover] [image] NULL,
+	[bestSeller] [bit] DEFAULT 0, 
  CONSTRAINT [PK_Book] PRIMARY KEY CLUSTERED 
 (
 	[ISBN] ASC
@@ -59,7 +62,7 @@ GO
 -- User Table
 
 CREATE TABLE [dbo].[User](
-	[userFIrstName] [nvarchar](50) NULL,
+	[userFirstName] [nvarchar](50) NULL,
 	[userLastName] [nvarchar](50) NULL,
 	[userNickName] [nvarchar](50) NULL,
 	[email] [nvarchar](50) NULL,
@@ -111,19 +114,78 @@ GO
 ALTER TABLE [dbo].[CreditCard] CHECK CONSTRAINT [FK_CreditCard_User]
 GO
 
+-- BookReview
+
+CREATE TABLE [dbo].[BookReview] (
+	[ISBN] [nvarchar](50) NOT NULL FOREIGN KEY REFERENCES [Book](ISBN),
+	[userID] [int] NOT NULL FOREIGN KEY REFERENCES [User](userID),
+	[reviewText] [nvarchar] (max) NOT NULL,
+	[reviewRating] [int] NOT NULL
+);
+
+-- shoppingCard
+
+CREATE TABLE [dbo].[shoppingCart](
+	[cartID] [int] NOT NULL,
+	[userID] [int] NULL,
+	[bookId] [nvarchar](50) NULL,
+	[qty] [int] NULL,
+	[Price] [money] NULL,
+ CONSTRAINT [PK_shoppingCart] PRIMARY KEY CLUSTERED 
+(
+	[cartID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[shoppingCart]  WITH CHECK ADD  CONSTRAINT [FK_shoppingCart_Book] FOREIGN KEY([bookId])
+REFERENCES [dbo].[Book] ([ISBN])
+GO
+
+ALTER TABLE [dbo].[shoppingCart] CHECK CONSTRAINT [FK_shoppingCart_Book]
+GO
+
+ALTER TABLE [dbo].[shoppingCart]  WITH CHECK ADD  CONSTRAINT [FK_shoppingCart_User] FOREIGN KEY([userID])
+REFERENCES [dbo].[User] ([userID])
+GO
+
+ALTER TABLE [dbo].[shoppingCart] CHECK CONSTRAINT [FK_shoppingCart_User]
+GO
+
 -------------- POPULATE TABLES --------------
 
--- Add entries as needed:
+-- Books
+insert into Book (ISBN, bookTitle, bookDescription, publishingLocation, publishingYear, publishingCompany, userRating, userComment, bookPrice, bookAuthor, bookGenre, bestSeller)
+values (0130895725, 'The Iliad', 'The story of the war in troy featuring achilles and his heel', 'Greece', 200, 'Classic Book Company', null, null, 28.99, 'Homer', 'Action', 1),
+	   (0132261197, 'Harry Potter', 'A kid finds out he is a wizard', 'London', 2001, 'Wiley', null, null, 19.99,'J.K Rowling', 'fiction', 0),
+	   (0130895717, 'House of Glass', 'A house made of glass and glass related accessories', 'Scotland', 2004, 'Harper Collins', null , null, 22.99, 'Daniel Lifeson', 'Thriller', 0),
+	   (0135289106, 'Calculus Textbook', 'An introductory Calculus textbook for high schoolers', 'Massachusets', 2008,'Education Books', null, null, 149.99, 'Isaac Newton', 'Mathematics', 0),
+	   (0139163050, 'Charlottes Web', 'A childrens book about a pig and a spider', 'Indiana', 1982, 'Prentice', null, null, 14.99, 'E.B. White', 'Adventure', 0),
+	   (0130284190, 'Rhetoric', 'Lectures by Aristotle concerning the use of rhetoric', 'Rome', 1202, 'Random House', null, null, 20.99, 'Aristotle', 'History', 0);
 
-insert into Book (ISBN, bookTitle, bookDescription, publishingLocation, publishingYear, publishingCompany, userRating, userComment, bookPrice, bookAuthor, bookGenre)
-values (0130895725, 'The Iliad', 'The story of the war in troy featuring achilles and his heel', 'Greece', 200, 'Classic Book Company', null, null, 28.99, 'Homer', 'Action'),
-	   (0132261197, 'Harry Potter', 'A kid finds out he is a wizard', 'London', 2001, 'Wiley', null, null, 19.99,'J.K Rowling', 'fiction'),
-	   (0130895717, 'House of Glass', 'A house made of glass and glass related accessories', 'Scotland', 2004, 'Harper Collins', null , null, 22.99, 'Daniel Lifeson', 'Thriller'),
-	   (0135289106, 'Calculus Textbook', 'An introductory Calculus textbook for high schoolers', 'Massachusets', 2008,'Education Books', null, null, 149.99, 'Isaac Newton', 'Mathematics'),
-	   (0139163050, 'Charlottes Web', 'A childrens book about a pig and a spider', 'Indiana', 1982, 'Prentice', null, null, 14.99, 'E.B. White', 'Adventure'),
-	   (0130284190, 'Rhetoric', 'Lectures by Aristotle concerning the use of rhetoric', 'Rome', 1202, 'Random House', null, null, 20.99, 'Aristotle', 'History');
+-- Users
+insert into [User] (userFirstName, userLastName, userNickName, email, userProfileName, userProfilePassword, userShippingAddress, userCreditCard, userComment)
+values (null, null, 'Anonymous', null, null, null, null, null, null),
+	   (null, null, 'GeekTextAdmin', null, 'admin', 'password', null, null, null);
 
+-- Reviews
+insert into [bookReview] (ISBN, userID, reviewText, reviewRating) 
+values (0130284190, 1, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5),
+	   (0130895725, 1, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4),
+	   (0132261197, 1, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 3),
+	   (0135289106, 1, 'Bravo! A courageous and realistic tale of women loving women. Loved the characters and the reality of their lives. Well done!', 4),
+	   (0130895717, 1, 'I really liked the story. This was a slow burn that gave enough background on the two main characters so that you see how they interact with each other and threw in a few surprises along the way!', 5),
+	   (0139163050, 1, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3),
+	   (0139163050, 1, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5),
+	   (0130895717, 1, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4),
+	   (0130284190, 1, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 3),
+	   (0130284190, 1, 'Bravo! A courageous and realistic tale of women loving women. Loved the characters and the reality of their lives. Well done!', 4),
+	   (0130895725, 1, 'I really liked the story. This was a slow burn that gave enough background on the two main characters so that you see how they interact with each other and threw in a few surprises along the way!', 5),
+	   (0130895725, 1, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3);
 
+-- ShoppingCart
+insert into [shoppingCart] (cartID, userID, bookID, qty, Price)
+values (1, 1, '0130895725', 1, 29.99);
 
 
 
@@ -131,5 +193,3 @@ values (0130895725, 'The Iliad', 'The story of the war in troy featuring achille
 --set bookCover =
 --	(select BulkColumn from openrowset (bulk 'D:\School_D\CEN4083\Rhet.jfif' , Single_Blob) as image)
 --where Book.ISBN = 130284190
-
-

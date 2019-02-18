@@ -10,14 +10,14 @@ using System.Configuration;
 
 namespace GeekText
 {
-    public partial class Car : Page
+    public partial class Cart : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
             {
                 string constr = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
-                string query = "Select * from shoppingCar;";
+                string query = "Select * from shoppingCart;";
 
                 using (SqlConnection con = new SqlConnection(constr))
                 {
@@ -30,8 +30,8 @@ namespace GeekText
                             using (DataSet ds = new DataSet())
                             {
                                 sda.Fill(ds);
-                                CarGridView.DataSource = ds.Tables[0];
-                                CarGridView.DataBind();
+                                CartGridView.DataSource = ds.Tables[0];
+                                CartGridView.DataBind();
                             }
                         }
                     }

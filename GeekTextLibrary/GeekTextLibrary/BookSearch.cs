@@ -34,7 +34,7 @@ namespace GeekTextLibrary
                                 curBook.description = reader["bookDescription"].ToString();
                                 curBook.bookAuthor.authorName = reader["bookAuthor"].ToString();
                                 curBook.price = Convert.ToDouble(reader["bookPrice"]);
-                                curBook.publishingInfo.publishingCompany = reader["publsihingCompany"].ToString();
+                                curBook.publishingInfo.publishingCompany = reader["publishingCompany"].ToString();
                                 curBook.publishingInfo.copyrightYear = Convert.ToInt32(reader["publishingYear"]);
                                 curBook.publishingInfo.location = reader["publishingLocation"].ToString();
 

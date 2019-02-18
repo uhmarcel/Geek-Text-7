@@ -69,8 +69,8 @@ namespace GeekTextLibrary
                                 curBook.bookAuthor.authorName = reader["bookAuthor"].ToString();
                                 curBook.price = Convert.ToDouble(reader["bookPrice"]);
                                 curBook.genre = reader["bookGenre"].ToString();
-                                curBook.bookCover = (byte[])reader["bookCover"];
-                                curBook.publishingInfo.publishingCompany = reader["publsihingCompany"].ToString();
+                                // curBook.bookCover = (byte[])reader["bookCover"];   to avoid exception while we dont share the images
+                                curBook.publishingInfo.publishingCompany = reader["publishingCompany"].ToString();
                                 curBook.publishingInfo.copyrightYear = Convert.ToInt32(reader["publishingYear"]);
                                 curBook.publishingInfo.location = reader["publishingLocation"].ToString();
                                 
@@ -90,8 +90,47 @@ namespace GeekTextLibrary
             }
         }
 
+        public List<BookReview> getBookReviewsByISBN(string bookISBN, string connectionString)
+        {
+            try
+            {
+                List<BookReview> bookReviews = new List<BookReview>();
+                string query = "SELECT [userNickName], [reviewText], [reviewRating]" +
+                               "FROM [User], [BookReview]" +
+                               "WHERE [ISBN] = @bookISBN AND [User].[userID] = [BookReview].[userID];";
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Parameters.AddWithValue("@bookISBN", bookISBN);
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                BookReview curBookReview = new BookReview();
+                                curBookReview.userNickname = reader["userNickname"].ToString();
+                                curBookReview.reviewText = reader["reviewText"].ToString();
+                                curBookReview.reviewRating = Convert.ToInt32(reader["reviewRating"]);
+                                bookReviews.Add(curBookReview);
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+
+                return bookReviews;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
+        // This function probably can be deleted
         public DataSet getBookByISBN(string bookISBN, string connectionString)
         {
             try
