@@ -31,6 +31,15 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Label Book_Author;
         
         /// <summary>
+        /// Book_Cover control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Book_Cover;
+        
+        /// <summary>
         /// Book_description control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,42 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Book_description;
+        
+        /// <summary>
+        /// Book_Genre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Book_Genre;
+        
+        /// <summary>
+        /// Publishing_Year control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Publishing_Year;
+        
+        /// <summary>
+        /// Publishing_Company control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Publishing_Company;
+        
+        /// <summary>
+        /// Publishing_Location control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Publishing_Location;
         
         /// <summary>
         /// BookDetailsGridView control.

@@ -11,7 +11,7 @@
         <div class="col-md-4">
             <h2>View Books</h2>
             <p>
-               View our catalog of books and their details including genre author cover isbn and other stuff.
+                View our catalog of books and their details including genre author cover isbn and other stuff.
             </p>
             <p>
                 <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
@@ -20,7 +20,7 @@
         <div class="col-md-4">
             <h2>Create a Profile</h2>
             <p>
-               Create a User profile to enjoy the benefits of having a user profile.
+                Create a User profile to enjoy the benefits of having a user profile.
             </p>
             <p>
                 <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
@@ -29,12 +29,23 @@
         <div class="col-md-4">
             <h2>View Cart</h2>
             <p>
-               View your shopping cart where you put items and other stuff and things and thing related to stuff.
+                View your shopping cart where you put items and other stuff and things and thing related to stuff.
             </p>
             <p>
                 <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
             </p>
         </div>
+        <div class="col-md-4">
+            <h2>Search Books</h2>
+            <p>
+                Look for the books you want. You can search by title, genre, rating, or just the best sellers.
+            </p>
+            <p>
+                <a class="btn btn-default" href="searchbooks">Search now &raquo;</a>
+            </p>
+        </div>
     </div>
+
+
 
 </asp:Content>

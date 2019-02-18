@@ -1,11 +1,43 @@
 ﻿<%@ Page Title="Book page template" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BookPage.aspx.cs" Inherits="GeekText.BookPageTemplate" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
+    <style>
+        .imageContainer > img:hover {
+            width: 400px;
+            height: 600px;
+        }
+    </style>
     <section class="row">
-        <h1><asp:Label ID ="Book_Name" runat ="server" Text ="Sample"> </asp:Label></h1>
-        <h2><asp:Label ID ="Book_Author" runat ="server" Text ="Sample"> </asp:Label></h2>
-        <p><asp:Label ID ="Book_description" runat="server" Text="sample"></asp:Label></p>
+        <h1>
+            <asp:Label ID="Book_Name" runat="server" Text="Sample"> </asp:Label></h1>
+        <h3>Author:
+            <asp:Label ID="Book_Author" runat="server" Text="Sample"> </asp:Label></h3>
+
+        <div class="imageContainer">
+            <asp:Image ID="Book_Cover" CssClass="img" runat="server"  />
+        </div>
+
+        <p>
+            Description: 
+            <asp:Label ID="Book_description" runat="server" Text="sample"></asp:Label>
+        </p>
+        <p>
+            Genre(s):
+            <asp:Label ID="Book_Genre" runat="server" Text="Sample"></asp:Label>
+        </p>
+        <p>
+            Copyright Year:
+            <asp:Label ID="Publishing_Year" runat="server" Text="Sample"></asp:Label>
+        </p>
+        <p>
+            Publishing Company:
+            <asp:Label ID="Publishing_Company" runat="server" Text="Sample"></asp:Label>
+        </p>
+        <p>
+            Publishing Location:
+         <asp:Label ID="Publishing_Location" runat="server" Text="Sample"></asp:Label>
+        </p>
+
     </section>
 
     <section class="row">
