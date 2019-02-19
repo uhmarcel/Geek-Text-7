@@ -185,7 +185,7 @@ values (0130284190, 1, 'This was a really entertaining book, I’d highly recommen
 
 -- ShoppingCart
 insert into [shoppingCart] (cartID, userID, bookID, qty, Price)
-values (1, 1, '0130895725', 1, 29.99);
+values (1, 1, 0130895725, 1, 29.99);
 
 
 
