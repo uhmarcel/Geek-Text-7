@@ -1,9 +1,11 @@
 ﻿
+   // var displayRadios = document.getElementById('createReviewDiv').querySelectorAll('input[type="radio"]');
+var displayInput = document.getElementById('MainContent_createReviewDisplay');
+var ratingStars = document.getElementById('reviewRatingSpan').querySelectorAll("i");
+var ratingInput = document.getElementById('MainContent_createReviewRating');
+
 window.onload = function () {
-
-    var ratingStars = document.getElementById('reviewRatingSpan').querySelectorAll("i");
-    var ratingInput = document.getElementById('MainContent_createReviewRating');
-
+    
     ratingStars[0].addEventListener("click", function () {
         ratingStarRemoveAll(ratingStars);
         ratingStars[0].classList.remove('far');
@@ -73,3 +75,6 @@ function ratingStarRemoveAll(ratingStars) {
     ratingStars[4].classList.add('far');
 }
 
+function setUserDisplay(displayValue) {
+    displayInput.value = displayValue;
+}

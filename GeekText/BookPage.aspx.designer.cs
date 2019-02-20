@@ -121,31 +121,31 @@ namespace GeekText {
         protected global::System.Web.UI.HtmlControls.HtmlInputText createReviewRating;
         
         /// <summary>
-        /// createReviewRadioFullname control.
+        /// createReviewDisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton createReviewRadioFullname;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText createReviewDisplay;
         
         /// <summary>
-        /// createReviewRadioNickname control.
+        /// radioFullname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton createReviewRadioNickname;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl radioFullname;
         
         /// <summary>
-        /// createReviewRadioAnonymous control.
+        /// radioNickname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton createReviewRadioAnonymous;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl radioNickname;
         
         /// <summary>
         /// createReviewSubmitBtn control.

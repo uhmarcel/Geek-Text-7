@@ -13,16 +13,24 @@ namespace GeekText
 {
     public partial class BookPageTemplate : System.Web.UI.Page
     {
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 if (!this.IsPostBack)
                 {
+                    // Testing - remove later when current user is available
+                    User currentUser = new GeekTextLibrary.User();
+                    currentUser.userFirstName = "John";
+                    currentUser.userLastName = "Smith";
+                    currentUser.userNickName = "johnSmith001";
+                    //
 
                     string ISBN = Request.QueryString["ISBN"];
                     DisplayBookDetails(ISBN);
                     DisplayBookReviews(ISBN);
+                    DisplayUserInfo(currentUser);
                 }
             }
             catch (Exception ex)
@@ -66,17 +74,25 @@ namespace GeekText
             reviewsRepeater.DataBind();
         }
 
+        protected void DisplayUserInfo(User currentUser)
+        {
+            radioFullname.InnerHtml = currentUser.userFirstName + " " + currentUser.userLastName;
+            radioNickname.InnerHtml = currentUser.userNickName;
+        }
+
         protected void submitUserReview(object sender, EventArgs e)
         {
             BookReview userReview = new BookReview();
             userReview.reviewText = createReviewTextarea.Value;
             userReview.reviewRating = Convert.ToInt32(createReviewRating.Value);
             userReview.ISBN = Request.QueryString["ISBN"];
-            userReview.userID = 1; // For testing purposes, change later on
-
+            userReview.displayAs = Convert.ToInt32(createReviewDisplay.Value);
+            userReview.userID = 2; // For testing purposes, change later on
             userReview.insertIntoDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             Response.Redirect(Request.RawUrl);
         }
+
+
     }
 
 }

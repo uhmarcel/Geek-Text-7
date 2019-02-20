@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GeekTextLibrary
 {
-    class CreditCard
+    public class CreditCard
     {
         private string creditCardNumber { get; set; }
         private int cvv { get; set; }

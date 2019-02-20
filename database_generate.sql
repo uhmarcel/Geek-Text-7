@@ -120,7 +120,8 @@ CREATE TABLE [dbo].[BookReview] (
 	[ISBN] [nvarchar](50) NOT NULL FOREIGN KEY REFERENCES [Book](ISBN),
 	[userID] [int] NOT NULL FOREIGN KEY REFERENCES [User](userID),
 	[reviewText] [nvarchar] (max) NOT NULL,
-	[reviewRating] [int] NOT NULL
+	[reviewRating] [int] NOT NULL,
+	[displayAs] [int] DEFAULT 3
 );
 
 -- shoppingCard
@@ -165,23 +166,27 @@ values (0130895725, 'The Iliad', 'The story of the war in troy featuring achille
 
 -- Users
 insert into [User] (userFirstName, userLastName, userNickName, email, userProfileName, userProfilePassword, userShippingAddress, userCreditCard, userComment)
-values (null, null, 'Anonymous', null, null, null, null, null, null),
-	   (null, null, 'GeekTextAdmin', null, 'admin', 'password', null, null, null);
+values (null, null, 'GeekTextAdmin', null, 'admin', 'password', null, null, null),
+	   ('John', 'Smith', 'johnSmith001', null, null, null, null, null, null),
+	   ('Andre', 'Reyes', 'areyes92', null, null, null, null, null, null),
+	   ('Mathew', 'Vega', 'vegamw13', null, null, null, null, null, null),
+	   ('Catherine', 'Smith', 'cathys01', null, null, null, null, null, null),
+	   ('Ron', 'Jackson', 'singbywater2', null, null, null, null, null, null);
 
 -- Reviews
-insert into [bookReview] (ISBN, userID, reviewText, reviewRating) 
-values (0130284190, 1, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5),
-	   (0130895725, 1, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4),
-	   (0132261197, 1, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 3),
-	   (0135289106, 1, 'Bravo! A courageous and realistic tale of women loving women. Loved the characters and the reality of their lives. Well done!', 4),
-	   (0130895717, 1, 'I really liked the story. This was a slow burn that gave enough background on the two main characters so that you see how they interact with each other and threw in a few surprises along the way!', 5),
-	   (0139163050, 1, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3),
-	   (0139163050, 1, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5),
-	   (0130895717, 1, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4),
-	   (0130284190, 1, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 3),
-	   (0130284190, 1, 'Bravo! A courageous and realistic tale of women loving women. Loved the characters and the reality of their lives. Well done!', 4),
-	   (0130895725, 1, 'I really liked the story. This was a slow burn that gave enough background on the two main characters so that you see how they interact with each other and threw in a few surprises along the way!', 5),
-	   (0130895725, 1, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3);
+insert into [bookReview] (ISBN, userID, reviewText, reviewRating, displayAs) 
+values (0130284190, 3, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 2),
+	   (0130284190, 5, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4, 2),
+	   (0130284190, 6, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1),
+	   (0130284190, 4, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 4, 3),
+	   (0130895725, 3, 'Bravo! A courageous and realistic tale of women loving women. Loved the characters and the reality of their lives. Well done!', 4, 2),
+	   (0130895725, 4, 'I really liked the story. This was a slow burn that gave enough background on the two main characters so that you see how they interact with each other and threw in a few surprises along the way!', 5, 1),
+	   (0130895725, 3, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 2),
+	   (0139163050, 3, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1),
+	   (0139163050, 4, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 1),
+	   (0132261197, 5, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4, 2),
+	   (0135289106, 4, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 3, 2),
+	   (0130895717, 4, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1);
 
 -- ShoppingCart
 insert into [shoppingCart] (cartID, userID, bookID, qty, Price)

@@ -95,7 +95,7 @@ namespace GeekTextLibrary
             try
             {
                 List<BookReview> bookReviews = new List<BookReview>();
-                string query = "SELECT [userNickName], [reviewText], [reviewRating]" +
+                string query = "SELECT [userFirstName], [userLastName], [userNickName], [reviewText], [reviewRating], [displayAs]" +
                                "FROM [User], [BookReview]" +
                                "WHERE [ISBN] = @bookISBN AND [User].[userID] = [BookReview].[userID];";
 
@@ -110,10 +110,15 @@ namespace GeekTextLibrary
                         {
                             while (reader.Read())
                             {
+                                string name = reader["userFirstName"].ToString() + " " + reader["userLastName"].ToString();
+                                string nick = reader["userNickname"].ToString();
+
                                 BookReview curBookReview = new BookReview();
-                                curBookReview.userNickname = reader["userNickname"].ToString();
                                 curBookReview.reviewText = reader["reviewText"].ToString();
                                 curBookReview.reviewRating = Convert.ToInt32(reader["reviewRating"]);
+                                curBookReview.displayAs = Convert.ToInt32(reader["displayAs"]);
+                                curBookReview.setUserDisplay(name, nick);
+
                                 bookReviews.Add(curBookReview);
                             }
                         }
