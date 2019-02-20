@@ -153,6 +153,22 @@ GO
 ALTER TABLE [dbo].[shoppingCart] CHECK CONSTRAINT [FK_shoppingCart_User]
 GO
 
+-------------- TRIGGERS --------------
+
+CREATE or ALTER TRIGGER updateBookRating 
+ON BookReview 
+AFTER INSERT
+AS
+BEGIN
+	UPDATE Book
+	SET userRating = (SELECT AVG(CAST(reviewRating AS FLOAT)) FROM BookReview
+					  WHERE Book.ISBN = BookReview.ISBN)
+	FROM Book, inserted
+	WHERE Book.ISBN = inserted.ISBN;
+END
+GO
+
+
 -------------- POPULATE TABLES --------------
 
 -- Books
