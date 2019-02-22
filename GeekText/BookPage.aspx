@@ -70,33 +70,35 @@
             </ItemTemplate>
         </asp:Repeater>
 
-        <%--Display only for users who purchased the book--%>
-        <div><p>You've purchased this book!</p></div> 
-        <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#createReviewDiv" aria-expanded="false" aria-controls="createReviewDiv">Add a review for this book</button>
         
-        <h1></h1> <%--Replace later with spacing--%>
-
-        <div id='createReviewDiv' class="collapse">
-            <div class="card card-body">
-                <label for="createReviewTextarea" class="inline">Write a review of the book</label>
-                <span id="reviewRatingSpan" class="pull-right">
-                    <label>Rating:</label>
-                    <i id='ratingStar1' class="far fa-star"></i>
-                    <i id='ratingStar2' class="far fa-star"></i>
-        	        <i id='ratingStar3' class="far fa-star"></i>
-        	        <i id='ratingStar4' class="far fa-star"></i>
-        	        <i id='ratingStar5' class="far fa-star"></i>
-                </span>
-                <textarea id="createReviewTextarea" runat="server" class="form-control" rows="5" style="min-width: 100%" placeholder="Share your thoughts about this book"></textarea>
-                <input id="createReviewRating" class="hidden" type="text" runat="server" />
-                <input id="createReviewDisplay" class="hidden" type="text" runat="server" value="3"/>
-                <label class="inline">Submit as: </label>
-                <label class="radio-inline"><input type="radio" onclick="setUserDisplay(1)" runat="server"><span id="radioFullname" runat="server">Full name</span></label> <%--Later on change to default--%>
-                <label class="radio-inline"><input type="radio" onclick="setUserDisplay(2)" runat="server"><span id="radioNickname" runat="server">Nickname</span></label>
-                <label class="radio-inline"><input type="radio" onclick="setUserDisplay(3)" runat="server" checked>Anonymous</label> 
-                <asp:Button ID="createReviewSubmitBtn" Text="Submit" OnClick="submitUserReview" UseSubmitBehavior="false" runat="server" CssClass="btn btn-link pull-right"/>
+        <% if (currentUserOwnsBook) { %>
+            <p>You own this book!</p>
+            <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#createReviewDiv" aria-expanded="false" aria-controls="createReviewDiv">Add a review for this book</button>
+            <h1></h1> <%--Replace later with spacing--%>
+            <div id='createReviewDiv' class="collapse">
+                <div class="card card-body">
+                    <label for="createReviewTextarea" class="inline">Write a review of the book</label>
+                    <span id="reviewRatingSpan" class="pull-right">
+                        <label>Rating:</label>
+                        <i id='ratingStar1' class="far fa-star"></i>
+                        <i id='ratingStar2' class="far fa-star"></i>
+        	            <i id='ratingStar3' class="far fa-star"></i>
+        	            <i id='ratingStar4' class="far fa-star"></i>
+        	            <i id='ratingStar5' class="far fa-star"></i>
+                    </span>
+                    <textarea id="createReviewTextarea" runat="server" class="form-control" rows="5" style="min-width: 100%" placeholder="Share your thoughts about this book"></textarea>
+                    <input id="createReviewRating" class="hidden" type="text" runat="server" />
+                    <input id="createReviewDisplay" class="hidden" type="text" runat="server" value="3"/>
+                    <label class="inline">Submit as: </label>
+                    <label class="radio-inline"><input type="radio" onclick="setUserDisplay(1)" runat="server" checked><span id="radioFullname" runat="server">Full name</span></label>
+                    <label class="radio-inline"><input type="radio" onclick="setUserDisplay(2)" runat="server"><span id="radioNickname" runat="server">Nickname</span></label>
+                    <label class="radio-inline"><input type="radio" onclick="setUserDisplay(3)" runat="server" >Anonymous</label> 
+                    <asp:Button ID="createReviewSubmitBtn" Text="Submit" OnClick="submitUserReview" UseSubmitBehavior="false" runat="server" CssClass="btn btn-link pull-right"/>
+                </div>
             </div>
-        </div>
+        <% } else {%>
+            <p>Reviews are reserved for users who own this book.</p>
+        <% } %>
 
     </section>
 

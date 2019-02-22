@@ -8,6 +8,7 @@ SET QUOTED_IDENTIFIER ON
 -------------- CREATE TABLES --------------
 
 DROP TABLE IF EXISTS [dbo].[shoppingCart]
+DROP TABLE IF EXISTS [dbo].[UserPurchases]
 DROP TABLE IF EXISTS [dbo].[BookReview]
 DROP TABLE IF EXISTS [dbo].[CreditCard]
 DROP TABLE IF EXISTS [dbo].[Address]
@@ -114,16 +115,6 @@ GO
 ALTER TABLE [dbo].[CreditCard] CHECK CONSTRAINT [FK_CreditCard_User]
 GO
 
--- BookReview
-
-CREATE TABLE [dbo].[BookReview] (
-	[ISBN] [nvarchar](50) NOT NULL FOREIGN KEY REFERENCES [Book](ISBN),
-	[userID] [int] NOT NULL FOREIGN KEY REFERENCES [User](userID),
-	[reviewText] [nvarchar] (max) NOT NULL,
-	[reviewRating] [int] NOT NULL,
-	[displayAs] [int] DEFAULT 3
-);
-
 -- shoppingCard
 
 CREATE TABLE [dbo].[shoppingCart](
@@ -151,6 +142,27 @@ REFERENCES [dbo].[User] ([userID])
 GO
 
 ALTER TABLE [dbo].[shoppingCart] CHECK CONSTRAINT [FK_shoppingCart_User]
+GO
+
+-- BookReview
+
+CREATE TABLE [dbo].[BookReview] (
+	[userID] [int] NOT NULL FOREIGN KEY REFERENCES [User](userID),
+	[ISBN] [nvarchar](50) NOT NULL FOREIGN KEY REFERENCES [Book](ISBN),
+	[reviewText] [nvarchar] (max) NOT NULL,
+	[reviewRating] [int] NOT NULL CHECK (reviewRating > 0 AND reviewRating <=5),
+	[displayAs] [int] DEFAULT 3
+	-- CONSTRAINT PK_BookReview PRIMARY KEY (ISBN, userID)   // Key commented out to allow multiple comments per user on same book for debugging
+);
+
+-- UserPurchases
+
+CREATE TABLE [dbo].[UserPurchases] (
+	[userID] [int] NOT NULL FOREIGN KEY REFERENCES [User](userID),
+	[ISBN] [nvarchar](50) NOT NULL FOREIGN KEY REFERENCES [Book](ISBN)
+	CONSTRAINT PK_UserPurchases PRIMARY KEY (userID, ISBN)
+);
+
 GO
 
 -------------- TRIGGERS --------------
@@ -182,28 +194,46 @@ values (0130895725, 'The Iliad', 'The story of the war in troy featuring achille
 
 -- Users
 insert into [User] (userFirstName, userLastName, userNickName, email, userProfileName, userProfilePassword, userShippingAddress, userCreditCard, userComment)
-values (null, null, 'GeekTextAdmin', null, 'admin', 'password', null, null, null),
-	   ('John', 'Smith', 'johnSmith001', null, null, null, null, null, null),
-	   ('Andre', 'Reyes', 'areyes92', null, null, null, null, null, null),
-	   ('Mathew', 'Vega', 'vegamw13', null, null, null, null, null, null),
-	   ('Catherine', 'Smith', 'cathys01', null, null, null, null, null, null),
-	   ('Ron', 'Jackson', 'singbywater2', null, null, null, null, null, null);
+values (null, null, 'GeekTextAdmin', null, 'admin', 'password', null, null, null),  -- 1
+	   ('John', 'Smith', 'johnSmith001', null, null, null, null, null, null),		-- 2
+	   ('Andre', 'Reyes', 'areyes92', null, null, null, null, null, null),			-- 3
+	   ('Mathew', 'Vega', 'vegamw13', null, null, null, null, null, null),			-- 4
+	   ('Catherine', 'Smith', 'cathys01', null, null, null, null, null, null),		-- 5
+	   ('Ron', 'Jackson', 'jr1991', null, null, null, null, null, null);			-- 6
+
+-- UserPurchases
+insert into [UserPurchases] (userID, ISBN)
+values (2, 0130284190),
+	   (2, 0135289106),
+	   (2, 0132261197),
+	   (3, 0130284190),
+	   (3, 0130895725),
+	   (3, 0139163050),
+	   (3, 0132261197),
+	   (4, 0135289106),
+	   (4, 0130895717),
+	   (4, 0130284190),
+	   (4, 0130895725),
+	   (4, 0139163050),
+	   (5, 0130284190),
+	   (5, 0132261197),
+	   (6, 0130284190);
 
 -- Reviews
-insert into [bookReview] (ISBN, userID, reviewText, reviewRating, displayAs) 
-values (0130284190, 3, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 2),
-	   (0130284190, 5, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4, 2),
-	   (0130284190, 6, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1),
-	   (0130284190, 4, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 4, 3),
-	   (0130895725, 3, 'Bravo! A courageous and realistic tale of women loving women. Loved the characters and the reality of their lives. Well done!', 4, 2),
-	   (0130895725, 4, 'I really liked the story. This was a slow burn that gave enough background on the two main characters so that you see how they interact with each other and threw in a few surprises along the way!', 5, 1),
-	   (0130895725, 3, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 2),
-	   (0139163050, 3, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1),
-	   (0139163050, 4, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 1),
-	   (0132261197, 5, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4, 2),
-	   (0135289106, 4, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 3, 2),
-	   (0130895717, 4, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1);
-
+insert into [bookReview] (userID, ISBN, reviewText, reviewRating, displayAs) 
+values (3, 0130284190,'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 2),
+	   (3, 0130895725, 'Bravo! A courageous and realistic tale of women loving women. Loved the characters and the reality of their lives. Well done!', 4, 2),
+	   (3, 0139163050, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1),
+	   (3, 0132261197, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 2),
+	   (4, 0135289106, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 3, 2),
+	   (4, 0130895717, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1),
+	   (4, 0130284190, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 4, 3),
+	   (4, 0130895725, 'I really liked the story. This was a slow burn that gave enough background on the two main characters so that you see how they interact with each other and threw in a few surprises along the way!', 5, 1),
+	   (4, 0139163050, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 1),
+	   (5, 0130284190, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4, 2),
+	   (5, 0132261197, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4, 2),
+	   (6, 0130284190, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1);
+	   
 -- ShoppingCart
 insert into [shoppingCart] (cartID, userID, bookID, qty, Price)
 values (1, 1, 0130895725, 1, 29.99);

@@ -13,7 +13,8 @@ namespace GeekText
 {
     public partial class BookPageTemplate : System.Web.UI.Page
     {
-        
+        public bool currentUserOwnsBook = false;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -22,6 +23,7 @@ namespace GeekText
                 {
                     // Testing - remove later when current user is available
                     User currentUser = new GeekTextLibrary.User();
+                    currentUser.userID = 2;
                     currentUser.userFirstName = "John";
                     currentUser.userLastName = "Smith";
                     currentUser.userNickName = "johnSmith001";
@@ -30,7 +32,7 @@ namespace GeekText
                     string ISBN = Request.QueryString["ISBN"];
                     DisplayBookDetails(ISBN);
                     DisplayBookReviews(ISBN);
-                    DisplayUserInfo(currentUser);
+                    DisplayUserInfo(currentUser, ISBN);
                 }
             }
             catch (Exception ex)
@@ -74,8 +76,9 @@ namespace GeekText
             reviewsRepeater.DataBind();
         }
 
-        protected void DisplayUserInfo(User currentUser)
+        protected void DisplayUserInfo(User currentUser, string ISBN)
         {
+            this.currentUserOwnsBook = UserPurchases.hasUserPurchasedBook(currentUser.userID, ISBN, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             radioFullname.InnerHtml = currentUser.userFirstName + " " + currentUser.userLastName;
             radioNickname.InnerHtml = currentUser.userNickName;
         }
