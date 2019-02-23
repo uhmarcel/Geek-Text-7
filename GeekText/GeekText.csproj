@@ -113,6 +113,10 @@
   <ItemGroup>
     <Content Include="BookDetails.aspx" />
     <Content Include="BookPage.aspx" />
+<<<<<<< HEAD
+=======
+    <Content Include="BookPage.js" />
+>>>>>>> master
     <Content Include="Login.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -160,6 +164,11 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+<<<<<<< HEAD
+=======
+    <Content Include="SearchBooks.aspx" />
+    <Content Include="Shopping_Cart.aspx" />
+>>>>>>> master
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -203,6 +212,23 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="SearchBooks.aspx.cs">
+      <DependentUpon>SearchBooks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchBooks.aspx.designer.cs">
+      <DependentUpon>SearchBooks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shopping_Cart.aspx.cs">
+      <DependentUpon>Shopping_Cart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shopping_Cart.aspx.designer.cs">
+      <DependentUpon>Shopping_Cart.aspx</DependentUpon>
+    </Compile>
+>>>>>>> master
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

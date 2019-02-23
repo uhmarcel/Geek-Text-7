@@ -10,7 +10,11 @@ namespace GeekTextLibrary
 {
     public class Book
     {
+<<<<<<< HEAD
         public  string genre { get; set; }
+=======
+        public string genre { get; set; }
+>>>>>>> master
         public string title { get; set; }
         public string description { get; set; }
         public PublishingInfo publishingInfo { get; set; }

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace GeekTextLibrary
 {
+<<<<<<< HEAD
     class Address
+=======
+    public class Address
+>>>>>>> master
     {
         private string street { get; set; }
         private string state { get; set; }

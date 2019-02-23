@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace GeekTextLibrary
 {
+<<<<<<< HEAD
     class CreditCard
+=======
+    public class CreditCard
+>>>>>>> master
     {
         private string creditCardNumber { get; set; }
         private int cvv { get; set; }

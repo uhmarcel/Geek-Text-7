@@ -16,9 +16,24 @@ C:\Users\Dustin\Source\Repos\GeekText\GeekTextLibrary\GeekTextLibrary\obj\Debug\
 C:\Users\Dustin\Source\Repos\GeekText\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.dll
 C:\Users\Dustin\Source\Repos\GeekText\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.pdb
 C:\Users\Dustin\Source\Repos\GeekText\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csprojAssemblyReference.cache
+<<<<<<< HEAD
 C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\SoftWareEngTeam7-master\GeekTextLibrary\GeekTextLibrary\bin\Debug\GeekTextLibrary.dll
 C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\SoftWareEngTeam7-master\GeekTextLibrary\GeekTextLibrary\bin\Debug\GeekTextLibrary.pdb
 C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\SoftWareEngTeam7-master\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csprojAssemblyReference.cache
 C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\SoftWareEngTeam7-master\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csproj.CoreCompileInputs.cache
 C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\SoftWareEngTeam7-master\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.dll
 C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\SoftWareEngTeam7-master\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.pdb
+=======
+C:\Users\Red_K\Desktop\GeekText2\GeekTextLibrary\GeekTextLibrary\bin\Debug\GeekTextLibrary.dll
+C:\Users\Red_K\Desktop\GeekText2\GeekTextLibrary\GeekTextLibrary\bin\Debug\GeekTextLibrary.pdb
+C:\Users\Red_K\Desktop\GeekText2\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csprojAssemblyReference.cache
+C:\Users\Red_K\Desktop\GeekText2\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Red_K\Desktop\GeekText2\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.dll
+C:\Users\Red_K\Desktop\GeekText2\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.pdb
+C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\new\SoftWareEngTeam7\GeekTextLibrary\GeekTextLibrary\bin\Debug\GeekTextLibrary.dll
+C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\new\SoftWareEngTeam7\GeekTextLibrary\GeekTextLibrary\bin\Debug\GeekTextLibrary.pdb
+C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\new\SoftWareEngTeam7\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csprojAssemblyReference.cache
+C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\new\SoftWareEngTeam7\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.csproj.CoreCompileInputs.cache
+C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\new\SoftWareEngTeam7\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.dll
+C:\Users\LESTER-PC\Documents\Visual Studio 2017\Projects\new\SoftWareEngTeam7\GeekTextLibrary\GeekTextLibrary\obj\Debug\GeekTextLibrary.pdb
+>>>>>>> master

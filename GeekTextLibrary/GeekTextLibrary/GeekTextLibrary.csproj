@@ -45,10 +45,19 @@
     <Compile Include="Author.cs" />
     <Compile Include="Book.cs" />
     <Compile Include="BookManager.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="BookSearch.cs" />
+    <Compile Include="BookReview.cs" />
+>>>>>>> master
     <Compile Include="CreditCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublishingInfo.cs" />
     <Compile Include="User.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="UserPurchases.cs" />
+>>>>>>> master
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
