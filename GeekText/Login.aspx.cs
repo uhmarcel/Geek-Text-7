@@ -20,7 +20,7 @@ namespace GeekText
         protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
         {
 
-            if (user.getUserCreds(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString))
+            if (user.checkUsernameAndPass(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString))
             {
                 e.Authenticated = true;
             }

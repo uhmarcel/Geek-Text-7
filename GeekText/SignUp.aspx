@@ -6,18 +6,33 @@
         HeaderText="There were errors on the page:" />
 
         
-        <asp:Panel ID="CredentialsPanel" runat="server" BackColor="LightBlue" HorizontalAlign="Center" Width="422px">
+        <asp:Panel ID="CredentialsPanel" runat="server" BackColor="LightBlue" HorizontalAlign="Center" Width="450px">
             <div style="height:30px;line-height:30px; text-align:left;">
                 <asp:Label ID="UserNameLabel" runat="server" Text="Username"></asp:Label>
             </div>
             <div style="height:30px;line-height:30px; float:left;">                
-                <asp:TextBox ID="UserNameTextBox" runat="server" ></asp:TextBox>
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="UserNameTextBox" ErrorMessage="User name is required."> *
+                <asp:TextBox ID="UserNameTextBox" runat="server"  CausesValidation="true" ></asp:TextBox>
+                <asp:RequiredFieldValidator runat="server" 
+                    ControlToValidate="UserNameTextBox" 
+                    ErrorMessage="User name is required."> *
                 </asp:RequiredFieldValidator>
-                </div>
-                <div style="float: right">
-                <asp:RegularExpressionValidator runat="server" ControlToValidate="UserNameTextBox" ErrorMessage="User name must be 3-10 letters." ValidationExpression="[a-zA-Z]{3,10}" />
-                </div>
+            </div>
+            <div style="float: right; text-align:right;">
+                <asp:RegularExpressionValidator runat="server" 
+                    ControlToValidate="UserNameTextBox" 
+                    ErrorMessage="User name must be 3-10 letters." 
+                    ValidationExpression="[a-zA-Z]{3,10}" />
+                <br />
+                <asp:CustomValidator runat="server"
+                    OnServerValidate="CheckUsernameClient"
+                    ClientValidationFunction="CheckUsernameClient"
+                    ControlToValidate="UserNameTextBox"
+                    Display="Dynamic"
+                    ValidateEmptyText="True"
+                    ErrorMessage="Username is already in use."
+                    ToolTip="Please select a different username."
+                    />                        
+            </div>
             <br />
             <br />
             <div style="height:30px;line-height:30px; text-align:left;">
@@ -37,7 +52,7 @@
                     ErrorMessage="A password is required."> *
                 </asp:RequiredFieldValidator>
             </div>
-            <div style="float: right">
+            <div style="float: right; text-align:right;">
                     <asp:RegularExpressionValidator runat="server" 
                         ControlToValidate="PasswordTextBox1" 
                         Display="dynamic" 
@@ -49,13 +64,18 @@
                         Display="dynamic" 
                         ErrorMessage="Password must contain one of @#$%^&amp;*/." 
                         ValidationExpression=".*[@#$%^&amp;*].*" />
+                <br />
+                <asp:RegularExpressionValidator runat="server" 
+                        ControlToValidate="PasswordTextBox1" 
+                        Display="dynamic" 
+                        ErrorMessage="Password must contain at least one number." 
+                        ValidationExpression=".*[0123456789].*" />
             </div>
             <br />
             <br />
             <div style="height:30px;line-height:30px; text-align:left;">
                 <asp:Label ID="PasswordLabel2" runat="server" Text="Re-enter Password"></asp:Label>
             </div>
-            
             <div style="height:30px;line-height:30px; float:left;">
                 <asp:TextBox ID="PasswordTextBox2" runat="server"></asp:TextBox>
                 <asp:RequiredFieldValidator runat="server" 
@@ -64,7 +84,10 @@
                 </asp:RequiredFieldValidator>
             </div>
             <div style="float:right;">
-                <asp:CompareValidator runat="server" ControlToCompare="PasswordTextBox2" ControlToValidate="PasswordTextBox1" ErrorMessage="Passwords do not match." />
+                <asp:CompareValidator runat="server" 
+                    ControlToCompare="PasswordTextBox2" 
+                    ControlToValidate="PasswordTextBox1" 
+                    ErrorMessage="Passwords do not match." />
             </div>
             <br />
             <br />
@@ -72,19 +95,29 @@
                 <asp:Label ID="EmailLabel1" runat="server" Text="Email Address"></asp:Label>
             </div>
             <div style="height:30px;line-height:30px; float:left;">
-                <asp:TextBox ID="EmailTextBox1" runat="server"></asp:TextBox>
+                <asp:TextBox ID="EmailTextBox1" runat="server"  CausesValidation="true" ></asp:TextBox>
                 <asp:RequiredFieldValidator runat="server" 
                     ControlToValidate="EmailTextBox1"
                     ErrorMessage="Email is required."> *
                 </asp:RequiredFieldValidator>
             </div>
-            <div style="float:right">
-                <asp:RegularExpressionValidator ID="regexEmailValid" runat="server" ControlToValidate="EmailTextBox1" ErrorMessage="Invalid Email Format." ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
-            </asp:RegularExpressionValidator>
+            <div style="float: right; text-align:right;">
+                <asp:RegularExpressionValidator ID="regexEmailValid" runat="server" 
+                    ControlToValidate="EmailTextBox1" 
+                    ErrorMessage="Invalid Email Format." 
+                    ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+                </asp:RegularExpressionValidator>
+                <br />
+                <asp:CustomValidator runat="server" 
+                    OnServerValidate="CheckEmailClient"
+                    ClientValidationFunction="CheckEmailClient"
+                    ControlToValidate="EmailTextBox1"
+                    Display="Dynamic"
+                    ErrorMessage="Email is already in use."
+                    ValidateEmptyText="True" />
             </div> 
             <br />
             <br />
-
             <div style="height:30px;line-height:30px; text-align:left;">
                 <asp:Label ID="EmailLabel2" runat="server" Text="Re-enter Email Address"></asp:Label>
             </div>
@@ -102,7 +135,8 @@
                     ErrorMessage="Emails do not match." />
             </div> 
         </asp:Panel>
-        <asp:Panel ID="PersonalInfoPanel" runat="server" BackColor="LightBlue" HorizontalAlign="left" Width="422px">
+        <asp:Panel ID="PersonalInfoPanel" runat="server" BackColor="LightBlue" HorizontalAlign="left" Width="450px">
+            <br />
             <br />
             <div style="height:30px;line-height:30px; ">
                 <asp:Label ID="FirstNameLabel" runat="server" Text="First Name"></asp:Label>
@@ -117,7 +151,7 @@
                 <asp:TextBox ID="LastNameTextBox" runat="server"></asp:TextBox>
             </div>
         </asp:Panel>
-        <asp:Panel ID="AddressesPanel" runat="server" BackColor="LightBlue" HorizontalAlign="left" Width="422px">
+        <asp:Panel ID="AddressesPanel" runat="server" BackColor="LightBlue" HorizontalAlign="left" Width="450px">
             <div style="height:30px;line-height:30px; ">
                 <asp:Label ID="StreetAddressLabel" runat="server" Text="Street Address"></asp:Label>
             </div>

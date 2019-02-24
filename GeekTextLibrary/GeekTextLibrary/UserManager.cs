@@ -7,7 +7,8 @@ namespace GeekTextLibrary
     public class UserManager
     {
         #region works correctly
-        public bool getUserCreds(string username, string password, string connectionString)
+        // for login
+        public bool checkUsernameAndPass(string username, string password, string connectionString)
         {
             try
             {
@@ -42,6 +43,72 @@ namespace GeekTextLibrary
                 throw ex;
             }
         }
+        // for sign up validation on client side
+        public bool checkUsername(string username, string connectionString)
+        {
+            try
+            {
+                string query = "SELECT * FROM [User] WHERE [userProfileName]='" + username + "';";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if(reader.HasRows)
+                                    return true; // if found return true
+                                else
+                                    return false; // means it wasn't found
+                            }
+                        }
+                        con.Close();
+                    }
+
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        // for sign up validation on client side
+        public bool checkEmail(string email, string connectionString)
+        {
+            try
+            {
+                string query = "SELECT * FROM [User] WHERE [email]='" + email + "';";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.HasRows)
+                                    return true; // if found return true
+                                else
+                                    return false; // means it wasn't found
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        // for sign up
         public bool setUserCredentials(string userFirstName, string userLastName, string userNickName, string userName, string userPassword, string userEmail, string connectionString)
         {
             try
@@ -79,40 +146,41 @@ namespace GeekTextLibrary
         #endregion
 
         #region needs working/editing or haven't tested yet
-        public bool getUserPass(string userPassword, string connectionString)
+        public bool getUserPass(string username, string password, string connectionString)
         {
-            try
-            {
-                string query = "SELECT [userProfilePassword] FROM [User] WHERE [userProfilePassword]='" + userPassword + "';";
-
-                using (SqlConnection con = new SqlConnection(connectionString))
+                try
                 {
-                    using (SqlCommand cmd = new SqlCommand(query))
+                    string query = "SELECT [userProfileName], [userProfilePassword] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
+                    using (SqlConnection con = new SqlConnection(connectionString))
                     {
-                        cmd.Connection = con;
-                        con.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        using (SqlCommand cmd = new SqlCommand(query))
                         {
-                            while (reader.Read())
+                            cmd.Connection = con;
+                            con.Open();
+                            using (SqlDataReader reader = cmd.ExecuteReader())
                             {
-                                User curUser = new User();
-                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
-                                if (curUser.userPassword.Trim().Equals(userPassword.Trim()))
-                                    return true;
-                                else
-                                    return false;
+                                while (reader.Read())
+                                {
+                                    User curUser = new User();
+                                    curUser.userProfileName = reader["userProfileName"].ToString().Trim();
+                                    curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
+                                    // checking username and passwords together make it more secure
+                                    if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
+                                        return true;
+                                    else
+                                        return false;
+                                }
                             }
+                            con.Close();
                         }
-                        con.Close();
                     }
-
+                    return false;
                 }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            
         }
         public DataSet getUserNickName(string userNickName, string connectionString)
         {
