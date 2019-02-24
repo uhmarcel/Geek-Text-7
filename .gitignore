@@ -1,2 +1,4 @@
 .vs/
 /GeekText/obj/Release
+/GeekTextLibrary/GeekTextLibrary/obj/Release/GeekTextLibrary.csproj.CoreCompileInputs.cache
+/GeekTextLibrary/GeekTextLibrary/obj/Release
