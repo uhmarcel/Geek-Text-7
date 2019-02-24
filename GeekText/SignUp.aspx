@@ -40,7 +40,7 @@
             <asp:RegularExpressionValidator runat="server" Display="dynamic"
                 ControlToValidate="PasswordTextBox1"
                 ErrorMessage="Password must contain one of @#$%^&*/."
-                ValidationExpression=".*[@#$%^&*/].*" />
+                ValidationExpression=".*[@#$%^&*1234567890/].*" />
             <asp:RegularExpressionValidator runat=server display=dynamic
                 ControlToValidate="PasswordTextBox1" 
                 ErrorMessage="Password must be 8-12 nonblank characters." 
