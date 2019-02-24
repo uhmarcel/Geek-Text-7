@@ -2,7 +2,6 @@
 using System.Web.UI;
 using System.Configuration;
 using GeekTextLibrary;
-using System.Data;
 using System.Web.UI.WebControls;
 
 namespace GeekText
