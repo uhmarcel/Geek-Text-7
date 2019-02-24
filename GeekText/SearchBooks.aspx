@@ -8,7 +8,7 @@
    
     <style type="text/css">
         #form1 {
-            width: 998px;
+            width: 930px;
             height: 518px;
         }
     </style>
@@ -16,7 +16,7 @@
 
     <div class="row" >
     <div id="form1" runat="server">
-        <div style="float:left">
+        <div style="float:left; width: 530px;">
             <h1 style="width: 496px">Search Books</h1>
             <p style="width: 496px">
                 <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="423px">book title</asp:TextBox>
@@ -36,6 +36,11 @@
                 </asp:TemplateField>
             </Columns>
             </asp:GridView>
+        </div>
+        <div style="float:right">
+            <h3 style="width: 280px">Filter</h3>
+            By Genre<asp:CheckBoxList ID="CheckBoxList1" runat="server" DataSourceID="GeekTextBookGenre1" DataTextField="bookGenre" DataValueField="bookGenre" AutoPostBack="True" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChanged"></asp:CheckBoxList>
+            <asp:SqlDataSource ID="GeekTextBookGenre1" runat="server" ConnectionString="<%$ ConnectionStrings:GeekTextConnectionString %>" SelectCommand="SELECT DISTINCT [bookGenre] FROM [Book] ORDER BY [bookGenre]"></asp:SqlDataSource>
         </div>
     </div>
     </div>

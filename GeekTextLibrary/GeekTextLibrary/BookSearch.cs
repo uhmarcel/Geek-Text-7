@@ -53,5 +53,59 @@ namespace GeekTextLibrary
                 throw ex;
             }
         }
+
+        public List<Book> getBooksByGenre(List<string> genresList, string connectionString)
+        {
+            try
+            {
+                List<Book> books = new List<Book>();
+                string query = "SELECT * FROM Book WHERE bookGenre='" + genresList[0] + "'";
+
+                for (int i = 1; i < genresList.Count; i++)
+                {
+                    query = query + " OR bookGenre='" + genresList[i] + "'";
+                }
+
+                query = query + ";"; 
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+
+                            while (reader.Read())
+                            {
+                                Book curBook = new Book();
+                                curBook.publishingInfo = new PublishingInfo();
+                                curBook.bookAuthor = new Author();
+                                curBook.ISBN = reader["ISBN"].ToString();
+                                curBook.title = reader["bookTitle"].ToString();
+                                curBook.description = reader["bookDescription"].ToString();
+                                curBook.bookAuthor.authorName = reader["bookAuthor"].ToString();
+                                curBook.price = Convert.ToDouble(reader["bookPrice"]);
+                                curBook.publishingInfo.publishingCompany = reader["publishingCompany"].ToString();
+                                curBook.publishingInfo.copyrightYear = Convert.ToInt32(reader["publishingYear"]);
+                                curBook.publishingInfo.location = reader["publishingLocation"].ToString();
+
+                                books.Add(curBook);
+
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+
+                return books;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
