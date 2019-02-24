@@ -12,11 +12,12 @@
             </div>
             <div style="height:30px;line-height:30px; text-align:center;">                
                 <asp:TextBox ID="UserNameTextBox" runat="server" ></asp:TextBox>
+                <asp:RequiredFieldValidator runat="server" 
+                    ControlToValidate="UserNameTextBox"
+                    ErrorMessage="User name is required."> *
+                </asp:RequiredFieldValidator>
             </div>
-            <asp:RequiredFieldValidator runat="server" 
-                ControlToValidate="UserNameTextBox"
-                ErrorMessage="User name is required."> *
-            </asp:RequiredFieldValidator>
+            <br />
             <asp:RegularExpressionValidator runat=server 
                     ControlToValidate="UserNameTextBox" 
                     ErrorMessage="User name must be 3-10 letters." 
@@ -32,15 +33,17 @@
             </div>
             <div style="height:30px;line-height:30px; text-align:center;">
                 <asp:TextBox ID="PasswordTextBox1" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator runat="server" 
+                    ControlToValidate="PasswordTextBox1"
+                    ErrorMessage="A password is required."> *
+                </asp:RequiredFieldValidator>
             </div>
-            <asp:RequiredFieldValidator runat="server" 
-                ControlToValidate="PasswordTextBox1"
-                ErrorMessage="A password is required."> *
-            </asp:RequiredFieldValidator>
+            <br />
             <asp:RegularExpressionValidator runat="server" Display="dynamic"
                 ControlToValidate="PasswordTextBox1"
                 ErrorMessage="Password must contain one of @#$%^&*/."
                 ValidationExpression=".*[@#$%^&*].*" />
+            <br />
             <asp:RegularExpressionValidator runat=server display=dynamic
                 ControlToValidate="PasswordTextBox1" 
                 ErrorMessage="Password must be 8-12 nonblank characters." 
@@ -51,11 +54,12 @@
             
             <div style="height:30px;line-height:30px; text-align:center;">
                 <asp:TextBox ID="PasswordTextBox2" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator runat="server" 
+                    ControlToValidate="PasswordTextBox2"
+                    ErrorMessage="Re-enter password is required."> *
+                </asp:RequiredFieldValidator>
             </div>
-            <asp:RequiredFieldValidator runat="server" 
-                ControlToValidate="PasswordTextBox2"
-                ErrorMessage="Re-enter password is required."> *
-            </asp:RequiredFieldValidator>
+            <br />
             <asp:CompareValidator runat=server
                 ControlToValidate=PasswordTextBox1
                 ControlToCompare=PasswordTextBox2 
@@ -65,7 +69,12 @@
             </div>
             <div style="height:30px;line-height:30px; text-align:center;">
                 <asp:TextBox ID="EmailTextBox1" runat="server"></asp:TextBox>
-            </div>
+                <asp:RequiredFieldValidator runat="server" 
+                    ControlToValidate="EmailTextBox1"
+                    ErrorMessage="Email is required."> *
+                </asp:RequiredFieldValidator>
+            </div> 
+            <br />
             <asp:RegularExpressionValidator ID="regexEmailValid" runat="server" 
                 ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" 
                 ControlToValidate="EmailTextBox1" 
@@ -76,7 +85,12 @@
             </div>
             <div style="height:30px;line-height:30px; text-align:center;">
                 <asp:TextBox ID="EmailTextBox2" runat="server"></asp:TextBox>
-            </div>
+                <asp:RequiredFieldValidator runat="server" 
+                    ControlToValidate="EmailTextBox2"
+                    ErrorMessage="Re-enter email is required."> *
+                </asp:RequiredFieldValidator>
+            </div> 
+            <br />
             <asp:CompareValidator runat=server
                 ControlToValidate=EmailTextBox1
                 ControlToCompare=EmailTextBox2 
