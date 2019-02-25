@@ -56,5 +56,53 @@ namespace GeekText
             GridView1.DataBind();
         }
 
+        protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            bool value;
+            if(CheckBox1.Checked)
+            {
+                value = true;
+            }
+            else
+            {
+                value = false;
+            }
+            bindGridViewByBestSeller(value);
+        }
+
+        protected void bindGridViewByBestSeller(bool value)
+        {
+            var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+            var searchManager = new BookSearch();
+            var books = searchManager.getBooksByBestSeller(value, connection);
+
+            GridView1.DataSource = books;
+            GridView1.DataBind();
+        }
+
+        protected void CheckBoxList2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<string> ratingsList = new List<string>();
+            foreach (ListItem li in CheckBoxList2.Items)
+            {
+                if (li.Selected == true)
+                {
+                    ratingsList.Add(li.Value);
+                }
+            }
+            bindGridViewByRating(ratingsList);
+        }
+
+        protected void bindGridViewByRating(List<string> ratings)
+        {
+            var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+            var searchManager = new BookSearch();
+            var books = searchManager.getBooksByRating(ratings, connection);
+
+            GridView1.DataSource = books;
+            GridView1.DataBind();
+        }
+
+        
     }
 }

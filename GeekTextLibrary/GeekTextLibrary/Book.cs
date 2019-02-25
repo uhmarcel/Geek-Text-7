@@ -20,6 +20,7 @@ namespace GeekTextLibrary
         public double price { get; set; }
         public string ISBN { get; set; }
         public byte[] bookCover { get; set; }
+        public string bestSeller { get; set; }
     }
 
 }
