@@ -8,7 +8,8 @@ namespace GeekText
 {
     public partial class Contact : Page
     {
-        UserManager user = new UserManager();
+        public UserManager userMan = new UserManager();
+        public User user = new User();
         //string storedUserName;
         //string storedUserPass;
 
@@ -20,7 +21,7 @@ namespace GeekText
         protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
         {
 
-            if (user.checkUsernameAndPass(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString))
+            if (userMan.checkUsernameAndPass(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString))
             {
                 e.Authenticated = true;
             }
@@ -38,6 +39,17 @@ namespace GeekText
 
         protected void Login1_LoggedIn(object sender, EventArgs e)
         {
+            // getting user information from the DB
+            user.userID = userMan.getUserID(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            user.userFirstName = userMan.getUserFirstName(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            user.userLastName = userMan.getUserLastName(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            user.userNickName = userMan.getUserNickName(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            user.eMailAddress = userMan.getEmail(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            user.userProfileName = userMan.getUserProfileName(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            user.userPassword = userMan.getUserPass(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+
+            Properties.Settings.Default.Save();
+
             Response.Redirect("Profile.aspx");
         }
     }

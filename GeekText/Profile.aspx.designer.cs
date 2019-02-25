@@ -40,15 +40,6 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Label savedUserNameLabel;
         
         /// <summary>
-        /// NickNamePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel NickNamePanel;
-        
-        /// <summary>
         /// NickNameLabel control.
         /// </summary>
         /// <remarks>
@@ -67,13 +58,13 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Label savedNickNameLabel;
         
         /// <summary>
-        /// TextBox1 control.
+        /// newNickNameTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox newNickNameTextBox;
         
         /// <summary>
         /// NickNameButton control.
@@ -83,15 +74,6 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button NickNameButton;
-        
-        /// <summary>
-        /// ChangePassPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ChangePassPanel;
         
         /// <summary>
         /// oldPasswordLabel control.
@@ -110,6 +92,24 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox oldPasswordTextBox;
+        
+        /// <summary>
+        /// enterNewPassLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label enterNewPassLabel;
+        
+        /// <summary>
+        /// newPasswordTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox newPasswordTextBox;
         
         /// <summary>
         /// changePasswordBtn control.
@@ -137,5 +137,23 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label savedEmailLabel;
+        
+        /// <summary>
+        /// newEmailTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox newEmailTextBox;
+        
+        /// <summary>
+        /// changeEmailButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button changeEmailButton;
     }
 }
