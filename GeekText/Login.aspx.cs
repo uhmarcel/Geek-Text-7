@@ -48,8 +48,6 @@ namespace GeekText
             user.userProfileName = userMan.getUserProfileName(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             user.userPassword = userMan.getUserPass(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
 
-            Properties.Settings.Default.Save();
-
             Response.Redirect("Profile.aspx");
         }
     }
