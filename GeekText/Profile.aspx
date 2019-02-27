@@ -25,7 +25,7 @@
                         <div style="height:30px;line-height:30px;">
                             <asp:TextBox ID="newFirstNameTextBox" runat="server"></asp:TextBox>
                             &nbsp;&nbsp;
-                            <asp:Button ID="changeFirstFirstButton" runat="server" Text="Change First Name" OnClick="changeFirstFirstButton_Click"></asp:Button>
+                            <asp:Button ID="changeFirstNameButton" runat="server" Text="Change First Name" OnClick="changeFirstNameButton_Click"></asp:Button>
                     </div>
                     <div style="height:30px;line-height:30px; ">
                         <asp:Label ID="LastNameLabel" runat="server" Text="Last Name"></asp:Label>

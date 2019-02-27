@@ -103,13 +103,13 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.TextBox newFirstNameTextBox;
         
         /// <summary>
-        /// changeFirstFirstButton control.
+        /// changeFirstNameButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button changeFirstFirstButton;
+        protected global::System.Web.UI.WebControls.Button changeFirstNameButton;
         
         /// <summary>
         /// LastNameLabel control.
