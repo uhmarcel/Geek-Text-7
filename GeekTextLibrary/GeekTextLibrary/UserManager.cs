@@ -8,7 +8,7 @@ namespace GeekTextLibrary
     {
         #region works correctly
 
-        // for sign up validation on client side
+        // for sign up validation make sure there is no existing username 
         public bool checkUsername(string username, string connectionString)
         {
             try
@@ -41,7 +41,7 @@ namespace GeekTextLibrary
                 throw ex;
             }
         }
-        // for sign up validation on client side
+        // for sign up validation, make sure there is no existing email 
         public bool checkEmail(string email, string connectionString)
         {
             try
@@ -73,7 +73,7 @@ namespace GeekTextLibrary
                 throw ex;
             }
         }
-        // for sign up
+        // for sign up name, username/pass and email
         public bool setUserCredentials(string userFirstName, string userLastName, string userNickName, string userName, string userPassword, string userEmail, string connectionString)
         {
             try
@@ -94,6 +94,40 @@ namespace GeekTextLibrary
                         cmd.Parameters.AddWithValue("@userProfileName", userName.Trim());
                         cmd.Parameters.AddWithValue("@userProfilePassword", userPassword.Trim());
                         cmd.Parameters.AddWithValue("@email", userEmail.Trim());
+                        rowsChanged = cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                    if (rowsChanged > 0)
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        // for sign up, address
+        public bool setUserAddress(string city, string state, string zipCode, string streetAddress, string connectionString)
+        {
+
+            try
+            {
+                string query = "INSERT INTO [User](userCity, userState, userZipCode, userStreetAddress) values('" + city + "','" + state + "','" + zipCode + "','" + streetAddress + "') ; ";
+                User curUser = new User();
+                int rowsChanged = 0;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+
+                        cmd.Parameters.AddWithValue("@userCity", city.Trim());
+                        cmd.Parameters.AddWithValue("@userState", state.Trim());
+                        cmd.Parameters.AddWithValue("@userZipCode", zipCode.Trim());
+                        cmd.Parameters.AddWithValue("@userStreetAddress", streetAddress.Trim());
                         rowsChanged = cmd.ExecuteNonQuery();
                     }
 
@@ -454,9 +488,9 @@ namespace GeekTextLibrary
                 throw ex;
             }
         }
-        
 
         
+
         #endregion
     }
 }

@@ -9,9 +9,14 @@ namespace GeekText
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            savedUserNameLabel.Text = user.userProfileName;
+            if (Session["Username"] != null)
+                savedUserNameLabel.Text = Session["Username"].ToString();
             savedNickNameLabel.Text = user.userNickName;
             savedEmailLabel.Text = user.eMailAddress;
+
+           
+            //Session["Username"] = user.userProfileName;
+            //Session["UserPass"] = user.userPassword;
         }
         
 
@@ -38,6 +43,16 @@ namespace GeekText
             {
                 // make call to update old email in DB
             }
+        }
+
+        protected void changeFirstFirstButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void changeLastButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

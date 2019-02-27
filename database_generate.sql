@@ -1,4 +1,3 @@
--- Main GeekText Script
 
 USE GeekText
 
@@ -70,7 +69,10 @@ CREATE TABLE [dbo].[User](
 	[userProfileName] [nvarchar](50) NULL,
 	[userProfilePassword] [nvarchar](50) NULL,
 	[userID] [int] IDENTITY(1,1) NOT NULL,
-	[userShippingAddress] [nvarchar](50) NULL,
+	[userCity] [nvarchar](50) NULL,
+	[userState] [nchar](10) NULL,
+	[userZipCode] [nchar](10) NULL,
+	[userStreetAddress] [nvarchar](50) NULL,
 	[userCreditCard] [nvarchar](50) NULL,
 	[userComment] [nvarchar](max) NULL,
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
@@ -193,13 +195,13 @@ values (0130895725, 'The Iliad', 'The story of the war in troy featuring achille
 	   (0130284190, 'Rhetoric', 'Lectures by Aristotle concerning the use of rhetoric', 'Rome', 1202, 'Random House', null, null, 20.99, 'Aristotle', 'History', 0);
 
 -- Users
-insert into [User] (userFirstName, userLastName, userNickName, email, userProfileName, userProfilePassword, userShippingAddress, userCreditCard, userComment)
-values (null, null, 'GeekTextAdmin', null, 'admin', 'password', null, null, null),  -- 1
-	   ('John', 'Smith', 'johnSmith001', null, null, null, null, null, null),		-- 2
-	   ('Andre', 'Reyes', 'areyes92', null, null, null, null, null, null),			-- 3
-	   ('Mathew', 'Vega', 'vegamw13', null, null, null, null, null, null),			-- 4
-	   ('Catherine', 'Smith', 'cathys01', null, null, null, null, null, null),		-- 5
-	   ('Ron', 'Jackson', 'jr1991', null, null, null, null, null, null);			-- 6
+insert into [User] (userFirstName, userLastName, userNickName, email, userProfileName, userProfilePassword, userCity, userState, userZipCode, userStreetAddress, userCreditCard, userComment)
+values ('adminFirst', 'adminLast', 'GeekyAdmin', 'admin@email.com', 'admin', 'password','adminCity', 'adminState', 'adminZip', 'adminStreet',null, null),  -- 1
+	   ('John', 'Smith', 'johnSmith001', 'JSmithy@email.com', 'Jsmith', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),		-- 2
+	   ('Andre', 'Reyes', 'areyes92', 'AReyes@email.com', 'AReyes', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),			-- 3
+	   ('Mathew', 'Vega', 'vegamw13', 'Vega@email.com', 'Matty', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),			-- 4
+	   ('Catherine', 'Smith', 'cathys01', 'SmithyCat@email.com', 'catty', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),		-- 5
+	   ('Ron', 'Jackson', 'jr1991', 'JackKiller@email.com', 'ShyRonny', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null);			-- 6
 
 -- UserPurchases
 insert into [UserPurchases] (userID, ISBN)

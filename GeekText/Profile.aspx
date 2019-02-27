@@ -2,7 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %>.</h2>
-            <asp:Panel ID="CredentialsPanel" runat="server" BackColor="#E4E4E4" Height="230px" Width="819px">
+            <asp:Panel ID="CredentialsPanel" runat="server" BackColor="#E4E4E4" Height="349px" Width="819px">
                 <div style="height:30px;line-height:30px; padding-left:10px;">
                     <asp:Label ID="UserNameLabel" runat="server" Text="User Name"></asp:Label>
                     &nbsp;
@@ -16,7 +16,26 @@
                             <asp:TextBox ID="newNickNameTextBox" runat="server"></asp:TextBox>
                             &nbsp;&nbsp;
                             <asp:Button ID="NickNameButton" runat="server" Text="Change Nick Name" OnClick="NickNameButton_Click" ></asp:Button>
-                            
+                    </div>
+                    <div style="height:30px;line-height:30px; ">
+                        <asp:Label ID="FirstNameLabel" runat="server" Text="First Name"></asp:Label>
+                        &nbsp;
+                        <asp:Label ID="savedFirstNameLabel" runat="server" Text=""></asp:Label>                       
+                        </div>
+                        <div style="height:30px;line-height:30px;">
+                            <asp:TextBox ID="newFirstNameTextBox" runat="server"></asp:TextBox>
+                            &nbsp;&nbsp;
+                            <asp:Button ID="changeFirstFirstButton" runat="server" Text="Change First Name" OnClick="changeFirstFirstButton_Click"></asp:Button>
+                    </div>
+                    <div style="height:30px;line-height:30px; ">
+                        <asp:Label ID="LastNameLabel" runat="server" Text="Last Name"></asp:Label>
+                        &nbsp;
+                        <asp:Label ID="savedLastNameLabel" runat="server" Text=""></asp:Label>                       
+                        </div>
+                        <div style="height:30px;line-height:30px;">
+                            <asp:TextBox ID="newLastNameTextBox" runat="server"></asp:TextBox>
+                            &nbsp;&nbsp;
+                            <asp:Button ID="changeLastButton" runat="server" Text="Change Last Name" OnClick="changeLastButton_Click" ></asp:Button>
                         </div>
                         <div style="height:30px;line-height:30px;">
                             <br />
@@ -30,10 +49,11 @@
                             &nbsp;&nbsp;
                             <asp:Button ID="changePasswordBtn" runat="server" Text="Change Password" OnClick="changePasswordBtn_Click" ></asp:Button>
                             <br />
+                            <br />
                             <asp:Label ID="EmailLabel1" runat="server" Text="Email Address"></asp:Label>
                             &nbsp;
                             <asp:Label ID="savedEmailLabel" runat="server" Text=""></asp:Label>
-                            <br />
+                            &nbsp;
                             <asp:TextBox ID="newEmailTextBox" runat="server" ></asp:TextBox>
                             &nbsp;&nbsp;
                             <asp:Button ID="changeEmailButton" runat="server" Text="Change Email" OnClick="changeEmailButton_Click" ></asp:Button>

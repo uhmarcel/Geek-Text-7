@@ -41,12 +41,14 @@ namespace GeekText
         {
             // getting user information from the DB
             user.userID = userMan.getUserID(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-            user.userFirstName = userMan.getUserFirstName(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-            user.userLastName = userMan.getUserLastName(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-            user.userNickName = userMan.getUserNickName(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-            user.eMailAddress = userMan.getEmail(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             user.userProfileName = userMan.getUserProfileName(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             user.userPassword = userMan.getUserPass(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+
+            // put info into session ID and use UserManager methods to get the rest from these
+            Session["UserID"] = user.userID;
+            Session["Username"] = user.userProfileName;
+            Session["UserPass"] = user.userPassword;
+            
 
             Response.Redirect("Profile.aspx");
         }
