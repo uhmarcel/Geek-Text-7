@@ -35,6 +35,7 @@ namespace GeekText
 
         protected void CheckBoxList1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //By Genre
             List<string> genresList = new List<string>();
             foreach (ListItem li in CheckBoxList1.Items)
             {
@@ -43,7 +44,30 @@ namespace GeekText
                     genresList.Add(li.Text);
                 }
             }
-            bindGridViewByGenre(genresList);
+
+            //By Best Seller
+            bool value;
+            if (CheckBox1.Checked)
+            {
+                value = true;
+            }
+            else
+            {
+                value = false;
+            }
+
+            //By Rating
+            List<string> ratingsList = new List<string>();
+            foreach (ListItem li in CheckBoxList2.Items)
+            {
+                if (li.Selected == true)
+                {
+                    ratingsList.Add(li.Value);
+                }
+            }
+
+            //General bindGridView
+            bindGridViewByAllFilters(genresList, value, ratingsList);
         }
 
         protected void bindGridViewByGenre(List<string> genresList)
@@ -58,8 +82,19 @@ namespace GeekText
 
         protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
+            //By Genre
+            List<string> genresList = new List<string>();
+            foreach (ListItem li in CheckBoxList1.Items)
+            {
+                if (li.Selected == true)
+                {
+                    genresList.Add(li.Text);
+                }
+            }
+
+            //By Best Seller
             bool value;
-            if(CheckBox1.Checked)
+            if (CheckBox1.Checked)
             {
                 value = true;
             }
@@ -67,7 +102,19 @@ namespace GeekText
             {
                 value = false;
             }
-            bindGridViewByBestSeller(value);
+
+            //By Rating
+            List<string> ratingsList = new List<string>();
+            foreach (ListItem li in CheckBoxList2.Items)
+            {
+                if (li.Selected == true)
+                {
+                    ratingsList.Add(li.Value);
+                }
+            }
+
+            //General bindGridView
+            bindGridViewByAllFilters(genresList, value, ratingsList);
         }
 
         protected void bindGridViewByBestSeller(bool value)
@@ -82,6 +129,28 @@ namespace GeekText
 
         protected void CheckBoxList2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //By Genre
+            List<string> genresList = new List<string>();
+            foreach (ListItem li in CheckBoxList1.Items)
+            {
+                if (li.Selected == true)
+                {
+                    genresList.Add(li.Text);
+                }
+            }
+
+            //By Best Seller
+            bool value;
+            if (CheckBox1.Checked)
+            {
+                value = true;
+            }
+            else
+            {
+                value = false;
+            }
+
+            //By Rating
             List<string> ratingsList = new List<string>();
             foreach (ListItem li in CheckBoxList2.Items)
             {
@@ -90,7 +159,9 @@ namespace GeekText
                     ratingsList.Add(li.Value);
                 }
             }
-            bindGridViewByRating(ratingsList);
+
+            //General bindGridView
+            bindGridViewByAllFilters(genresList, value, ratingsList);
         }
 
         protected void bindGridViewByRating(List<string> ratings)
@@ -103,6 +174,16 @@ namespace GeekText
             GridView1.DataBind();
         }
 
-        
+        protected void bindGridViewByAllFilters(List<string> genresList, bool value, List<string> ratings)
+        {
+            var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+            var searchManager = new BookSearch();
+            var books = searchManager.getBooksByAllFilters(genresList, value, ratings, connection);
+
+            GridView1.DataSource = books;
+            GridView1.DataBind();
+        }
+
+
     }
 }
