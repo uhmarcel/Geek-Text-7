@@ -9,7 +9,8 @@ namespace GeekText
     public partial class SignUp : System.Web.UI.Page
     {
         UserManager userMan = new UserManager();
-        bool dbSavedInfo;
+        bool dbSavedPersonalInfo;
+        bool dbSavedAddressInfo;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,9 +23,10 @@ namespace GeekText
 
             if (Page.IsValid)
             {   // if the database says there is a successfully saved then you can send to the user a message saying sign up was successful.
-                dbSavedInfo = userMan.setUserCredentials(FirstNameTextBox.Text.Trim(), LastNameTextBox.Text.Trim(), NickNameTextBox.Text.Trim(), UserNameTextBox.Text.Trim(), PasswordTextBox1.Text.Trim(), EmailTextBox1.Text.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                dbSavedPersonalInfo = userMan.setUserCredentials(FirstNameTextBox.Text.Trim(), LastNameTextBox.Text.Trim(), NickNameTextBox.Text.Trim(), UserNameTextBox.Text.Trim(), PasswordTextBox1.Text.Trim(), EmailTextBox1.Text.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                dbSavedAddressInfo = userMan.setUserAddress(CityTextBox.Text.Trim(),DropDownList.Text.Trim(), ZipTextBox.Text.Trim(), StreetAddressTextBox.Text.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
                 // need to add password validations and email validations later on.
-                if (dbSavedInfo)
+                if (dbSavedPersonalInfo && dbSavedAddressInfo)
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Successful sign up! Now login!" + "');", true);
             }
         }
