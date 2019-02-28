@@ -205,25 +205,20 @@ values ('adminFirst', 'adminLast', 'GeekyAdmin', 'admin@email.com', 'admin', 'pa
 
 -- UserPurchases
 insert into [UserPurchases] (userID, ISBN)
-values (2, 0130284190),
-	   (2, 0135289106),
-	   (2, 0132261197),
-	   (3, 0130284190),
-	   (3, 0130895725),
-	   (3, 0139163050),
-	   (3, 0132261197),
-	   (4, 0135289106),
-	   (4, 0130895717),
-	   (4, 0130284190),
-	   (4, 0130895725),
-	   (4, 0139163050),
-	   (5, 0130284190),
-	   (5, 0132261197),
+values (2, 0130284190), (2, 0135289106), (2, 0132261197),													 
+	   (3, 0130284190), (3, 0130895725), (3, 0139163050), (3, 0132261197),		
+	   (4, 0135289106), (4, 0130895717), (4, 0130284190), (4, 0130895725), (4, 0139163050),	
+	   (5, 0130284190), (5, 0132261197),																
 	   (6, 0130284190);
-
+	   	   
+insert into [UserPurchases] (userID, ISBN)  -- Set admin as owner of all books
+	   SELECT userID, ISBN
+	   FROM [User], [Book]
+	   WHERE userProfileName = 'admin';
+	   
 -- Reviews
 insert into [bookReview] (userID, ISBN, reviewText, reviewRating, displayAs) 
-values (3, 0130284190,'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 2),
+values (3, 0130284190, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 2),
 	   (3, 0130895725, 'Bravo! A courageous and realistic tale of women loving women. Loved the characters and the reality of their lives. Well done!', 4, 2),
 	   (3, 0139163050, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1),
 	   (3, 0132261197, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 2),
