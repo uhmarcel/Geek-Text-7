@@ -5,6 +5,8 @@ using GeekTextLibrary;
 using System.Data;
 using System.Web.UI.WebControls;
 using System.Collections.Generic;
+using GeekText.Services;
+using GeekTextLibrary.ModelsShoppingCart;
 
 namespace GeekText
 {
@@ -40,6 +42,26 @@ namespace GeekText
                 throw ex;
             }
 
+        }
+
+        protected void AddButton_OnClick(object sender, EventArgs e)
+        {
+
+            Button btn = sender as Button;
+            GridViewRow row = btn.NamingContainer as GridViewRow;
+            string ISBN = BookDetailsGridView.DataKeys[row.RowIndex].Values["ISBN"].ToString();
+            string title = BookDetailsGridView.DataKeys[row.RowIndex].Values["title"].ToString();
+            double price = double.Parse(BookDetailsGridView.DataKeys[row.RowIndex].Values["price"].ToString());
+            BookItem myitem = new BookItem
+            {
+                ISBN = ISBN,
+                quantity = 1,
+                title = title,
+                price= price
+            };
+
+            ServicesShoppingCart.AddItem(myitem);
+            Response.Redirect("Shopping_Cart.aspx");
         }
     }
 }
