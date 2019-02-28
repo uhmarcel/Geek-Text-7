@@ -144,6 +144,10 @@
             </div>
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
                 <asp:TextBox ID="FirstNameTextBox" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator runat="server" 
+                        ControlToValidate="FirstNameTextBox" 
+                        ErrorMessage="A first name is required."> *
+                    </asp:RequiredFieldValidator>
             </div>
             <br />
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
@@ -151,6 +155,10 @@
             </div>
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
                 <asp:TextBox ID="LastNameTextBox" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator runat="server" 
+                        ControlToValidate="LastNameTextBox" 
+                        ErrorMessage="A last name is required."> *
+                    </asp:RequiredFieldValidator>
             </div>
         </asp:Panel>
         <asp:Panel ID="AddressesPanel" runat="server" BackColor="#E4E4E4" HorizontalAlign="left" Width="450px">
@@ -160,6 +168,10 @@
             </div>
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
                 <asp:TextBox ID="StreetAddressTextBox" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator runat="server" 
+                        ControlToValidate="StreetAddressTextBox" 
+                        ErrorMessage="A street address is required."> *
+                    </asp:RequiredFieldValidator>
             </div>
             <br />
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
@@ -167,20 +179,89 @@
             </div>
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
                 <asp:TextBox ID="CityTextBox" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator runat="server" 
+                        ControlToValidate="CityTextBox" 
+                        ErrorMessage="A city is required."> *
+                    </asp:RequiredFieldValidator>
             </div>
             <br />
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
                 <asp:Label ID="StateLabel" runat="server" Text="State"></asp:Label>
             </div>
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
-                <asp:TextBox ID="StateTextBox" runat="server"></asp:TextBox>
+              
+                <asp:DropDownList ID="DropDownList" runat="server">
+                    <asp:ListItem Value="none">Select a State</asp:ListItem>
+                    <asp:ListItem>AL</asp:ListItem>
+                    <asp:ListItem>AK</asp:ListItem>
+                    <asp:ListItem>AZ</asp:ListItem>
+                    <asp:ListItem>AR</asp:ListItem>
+                    <asp:ListItem>CA</asp:ListItem>
+                    <asp:ListItem>CO</asp:ListItem>
+                    <asp:ListItem>CT</asp:ListItem>
+                    <asp:ListItem>DE</asp:ListItem>
+                    <asp:ListItem>FL</asp:ListItem>
+                    <asp:ListItem>GA</asp:ListItem>
+                    <asp:ListItem>HI</asp:ListItem>
+                    <asp:ListItem>ID</asp:ListItem>
+                    <asp:ListItem>IL</asp:ListItem>
+                    <asp:ListItem>IN</asp:ListItem>
+                    <asp:ListItem>IA</asp:ListItem>
+                    <asp:ListItem>KS</asp:ListItem>
+                    <asp:ListItem>KY</asp:ListItem>
+                    <asp:ListItem>LA</asp:ListItem>
+                    <asp:ListItem>ME</asp:ListItem>
+                    <asp:ListItem>MD</asp:ListItem>
+                    <asp:ListItem>MA</asp:ListItem>
+                    <asp:ListItem>MI</asp:ListItem>
+                    <asp:ListItem>MN</asp:ListItem>
+                    <asp:ListItem>MS</asp:ListItem>
+                    <asp:ListItem>MO</asp:ListItem>
+                    <asp:ListItem>MT</asp:ListItem>
+                    <asp:ListItem>NE</asp:ListItem>
+                    <asp:ListItem>NV</asp:ListItem>
+                    <asp:ListItem>NH</asp:ListItem>
+                    <asp:ListItem>NJ</asp:ListItem>
+                    <asp:ListItem>NM</asp:ListItem>
+                    <asp:ListItem>NY</asp:ListItem>
+                    <asp:ListItem>NC</asp:ListItem>
+                    <asp:ListItem>ND</asp:ListItem>
+                    <asp:ListItem>OH</asp:ListItem>
+                    <asp:ListItem>OK</asp:ListItem>
+                    <asp:ListItem>OR</asp:ListItem>
+                    <asp:ListItem>PA</asp:ListItem>
+                    <asp:ListItem>RI</asp:ListItem>
+                    <asp:ListItem>SC</asp:ListItem>
+                    <asp:ListItem>SD</asp:ListItem>
+                    <asp:ListItem>TN</asp:ListItem>
+                    <asp:ListItem>TX</asp:ListItem>
+                    <asp:ListItem>UT</asp:ListItem>
+                    <asp:ListItem>VT</asp:ListItem>
+                    <asp:ListItem>VA</asp:ListItem>
+                    <asp:ListItem>WA</asp:ListItem>
+                    <asp:ListItem>WV</asp:ListItem>
+                    <asp:ListItem>WI</asp:ListItem>
+                    <asp:ListItem>WY</asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator runat="server" 
+                        ControlToValidate="DropDownList" 
+                        InitialValue="none" 
+                        ErrorMessage="A state is required. "> *
+            </asp:RequiredFieldValidator>
             </div>
-            <br />
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
                 <asp:Label ID="ZipLabel" runat="server" Text="Zip Code"></asp:Label>
             </div>
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
                 <asp:TextBox ID="ZipTextBox" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator runat="server" 
+                        ControlToValidate="ZipTextBox" 
+                        ErrorMessage="A zipcode is required."> *
+                    </asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator runat="server" 
+                    ControlToValidate="ZipTextBox" 
+                    ErrorMessage="Zipcode must be numbers only." 
+                    ValidationExpression="^\d+$" />
             </div>
             <br />
             <div style="height:30px;line-height:30px; padding-bottom:10px;padding-right:10px; text-align:center;">

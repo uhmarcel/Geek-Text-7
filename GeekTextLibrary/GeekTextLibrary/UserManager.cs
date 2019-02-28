@@ -8,7 +8,7 @@ namespace GeekTextLibrary
     {
         #region works correctly
 
-        // for sign up validation on client side
+        // for sign up validation make sure there is no existing username 
         public bool checkUsername(string username, string connectionString)
         {
             try
@@ -41,7 +41,7 @@ namespace GeekTextLibrary
                 throw ex;
             }
         }
-        // for sign up validation on client side
+        // for sign up validation, make sure there is no existing email 
         public bool checkEmail(string email, string connectionString)
         {
             try
@@ -73,7 +73,7 @@ namespace GeekTextLibrary
                 throw ex;
             }
         }
-        // for sign up
+        // for sign up name, username/pass and email
         public bool setUserCredentials(string userFirstName, string userLastName, string userNickName, string userName, string userPassword, string userEmail, string connectionString)
         {
             try
@@ -94,6 +94,40 @@ namespace GeekTextLibrary
                         cmd.Parameters.AddWithValue("@userProfileName", userName.Trim());
                         cmd.Parameters.AddWithValue("@userProfilePassword", userPassword.Trim());
                         cmd.Parameters.AddWithValue("@email", userEmail.Trim());
+                        rowsChanged = cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                    if (rowsChanged > 0)
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        // for sign up, address
+        public bool setUserAddress(string city, string state, string zipCode, string streetAddress, string connectionString)
+        {
+
+            try
+            {
+                string query = "INSERT INTO [User](userCity, userState, userZipCode, userStreetAddress) values('" + city + "','" + state + "','" + zipCode + "','" + streetAddress + "') ; ";
+                User curUser = new User();
+                int rowsChanged = 0;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+
+                        cmd.Parameters.AddWithValue("@userCity", city.Trim());
+                        cmd.Parameters.AddWithValue("@userState", state.Trim());
+                        cmd.Parameters.AddWithValue("@userZipCode", zipCode.Trim());
+                        cmd.Parameters.AddWithValue("@userStreetAddress", streetAddress.Trim());
                         rowsChanged = cmd.ExecuteNonQuery();
                     }
 
@@ -151,7 +185,7 @@ namespace GeekTextLibrary
         {
             try
             {
-                string query = "SELECT [userProfileName],[userProfilePassword], [userID] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
+                string query = "SELECT [userProfileName],[userProfilePassword],[userID] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand(query))
@@ -184,7 +218,6 @@ namespace GeekTextLibrary
             }
 
         }
-        
         // for profile
         public string getUserFirstName(string username, string password, string connectionString)
         {
@@ -223,7 +256,6 @@ namespace GeekTextLibrary
             }
 
         }
-
         // for profile
         public string getUserLastName(string username, string password, string connectionString)
         {
@@ -262,7 +294,6 @@ namespace GeekTextLibrary
             }
 
         }
-
         // for profile
         public string getUserNickName(string username, string password, string connectionString)
         {
@@ -301,7 +332,6 @@ namespace GeekTextLibrary
             }
 
         }
-
         // for profile
         public string getEmail(string username, string password, string connectionString)
         {
@@ -340,7 +370,6 @@ namespace GeekTextLibrary
             }
 
         }
-
         // for profile
         public string getUserProfileName(string username, string password, string connectionString)
         {
@@ -378,7 +407,6 @@ namespace GeekTextLibrary
             }
 
         }
-
         // for profile...... NOPE for password change
         public string getUserPass(string username, string password, string connectionString)
         {
@@ -454,9 +482,198 @@ namespace GeekTextLibrary
                 throw ex;
             }
         }
-        
 
-        
+        // for profile first name change
+        public bool changeUserFirstName(string name, int userID, string connectionString)
+        {
+
+            try
+            {
+                string query = "UPDATE [User] SET [userFirstName] = '"+ name +"' WHERE [userID] = "+ userID +" ; ";
+                User curUser = new User();
+                int rowsChanged = 0;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+
+                        cmd.Parameters.AddWithValue("@userFirstName", name.Trim());
+                        rowsChanged = cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                    if (rowsChanged > 0)
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        // for profile last name change
+        public bool changeUserLastName(string name, int userID, string connectionString)
+        {
+
+            try
+            {
+                string query = "UPDATE [User] SET userLastName = '" + name + "' WHERE [userID] = " + userID + " ; ";
+                User curUser = new User();
+                int rowsChanged = 0;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+
+                        cmd.Parameters.AddWithValue("@userLastName", name.Trim());
+                        rowsChanged = cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                    if (rowsChanged > 0)
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        // for profile nickname change
+        public bool changeUserNickName(string name, int userID, string connectionString)
+        {
+
+            try
+            {
+                string query = "UPDATE [User] SET userNickName = '" + name + "' WHERE [userID] = " + userID + " ; ";
+                User curUser = new User();
+                int rowsChanged = 0;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+
+                        cmd.Parameters.AddWithValue("@userNickName", name.Trim());
+                        rowsChanged = cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                    if (rowsChanged > 0)
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        // for profile email change
+        public bool changeUserEmail(string email, int userID, string connectionString)
+        {
+
+            try
+            {
+                string query = "UPDATE [User] SET email = '" + email + "' WHERE [userID] = " + userID + " ; ";
+                User curUser = new User();
+                int rowsChanged = 0;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+
+                        cmd.Parameters.AddWithValue("@email", email.Trim());
+                        rowsChanged = cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                    if (rowsChanged > 0)
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        // for profile pass change
+        public bool changeUserPass(string pass, int userID, string connectionString)
+        {
+
+            try
+            {
+                string query = "UPDATE [User] SET userProfilePass = '" + pass + "' WHERE [userID] = " + userID + " ; ";
+                User curUser = new User();
+                int rowsChanged = 0;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+
+                        cmd.Parameters.AddWithValue("@userProfilePass", pass.Trim());
+                        rowsChanged = cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                    if (rowsChanged > 0)
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        // for profile address change
+        public bool changeUserAddress(string city, string state, string zipCode, string streetAddress, int userID, string connectionString)
+        {
+
+            try
+            {
+                string query = "UPDATE [User] SET [userCity] = '" + city + "', [userState] = '" + state + "', [userZipCode] = '" + zipCode + "', [userStreetAddress] = '" + streetAddress + "' WHERE [userID] = " + userID +" ; ";
+                User curUser = new User();
+                int rowsChanged = 0;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+
+                        cmd.Parameters.AddWithValue("@userCity", city.Trim());
+                        cmd.Parameters.AddWithValue("@userState", state.Trim());
+                        cmd.Parameters.AddWithValue("@userZipCode", zipCode.Trim());
+                        cmd.Parameters.AddWithValue("@userStreetAddress", streetAddress.Trim());
+                        rowsChanged = cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                    if (rowsChanged > 0)
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
     }
 }
