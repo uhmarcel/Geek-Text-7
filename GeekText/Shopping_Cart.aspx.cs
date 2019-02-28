@@ -45,7 +45,7 @@ namespace GeekText
 
         private void RenderGrid()
         {
-            var itemlist = ServicesShoppingCart.GetShoopingCart().Items;
+            var itemlist = ServicesShoppingCart.GetShoopingCart().BookList;
             CartGridView.DataSource = ServicesShoppingCart.GetItemDetails(itemlist);
             CartGridView.DataBind();
 

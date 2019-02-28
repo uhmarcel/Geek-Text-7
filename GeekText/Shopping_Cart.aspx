@@ -5,7 +5,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %>.</h2>
     <div id="BookDisplayDetailsDiv">
-        <asp:GridView ID="CartGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="ISBN,quantity,price" OnRowDataBound="CartGridView_RowDataBound" ShowFooter="True" CellPadding="4" ForeColor="#333333" GridLines="None" >
+        <asp:GridView ID="CartGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="ISBN,quantity,price" OnRowDataBound="CartGridView_RowDataBound" ShowFooter="True" CellPadding="4" ForeColor="#333333" GridLines="None">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <%-- <asp:BoundField DataField ="bookId" HeaderText="Book" ItemStyle-Width="150px" />
@@ -13,16 +13,16 @@
                 <asp:BoundField DataField ="Price" HeaderText="Price" ItemStyle-Width="150px" />--%>
 
 
-                <asp:BoundField DataField="ISBN" HeaderText="Book" ItemStyle-Width="150px" >
-<ItemStyle Width="150px"></ItemStyle>
+                <asp:BoundField DataField="title" HeaderText="Title" ItemStyle-Width="150px">
+                    <ItemStyle Width="150px"></ItemStyle>
                 </asp:BoundField>
-                <asp:BoundField DataField="quantity" HeaderText="QTY" ItemStyle-Width="150px" >
-<ItemStyle Width="150px"></ItemStyle>
+                <asp:BoundField DataField="quantity" HeaderText="QTY" ItemStyle-Width="150px">
+                    <ItemStyle Width="150px"></ItemStyle>
                 </asp:BoundField>
-                <asp:BoundField DataField="price" HeaderText="Price" ItemStyle-Width="150px" >
+                <asp:BoundField DataField="price" HeaderText="Price" ItemStyle-Width="150px">
 
 
-<ItemStyle Width="150px"></ItemStyle>
+                    <ItemStyle Width="150px"></ItemStyle>
                 </asp:BoundField>
 
 
@@ -32,7 +32,7 @@
                         <asp:Button ID="AddItem" runat="server" CausesValidation="false" Text="+" OnClick="AddItem_OnClick" />
                     </ItemTemplate>
 
-<ItemStyle Width="50px"></ItemStyle>
+                    <ItemStyle Width="50px"></ItemStyle>
                 </asp:TemplateField>
                 <asp:TemplateField ItemStyle-Width="50px">
                     <ItemTemplate>
@@ -40,7 +40,7 @@
                         <asp:Button ID="RemoveItem" runat="server" CausesValidation="false" Text="-" OnClick="RemoveItem_OnClick" />
                     </ItemTemplate>
 
-<ItemStyle Width="50px"></ItemStyle>
+                    <ItemStyle Width="50px"></ItemStyle>
                 </asp:TemplateField>
                 <asp:TemplateField ItemStyle-Width="50px">
                     <ItemTemplate>
@@ -48,10 +48,10 @@
                         <asp:Button ID="SaveItem" runat="server" CausesValidation="false" Text="Save for Later" OnClick="SaveItem_OnClick" />
                     </ItemTemplate>
 
-<ItemStyle Width="50px"></ItemStyle>
+                    <ItemStyle Width="50px"></ItemStyle>
                 </asp:TemplateField>
-                
-                
+
+
                 <asp:TemplateField HeaderText="Total" SortExpression="total">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox7" runat="server"></asp:TextBox>
@@ -78,7 +78,21 @@
         </asp:GridView>
         <br />
 
-        <asp:GridView ID="WishGridView" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+        <asp:GridView ID="WishGridView" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False">
+            <Columns>
+                <asp:BoundField DataField="title" HeaderText="title" ItemStyle-Width="150px">
+                    <ItemStyle Width="150px"></ItemStyle>
+                </asp:BoundField>
+                <asp:BoundField DataField="ISBN" HeaderText="ISBN" ItemStyle-Width="150px">
+                    <ItemStyle Width="150px"></ItemStyle>
+                </asp:BoundField>
+
+                <asp:BoundField DataField="price" HeaderText="Price" ItemStyle-Width="150px">
+
+
+                    <ItemStyle Width="150px"></ItemStyle>
+                </asp:BoundField>
+            </Columns>
             <AlternatingRowStyle BackColor="White" />
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

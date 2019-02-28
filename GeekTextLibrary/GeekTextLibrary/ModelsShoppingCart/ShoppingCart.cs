@@ -11,7 +11,7 @@ namespace GeekTextLibrary.ModelsShoppingCart
 {
     public class ShoppingCart
     {
-        public List<BookItem> Items { get; set; }
+        public List<BookItem> BookList { get; set; }
 
 
         
@@ -20,14 +20,14 @@ namespace GeekTextLibrary.ModelsShoppingCart
 
         public ShoppingCart()
         {
-            Items = new List<BookItem>();
+            BookList = new List<BookItem>();
         }
 
         public int GetTotalQuantity()
         {
             int result = 0;
 
-            foreach (BookItem element in Items)
+            foreach (BookItem element in BookList)
             {
                 result += element.quantity;
             }
