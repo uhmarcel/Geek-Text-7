@@ -17,6 +17,10 @@ namespace GeekTextLibrary
         public string userNickName { get; set; }
         public string eMailAddress { get; set; }
         public List<Address> userShippingAddress { get; set; }
+        public string userZipCode { get; set; }
+        public string userCity { get; set; }
+        public string userState { get; set; }
+        public string userStreetAddress { get; set; }
         public string userProfileName { get; set; }
         public string userPassword { get; set; }
         public List<CreditCard> userCreditCard { get; set; }

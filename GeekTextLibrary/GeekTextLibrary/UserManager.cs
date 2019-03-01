@@ -444,8 +444,160 @@ namespace GeekTextLibrary
             }
 
         }
+        // for profile
+        public string getUserCity(string username, string password, string connectionString)
+        {
+            try
+            {
+                string query = "SELECT [userProfileName], [userProfilePassword], [userCity] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                User curUser = new User();
+                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
+                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
+                                curUser.userCity = reader["userCity"].ToString().Trim();
+                                // checking username and passwords together make it more secure
+                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
+                                    return curUser.userCity;
+                                else
+                                    return "";
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-       
+        }
+        // for profile
+        public string getUserState(string username, string password, string connectionString)
+        {
+            try
+            {
+                string query = "SELECT [userProfileName], [userProfilePassword], [userState] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                User curUser = new User();
+                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
+                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
+                                curUser.userState = reader["userState"].ToString().Trim();
+                                // checking username and passwords together make it more secure
+                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
+                                    return curUser.userState;
+                                else
+                                    return "";
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        // for profile
+        public string getUserZip(string username, string password, string connectionString)
+        {
+            try
+            {
+                string query = "SELECT [userProfileName], [userProfilePassword], [userZipCode] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                User curUser = new User();
+                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
+                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
+                                curUser.userZipCode = reader["userZipCode"].ToString().Trim();
+                                // checking username and passwords together make it more secure
+                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
+                                    return curUser.userZipCode;
+                                else
+                                    return "";
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        // for profile
+        public string getUserStreet(string username, string password, string connectionString)
+        {
+            try
+            {
+                string query = "SELECT [userProfileName], [userProfilePassword], [userStreetAddress] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                User curUser = new User();
+                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
+                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
+                                curUser.userStreetAddress = reader["userStreetAddress"].ToString().Trim();
+                                // checking username and passwords together make it more secure
+                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
+                                    return curUser.userStreetAddress;
+                                else
+                                    return "";
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+
         #endregion
         #region needs working/editing or haven't tested yet
         public bool addUserAddress(string city, string state, string zipCode, int userID,string streetAddress, string connectionString)
