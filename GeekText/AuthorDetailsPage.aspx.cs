@@ -1,28 +1,44 @@
-﻿using System;
-using System.Web.UI;
-using System.Configuration;
+﻿using GeekText.Services;
 using GeekTextLibrary;
-using System.Data;
-using System.Web.UI.WebControls;
-using System.Collections.Generic;
-using GeekText.Services;
 using GeekTextLibrary.ModelsShoppingCart;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace GeekText
 {
-    public partial class About : Page
+    public partial class AuthorDetailsPage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
-                bindGridView();
+                string AuthorName = Request.QueryString["AuthorName"];
+                displaySelectedAuthorDetails(AuthorName);
+                bindBookGridViewByAuthor(AuthorName);
             }
+            
         }
 
-        protected void bindGridView()
+        protected void displaySelectedAuthorDetails(string AuthorName)
         {
-            List<Book> allBooks = new BookManager().getlistofAllBooksInDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            AuthorManager manager = new AuthorManager();
+            List<Author> allAuthors = manager.getAllAuthorsInDB((ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString));
+            Author toDisplay = allAuthors.FirstOrDefault(o => o.authorName == AuthorName);
+            AuthorName_lbl.Text = toDisplay.authorName;
+            AuthorShortBio_lbl.Text = toDisplay.shortBio;
+
+        }
+
+        protected void bindBookGridViewByAuthor(string AuthorName)
+        {
+            BookManager manager = new BookManager();
+            List<Book> allBooks = manager.getlistofAllBooksInDB((ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString));
+            allBooks.RemoveAll(o=> o.bookAuthor.authorName != AuthorName);
             BookDetailsGridView.DataSource = allBooks;
             BookDetailsGridView.DataBind();
         }
@@ -57,7 +73,7 @@ namespace GeekText
                 ISBN = ISBN,
                 quantity = 1,
                 title = title,
-                price= price
+                price = price
             };
 
             ServicesShoppingCart.AddItem(myitem);

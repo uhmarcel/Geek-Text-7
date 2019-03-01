@@ -59,22 +59,23 @@
     </section>
 
     <section id='reviewsSection' class="row">
+        <hr/>
         <h3>User Reviews</h3>
-
         <asp:Repeater ID="reviewsRepeater" runat="server">
             <ItemTemplate>
-                 <div class="alert alert-primary">
+                 <div style="background-color: #f4f4f4; margin: 10px 0 10px 0; padding:1px 10px 1px 12px; border-left: 4px solid #8373aa; border-radius:4px">
                     <h4><asp:Label ID ="Review_Nickname" runat ="server" Text ='<%#Eval("userChosenDisplay")%>'></asp:Label> - <asp:Label ID ="Review_Rating" runat="server" Text='<%#Eval("reviewRating") + "/5 rating"%>'></asp:Label></h4>
                     <p><asp:Label ID ="Review_Text" runat ="server" Text ='<%#Eval("reviewText")%>'> </asp:Label></p>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
+        <hr/>
 
-        
         <% if (currentUserOwnsBook) { %>
-            <p>You own this book!</p>
+            <p class="text-muted"><asp:Label ID="createReview_Name" Text="Hey" runat="server" />, you own this book!</p>
             <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#createReviewDiv" aria-expanded="false" aria-controls="createReviewDiv">Add a review for this book</button>
             <h1></h1> <%--Replace later with spacing--%>
+
             <div id='createReviewDiv' class="collapse">
                 <div class="card card-body">
                     <label for="createReviewTextarea" class="inline">Write a review of the book</label>
@@ -88,7 +89,7 @@
                     </span>
                     <textarea id="createReviewTextarea" runat="server" class="form-control" rows="5" style="min-width: 100%" placeholder="Share your thoughts about this book"></textarea>
                     <input id="createReviewRating" class="hidden" type="text" runat="server" />
-                    <input id="createReviewDisplay" class="hidden" type="text" runat="server" value="3"/>
+                    <input id="createReviewDisplay" class="hidden" type="text" runat="server" value="1"/>
                     <label class="inline">Submit as: </label>
                     <label class="radio-inline"><input type="radio" onclick="setUserDisplay(1)" runat="server" checked><span id="radioFullname" runat="server">Full name</span></label>
                     <label class="radio-inline"><input type="radio" onclick="setUserDisplay(2)" runat="server"><span id="radioNickname" runat="server">Nickname</span></label>
@@ -97,9 +98,8 @@
                 </div>
             </div>
         <% } else {%>
-            <p>Reviews are reserved for users who own this book.</p>
+            <p class="text-muted">Reviews are reserved for users who own this book.</p>
         <% } %>
-
     </section>
 
     <script type="text/javascript" src="BookPage.js"></script>

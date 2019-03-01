@@ -21,18 +21,12 @@ namespace GeekText
             {
                 if (!this.IsPostBack)
                 {
-                    // Testing - remove later when current user is available
-                    User currentUser = new GeekTextLibrary.User();
-                    currentUser.userID = 2;
-                    currentUser.userFirstName = "John";
-                    currentUser.userLastName = "Smith";
-                    currentUser.userNickName = "johnSmith001";
-                    //
-
+                    User currentUser = getSessionUser();
                     string ISBN = Request.QueryString["ISBN"];
+
                     DisplayBookDetails(ISBN);
                     DisplayBookReviews(ISBN);
-                    DisplayUserInfo(currentUser, ISBN);
+                    DisplayCreateReview(currentUser, ISBN);
                 }
             }
             catch (Exception ex)
@@ -76,9 +70,10 @@ namespace GeekText
             reviewsRepeater.DataBind();
         }
 
-        protected void DisplayUserInfo(User currentUser, string ISBN)
+        protected void DisplayCreateReview(User currentUser, string ISBN)
         {
             this.currentUserOwnsBook = UserPurchases.hasUserPurchasedBook(currentUser.userID, ISBN, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            createReview_Name.Text = currentUser.userFirstName;
             radioFullname.InnerHtml = currentUser.userFirstName + " " + currentUser.userLastName;
             radioNickname.InnerHtml = currentUser.userNickName;
         }
@@ -90,9 +85,25 @@ namespace GeekText
             userReview.reviewRating = Convert.ToInt32(createReviewRating.Value);
             userReview.ISBN = Request.QueryString["ISBN"];
             userReview.displayAs = Convert.ToInt32(createReviewDisplay.Value);
-            userReview.userID = 2; // For testing purposes, change later on
+            userReview.userID = Convert.ToInt32(Session["UserID"].ToString());
             userReview.insertIntoDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             Response.Redirect(Request.RawUrl);
+        }
+
+        protected User getSessionUser()
+        {
+            UserManager userMan = new UserManager();
+            User user = new User();
+            if (Session["Username"] != null && Session["UserPass"] != null)
+            {
+                user.userID = Convert.ToInt32(Session["UserID"].ToString());
+                user.userProfileName = Session["Username"].ToString();
+                user.userFirstName = userMan.getUserFirstName(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                user.userLastName = userMan.getUserLastName(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                user.userNickName = userMan.getUserNickName(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                user.eMailAddress = userMan.getEmail(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            }
+            return user;
         }
 
 

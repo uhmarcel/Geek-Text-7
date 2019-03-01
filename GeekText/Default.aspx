@@ -23,7 +23,7 @@
                 Create a User profile to enjoy the benefits of having a user profile.
             </p>
             <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
+                <a class="btn btn-default" href="SignUp.aspx">Learn more &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">

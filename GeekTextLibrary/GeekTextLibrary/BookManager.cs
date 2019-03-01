@@ -36,7 +36,7 @@ namespace GeekTextLibrary
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -67,21 +67,25 @@ namespace GeekTextLibrary
                                 curBook.title = reader["bookTitle"].ToString();
                                 curBook.description = reader["bookDescription"].ToString();
                                 curBook.bookAuthor.authorName = reader["bookAuthor"].ToString();
+                                if (reader["userRating"] != DBNull.Value)
+                                {
+                                    curBook.bookRating = (float)Convert.ToDouble(reader["userRating"]);
+                                }
                                 curBook.price = Convert.ToDouble(reader["bookPrice"]);
                                 curBook.genre = reader["bookGenre"].ToString();
-                                // curBook.bookCover = (byte[])reader["bookCover"];   to avoid exception while we dont share the images
+                                curBook.bookCover = (byte[])reader["bookCover"];   //to avoid exception while we dont share the images
                                 curBook.publishingInfo.publishingCompany = reader["publishingCompany"].ToString();
                                 curBook.publishingInfo.copyrightYear = Convert.ToInt32(reader["publishingYear"]);
                                 curBook.publishingInfo.location = reader["publishingLocation"].ToString();
-                                
+
                                 allBooks.Add(curBook);
 
                             }
-                        }                       
+                        }
                     }
                     con.Close();
                 }
-                
+
                 return allBooks;
             }
             catch (Exception ex)
@@ -135,6 +139,8 @@ namespace GeekTextLibrary
         }
 
 
+
+
         // This function probably can be deleted
         public DataSet getBookByISBN(string bookISBN, string connectionString)
         {
@@ -167,4 +173,4 @@ namespace GeekTextLibrary
         }
     }
 }
-  
+

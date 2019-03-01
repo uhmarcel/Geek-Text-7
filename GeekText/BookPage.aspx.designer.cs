@@ -103,6 +103,15 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Repeater reviewsRepeater;
         
         /// <summary>
+        /// createReview_Name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label createReview_Name;
+        
+        /// <summary>
         /// createReviewTextarea control.
         /// </summary>
         /// <remarks>

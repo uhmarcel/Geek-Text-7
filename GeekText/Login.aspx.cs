@@ -3,6 +3,7 @@ using System.Web.UI;
 using System.Configuration;
 using GeekTextLibrary;
 using System.Web.UI.WebControls;
+using GeekText.Services;
 
 namespace GeekText
 {
@@ -46,6 +47,7 @@ namespace GeekText
 
             // put info into session ID and use UserManager methods to get the rest from these
             Session["UserID"] = user.userID;
+            ServicesShoppingCart.LoadShoppingCartFromDB();
             Session["Username"] = user.userProfileName;
             Session["UserPass"] = user.userPassword;
             
