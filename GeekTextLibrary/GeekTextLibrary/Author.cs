@@ -12,5 +12,6 @@ namespace GeekTextLibrary
         public string authorName { get; set; }
         public string shortBio { get; set; }
         public int authorId { get; set; }
+        public string ISBN { get; set; }
     }
 }
