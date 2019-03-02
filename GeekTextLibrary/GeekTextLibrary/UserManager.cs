@@ -78,7 +78,7 @@ namespace GeekTextLibrary
         {
             try
             {
-                string query = "INSERT INTO [User](userFirstName, userLastName,userNickName,email,userProfileName,userProfilePassword, userCity, userState, userZipCode, userStreetAddress) values('" + userFirstName + "','" + userLastName + "','" + userNickName + "','" + userEmail + "','" + userName + "','" + userPassword + "','" + city + "','" + state + "','" + zipCode + "','" + streetAddress + "') ; ";
+                string query = "INSERT INTO [User](userFirstName, userLastName,userNickName,email,userProfileName,userProfilePassword, userCity, userState, userZipCode, userStreetAddress) values('" + userFirstName + "','" + userLastName + "','" + userNickName + "','" + userEmail + "','" + userName + "','" + userPassword + "','" + userCity + "','" + userState + "','" + userZipCode + "','" + userStreetAddress + "') ; ";
                 User curUser = new User();
                 int rowsChanged = 0;
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -94,10 +94,10 @@ namespace GeekTextLibrary
                         cmd.Parameters.AddWithValue("@userProfileName", userName.Trim());
                         cmd.Parameters.AddWithValue("@userProfilePassword", userPassword.Trim());
                         cmd.Parameters.AddWithValue("@email", userEmail.Trim());
-                        cmd.Parameters.AddWithValue("@userCity", city.Trim());
-                        cmd.Parameters.AddWithValue("@userState", state.Trim());
-                        cmd.Parameters.AddWithValue("@userZipCode", zipCode.Trim());
-                        cmd.Parameters.AddWithValue("@userStreetAddress", streetAddress.Trim());
+                        cmd.Parameters.AddWithValue("@userCity", userCity.Trim());
+                        cmd.Parameters.AddWithValue("@userState", userState.Trim());
+                        cmd.Parameters.AddWithValue("@userZipCode", userZipCode.Trim());
+                        cmd.Parameters.AddWithValue("@userStreetAddress", userStreetAddress.Trim());
                         rowsChanged = cmd.ExecuteNonQuery();
                     }
 
