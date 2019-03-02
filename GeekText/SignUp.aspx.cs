@@ -24,7 +24,7 @@ namespace GeekText
             if (Page.IsValid)
             {   // if the database says there is a successfully saved then you can send to the user a message saying sign up was successful.
                 dbSavedPersonalInfo = userMan.setUserCredentials(FirstNameTextBox.Text.Trim(), LastNameTextBox.Text.Trim(), NickNameTextBox.Text.Trim(), UserNameTextBox.Text.Trim(), PasswordTextBox1.Text.Trim(), EmailTextBox1.Text.Trim(), CityTextBox.Text.Trim(), DropDownList.Text.Trim(), ZipTextBox.Text.Trim(), StreetAddressTextBox.Text.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                //dbSavedAddressInfo = userMan.setUserAddress ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                
                 // need to add password validations and email validations later on.
                 if (dbSavedPersonalInfo && dbSavedAddressInfo)
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Successful sign up! Now login!" + "');", true);
