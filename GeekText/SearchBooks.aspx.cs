@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using GeekTextLibrary;
 using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace GeekText
@@ -17,6 +14,7 @@ namespace GeekText
 
         }
 
+        // Modified search by title
         protected void Button1_Click(object sender, EventArgs e)
         {
             string bookTitle = TextBox1.Text;
@@ -33,7 +31,41 @@ namespace GeekText
             GridView1.DataBind();
         }
 
+        // Modified genre filter
         protected void CheckBoxList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+            List<string> genresList = searchByGenre();
+            bool isBestSeller = searchByBestSeller();
+            List<string> ratingsList = searchByRating();
+
+            // General bindGridView
+            bindGridViewByAllFilters(genresList, isBestSeller, ratingsList);
+        }
+
+        // Modified best seller filter
+        protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            List<string> genresList = searchByGenre();
+            bool isBestSeller = searchByBestSeller();
+            List<string> ratingsList = searchByRating();
+
+            //General bindGridView
+            bindGridViewByAllFilters(genresList, isBestSeller, ratingsList);
+        }
+
+        // Modified rating filter
+        protected void CheckBoxList2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<string> genresList = searchByGenre();
+            bool isBestSeller = searchByBestSeller();
+            List<string> ratingsList = searchByRating();
+
+            //General bindGridView
+            bindGridViewByAllFilters(genresList, isBestSeller, ratingsList);
+        }
+
+        protected List<string> searchByGenre()
         {
             List<string> genresList = new List<string>();
             foreach (ListItem li in CheckBoxList1.Items)
@@ -43,23 +75,13 @@ namespace GeekText
                     genresList.Add(li.Text);
                 }
             }
-            bindGridViewByGenre(genresList);
+            return genresList;
         }
 
-        protected void bindGridViewByGenre(List<string> genresList)
-        {
-            var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
-            var searchManager = new BookSearch();
-            var books = searchManager.getBooksByGenre(genresList, connection);
-
-            GridView1.DataSource = books;
-            GridView1.DataBind();
-        }
-
-        protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        protected bool searchByBestSeller()
         {
             bool value;
-            if(CheckBox1.Checked)
+            if (CheckBox1.Checked)
             {
                 value = true;
             }
@@ -67,20 +89,10 @@ namespace GeekText
             {
                 value = false;
             }
-            bindGridViewByBestSeller(value);
+            return value;
         }
 
-        protected void bindGridViewByBestSeller(bool value)
-        {
-            var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
-            var searchManager = new BookSearch();
-            var books = searchManager.getBooksByBestSeller(value, connection);
-
-            GridView1.DataSource = books;
-            GridView1.DataBind();
-        }
-
-        protected void CheckBoxList2_SelectedIndexChanged(object sender, EventArgs e)
+        protected List<string> searchByRating()
         {
             List<string> ratingsList = new List<string>();
             foreach (ListItem li in CheckBoxList2.Items)
@@ -90,19 +102,17 @@ namespace GeekText
                     ratingsList.Add(li.Value);
                 }
             }
-            bindGridViewByRating(ratingsList);
+            return ratingsList;
         }
 
-        protected void bindGridViewByRating(List<string> ratings)
+        protected void bindGridViewByAllFilters(List<string> genresList, bool isBestSeller, List<string> ratingsList)
         {
             var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
             var searchManager = new BookSearch();
-            var books = searchManager.getBooksByRating(ratings, connection);
+            var books = searchManager.getBooksByAllFilters(genresList, isBestSeller, ratingsList, connection);
 
             GridView1.DataSource = books;
             GridView1.DataBind();
         }
-
-        
     }
 }

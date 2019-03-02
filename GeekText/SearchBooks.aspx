@@ -19,7 +19,7 @@
         <div style="float:left; width: 530px;">
             <h1 style="width: 496px">Search Books</h1>
             <p style="width: 496px">
-                <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="423px">book title</asp:TextBox>
+                <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="423px"></asp:TextBox>
                 <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Search" />
             </p>
             <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="false">
@@ -43,16 +43,19 @@
         <div style="float:right; height: 366px;">
             <h3 style="width: 280px">Filter</h3>
             <div>
-                <asp:Label ID="Label2" runat="server" Text="By Genre"></asp:Label>
+                <asp:Label ID="Label2" runat="server" Text="By Genre" BorderStyle="Solid" BorderWidth="1px"></asp:Label>
                 <asp:CheckBoxList ID="CheckBoxList1" runat="server" DataSourceID="GeekTextBookGenre1" DataTextField="bookGenre" DataValueField="bookGenre" AutoPostBack="True" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChanged"></asp:CheckBoxList>
                 <asp:SqlDataSource ID="GeekTextBookGenre1" runat="server" ConnectionString="<%$ ConnectionStrings:GeekTextConnectionString %>" SelectCommand="SELECT DISTINCT [bookGenre] FROM [Book] ORDER BY [bookGenre]"></asp:SqlDataSource>
             </div>
             <div>
-                <asp:Label ID="Label1" runat="server" Text="By Best Seller"></asp:Label>
-                <asp:CheckBox ID="CheckBox1" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Only Best Sellers" />
+                <br />
+                <asp:Label ID="Label1" runat="server" Text="By Best Seller" BorderStyle="Solid" BorderWidth="1px"></asp:Label>
+                <br />
+                <asp:CheckBox ID="CheckBox1" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox1_CheckedChanged" Text="Only Best Sellers"/>
             </div>
             <div>
-                <asp:Label ID="Label3" runat="server" Text="By Rating"></asp:Label>
+                <br />
+                <asp:Label ID="Label3" runat="server" Text="By Rating" BorderStyle="Solid" BorderWidth="1px"></asp:Label>
                 <asp:CheckBoxList ID="CheckBoxList2" runat="server" AutoPostBack="True" OnSelectedIndexChanged="CheckBoxList2_SelectedIndexChanged">
                     <asp:ListItem Value="1">1 star</asp:ListItem>
                     <asp:ListItem Value="2">2 stars</asp:ListItem>

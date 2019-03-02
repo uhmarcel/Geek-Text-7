@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static GeekTextLibrary.PublishingInfo;
-using static GeekTextLibrary.Author;
+﻿using System.Collections.Generic;
 
 namespace GeekTextLibrary
 {
