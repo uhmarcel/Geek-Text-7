@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using GeekTextLibrary;
 
@@ -10,7 +11,6 @@ namespace GeekText
     {
         UserManager userMan = new UserManager();
         bool dbSavedPersonalInfo;
-        bool dbSavedAddressInfo;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,8 +26,9 @@ namespace GeekText
                 dbSavedPersonalInfo = userMan.setUserCredentials(FirstNameTextBox.Text.Trim(), LastNameTextBox.Text.Trim(), NickNameTextBox.Text.Trim(), UserNameTextBox.Text.Trim(), PasswordTextBox1.Text.Trim(), EmailTextBox1.Text.Trim(), CityTextBox.Text.Trim(), DropDownList.Text.Trim(), ZipTextBox.Text.Trim(), StreetAddressTextBox.Text.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
                 
                 // need to add password validations and email validations later on.
-                if (dbSavedPersonalInfo && dbSavedAddressInfo)
-                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Successful sign up! Now login!" + "');", true);
+                if (dbSavedPersonalInfo)
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + "Successful sign up! Now login!" + "');", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Successful sign up! Now login!" + "');", true);
             }
         }
 

@@ -19,27 +19,30 @@ namespace GeekText
                 user = userMan.getUserInfo(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             }
 
-            // put in labels on profile panel
-            savedUserNameLabel.Text = user.userProfileName;
-            savedFirstNameLabel.Text = user.userFirstName;
-            savedLastNameLabel.Text = user.userLastName;
-            savedNickNameLabel.Text = user.userNickName;
-            savedEmailLabel.Text = user.eMailAddress;
-            savedCityLabel.Text = user.userCity;
-            savedStateLabel.Text = user.userState;
-            savedStreetAddressLabel.Text = user.userStreetAddress;
-            savedZipCodeLabel.Text= user.userZipCode;
+            if (user != null)
+            {
+                // put in labels on profile panel
+                savedUserNameLabel.Text = user.userProfileName;
+                savedFirstNameLabel.Text = user.userFirstName;
+                savedLastNameLabel.Text = user.userLastName;
+                savedNickNameLabel.Text = user.userNickName;
+                savedEmailLabel.Text = user.eMailAddress;
+                savedCityLabel.Text = user.userCity;
+                savedStateLabel.Text = user.userState;
+                savedStreetAddressLabel.Text = user.userStreetAddress;
+                savedZipCodeLabel.Text = user.userZipCode;
 
 
-            // put in labels on edit panel
-            currFirstNameLabel.Text = user.userProfileName;
-            currLastNameLabel.Text = user.userLastName;
-            currNickNameLabel.Text = user.userNickName;
-            currEmailLabel.Text = user.eMailAddress;
-            currCityLabel.Text = user.userCity;
-            currStateLabel.Text = user.userState;
-            currStreetAddressLabel.Text = user.userStreetAddress;
-            currZipCodeLabel.Text = user.userZipCode;
+                // put in labels on edit panel
+                currFirstNameLabel.Text = user.userProfileName;
+                currLastNameLabel.Text = user.userLastName;
+                currNickNameLabel.Text = user.userNickName;
+                currEmailLabel.Text = user.eMailAddress;
+                currCityLabel.Text = user.userCity;
+                currStateLabel.Text = user.userState;
+                currStreetAddressLabel.Text = user.userStreetAddress;
+                currZipCodeLabel.Text = user.userZipCode;
+            }
 
         }
 
