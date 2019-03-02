@@ -74,11 +74,11 @@ namespace GeekTextLibrary
             }
         }
         // for sign up name, username/pass and email
-        public bool setUserCredentials(string userFirstName, string userLastName, string userNickName, string userName, string userPassword, string userEmail, string connectionString)
+        public bool setUserCredentials(string userFirstName, string userLastName, string userNickName, string userName, string userPassword, string userEmail, string userCity, string userState, string userZipCode, string userStreetAddress, string connectionString)
         {
             try
             {
-                string query = "INSERT INTO [User](userFirstName, userLastName,userNickName,email,userProfileName,userProfilePassword) values('" + userFirstName + "','" + userLastName + "','" + userNickName + "','" + userName + "','" + userPassword + "','" + userEmail + "') ; ";
+                string query = "INSERT INTO [User](userFirstName, userLastName,userNickName,email,userProfileName,userProfilePassword, userCity, userState, userZipCode, userStreetAddress) values('" + userFirstName + "','" + userLastName + "','" + userNickName + "','" + userEmail + "','" + userName + "','" + userPassword + "','" + city + "','" + state + "','" + zipCode + "','" + streetAddress + "') ; ";
                 User curUser = new User();
                 int rowsChanged = 0;
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -94,6 +94,10 @@ namespace GeekTextLibrary
                         cmd.Parameters.AddWithValue("@userProfileName", userName.Trim());
                         cmd.Parameters.AddWithValue("@userProfilePassword", userPassword.Trim());
                         cmd.Parameters.AddWithValue("@email", userEmail.Trim());
+                        cmd.Parameters.AddWithValue("@userCity", city.Trim());
+                        cmd.Parameters.AddWithValue("@userState", state.Trim());
+                        cmd.Parameters.AddWithValue("@userZipCode", zipCode.Trim());
+                        cmd.Parameters.AddWithValue("@userStreetAddress", streetAddress.Trim());
                         rowsChanged = cmd.ExecuteNonQuery();
                     }
 
@@ -114,7 +118,7 @@ namespace GeekTextLibrary
 
             try
             {
-                string query = "INSERT INTO [User](userCity, userState, userZipCode, userStreetAddress) values('" + city + "','" + state + "','" + zipCode + "','" + streetAddress + "') ; ";
+                string query = "INSERT INTO [User]() values('" + city + "','" + state + "','" + zipCode + "','" + streetAddress + "') ; ";
                 User curUser = new User();
                 int rowsChanged = 0;
                 using (SqlConnection con = new SqlConnection(connectionString))
