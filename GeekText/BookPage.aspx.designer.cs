@@ -31,6 +31,15 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Label Book_Author;
         
         /// <summary>
+        /// Book_Author_Button control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton Book_Author_Button;
+        
+        /// <summary>
         /// Book_Cover control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,15 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image Book_Cover;
+        
+        /// <summary>
+        /// User_Rating control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label User_Rating;
         
         /// <summary>
         /// Book_description control.

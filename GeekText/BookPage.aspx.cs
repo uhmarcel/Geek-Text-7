@@ -46,14 +46,16 @@ namespace GeekText
                 List<Book> allBooks = new BookManager().getlistofAllBooksInDB((ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString));
                 bookToBeDisplayed = allBooks.FirstOrDefault(o => o.ISBN == ISBN);
                 Book_Name.Text = bookToBeDisplayed.title;
-                Book_Author.Text = bookToBeDisplayed.bookAuthor.authorName;
+                Book_Author_Button.Text = bookToBeDisplayed.bookAuthor.authorName;
                 Book_description.Text = bookToBeDisplayed.description;
                 Book_Genre.Text = bookToBeDisplayed.genre;
+                User_Rating.Text = bookToBeDisplayed.bookRating.ToString();
 
-                //Convert Byte Array to image
-                // Book_Cover.ImageUrl = "data:image;base64," + Convert.ToBase64String(bookToBeDisplayed.bookCover);   commented for now to run without the images
+               // Convert Byte Array to image
+                 Book_Cover.ImageUrl = "data:image;base64," + Convert.ToBase64String(bookToBeDisplayed.bookCover); 
 
-                Publishing_Company.Text = bookToBeDisplayed.publishingInfo.publishingCompany;
+
+              Publishing_Company.Text = bookToBeDisplayed.publishingInfo.publishingCompany;
                 Publishing_Location.Text = bookToBeDisplayed.publishingInfo.location;
                 Publishing_Year.Text = bookToBeDisplayed.publishingInfo.copyrightYear.ToString();
             }
@@ -106,7 +108,10 @@ namespace GeekText
             return user;
         }
 
-
+        protected void Book_Author_Button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AuthorDetailsPage.aspx?AuthorName=" + Book_Author_Button.Text.ToString());
+        }
     }
 
 }

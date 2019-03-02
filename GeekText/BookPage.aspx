@@ -14,11 +14,16 @@
         <h1>
             <asp:Label ID="Book_Name" runat="server" Text="Sample"> </asp:Label></h1>
         <h3>Author:
-            <asp:Label ID="Book_Author" runat="server" Text="Sample"> </asp:Label></h3>
-
+           <!-- <asp:Label ID="Book_Author" runat="server" Text="Sample"> </asp:Label></h3>-->
+            <asp:LinkButton ID="Book_Author_Button" runat ="server" OnClick="Book_Author_Button_Click"></asp:LinkButton></h3>
         <div class="imageContainer">
-            <asp:Image ID="Book_Cover" CssClass="img" runat="server"  />
+            <asp:Image ID="Book_Cover" CssClass="img" runat="server" />
         </div>
+        <br />
+        <p>
+            User Rating:
+            <asp:Label ID ="User_Rating" runat ="server" Text="sample"></asp:Label>
+        </p>
 
         <p>
             Description: 
