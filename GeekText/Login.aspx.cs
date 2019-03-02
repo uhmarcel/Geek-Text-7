@@ -41,9 +41,7 @@ namespace GeekText
         protected void Login1_LoggedIn(object sender, EventArgs e)
         {
             // getting user information from the DB
-            user.userID = userMan.getUserID(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-            user.userProfileName = userMan.getUserProfileName(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-            user.userPassword = userMan.getUserPass(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            user = userMan.getUserInfo(Login1.UserName.Trim(), Login1.Password.Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
 
             // put info into session ID and use UserManager methods to get the rest from these
             Session["UserID"] = user.userID;

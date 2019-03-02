@@ -66,7 +66,7 @@
                 <br />
 
             </asp:Panel>
-            <asp:Panel ID="EditPanel" runat="server" BackColor="#E4E4E4"  Height="700px" Width="1000px">
+            <asp:Panel ID="EditPanel" runat="server" BackColor="#E4E4E4"  Height="720px" Width="1000px" Visible="False">
                 <div style="height:30px;line-height:30px; padding-left:10px; padding-top:10px; float:left;">
                     <asp:Label ID="CurrNickName" runat="server" Text="Current Nick name:"></asp:Label>
                     &nbsp;
@@ -76,6 +76,7 @@
                     &nbsp;
                     <asp:TextBox ID="newNickNameTextBox" runat="server" Text=""></asp:TextBox>
                 </div>
+                <br />
                 <div style="height:30px; line-height:30px; padding-right:10px; padding-top:10px; float:right">
                     <asp:Button ID="BackToProfile" runat="server" padding-bottom="10px"  padding-right="10px" Text="Back To Profile" OnClick="BackToProfile_Click" />
                 </div>
@@ -89,6 +90,7 @@
                     <asp:Label ID="EditFirstNameLabel" runat="server" Text="New first name:"></asp:Label>
                     &nbsp;
                     <asp:TextBox ID="newFirstNameTextBox" runat="server" Text=""></asp:TextBox>
+                    <br />
                     <br />
                     <asp:Label ID="CurrLastName" runat="server" Text="Current last name:"></asp:Label>
                     &nbsp;
@@ -134,6 +136,7 @@
                         ErrorMessage="Password must contain at least one number." 
                         ValidationExpression=".*[0123456789].*" />
                     <br />
+                    <br />
                     <asp:Label ID="EditNewPassLabel2" runat="server" Text="Re-enter New Password:"></asp:Label>
                     &nbsp;
                     <asp:TextBox ID="newPasswordTextBox2" runat="server" Text=""></asp:TextBox>
@@ -148,7 +151,7 @@
                     <br />
                     <asp:Label ID="CurrStreetAddress" runat="server" Text="Current Street Address:"></asp:Label>
                     &nbsp;
-                    <asp:Label ID="currStreetAddresLabel" runat="server" Text=""></asp:Label>
+                    <asp:Label ID="currStreetAddressLabel" runat="server" Text=""></asp:Label>
                     &nbsp; &nbsp;
                     <asp:Label ID="CurrCity" runat="server" Text="Current City:"></asp:Label>
                     &nbsp;

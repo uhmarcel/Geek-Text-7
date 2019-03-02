@@ -499,13 +499,13 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Label CurrStreetAddress;
         
         /// <summary>
-        /// currStreetAddresLabel control.
+        /// currStreetAddressLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label currStreetAddresLabel;
+        protected global::System.Web.UI.WebControls.Label currStreetAddressLabel;
         
         /// <summary>
         /// CurrCity control.

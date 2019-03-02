@@ -10,24 +10,15 @@ namespace GeekText
         UserManager userMan = new UserManager();
         User user = new User();
 
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            // don't want to load the edit panel until needed.
-            EditPanel.Visible = false;
+           
             if (Session["Username"] != null && Session["UserPass"] != null)
             {
-                // get from DB
-                user.userID = Convert.ToInt32(Session["UserID"].ToString());
-                user.userProfileName = Session["Username"].ToString();
-                user.userFirstName = userMan.getUserFirstName(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                user.userLastName = userMan.getUserLastName(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                user.userNickName = userMan.getUserNickName(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                user.eMailAddress = userMan.getEmail(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                user.userCity = userMan.getUserCity(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                user.userState = userMan.getUserState(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                user.userStreetAddress = userMan.getUserStreet(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                user.userZipCode = userMan.getUserZip(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                user = userMan.getUserInfo(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             }
+
             // put in labels on profile panel
             savedUserNameLabel.Text = user.userProfileName;
             savedFirstNameLabel.Text = user.userFirstName;
@@ -36,7 +27,7 @@ namespace GeekText
             savedEmailLabel.Text = user.eMailAddress;
             savedCityLabel.Text = user.userCity;
             savedStateLabel.Text = user.userState;
-            savedStateLabel.Text = user.userStreetAddress;
+            savedStreetAddressLabel.Text = user.userStreetAddress;
             savedZipCodeLabel.Text= user.userZipCode;
 
 
@@ -47,9 +38,8 @@ namespace GeekText
             currEmailLabel.Text = user.eMailAddress;
             currCityLabel.Text = user.userCity;
             currStateLabel.Text = user.userState;
-            currStateLabel.Text = user.userStreetAddress;
+            currStreetAddressLabel.Text = user.userStreetAddress;
             currZipCodeLabel.Text = user.userZipCode;
-
 
         }
 
@@ -62,6 +52,7 @@ namespace GeekText
 
         protected void SubmitEditBtn_Click(object sender, EventArgs e)
         {
+
             changeNickName();
             changeFirstName();
             changeLastName();
@@ -69,28 +60,50 @@ namespace GeekText
             changeEmail();
             changeAddress();
 
-            if (newNickNameTextBox.Text.Trim() != null && newFirstNameTextBox.Text.Trim() != null && newLastNameTextBox.Text.Trim() != null
-                && oldPasswordTextBox.Text.Trim() != null && oldPasswordTextBox.Text.Trim().Equals(Session["UserPass"].ToString().Trim())
-                && newEmailTextBox.Text.Trim() != null
-                && newStreetAddressTextBox.Text.Trim() != null && newCityTextBox.Text.Trim() != null && DropDownList.Text != "Select a State" && newZipCodeTextBox.Text.Trim() != null)
+            // need this to reload info back to panel
+            if (Session["Username"] != null && Session["UserPass"] != null)
             {
-                SuccesLabel.Text = "No Changes Made";
+                user = userMan.getUserInfo(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            }
+ 
+            currFirstNameLabel.Text = user.userProfileName;
+            currLastNameLabel.Text = user.userLastName;
+            currNickNameLabel.Text = user.userNickName;
+            currEmailLabel.Text = user.eMailAddress;
+            currCityLabel.Text = user.userCity;
+            currStateLabel.Text = user.userState;
+            currStreetAddressLabel.Text = user.userStreetAddress;
+            currZipCodeLabel.Text = user.userZipCode;
+
+            if (newNickNameTextBox.Text.Trim() != "" && newFirstNameTextBox.Text.Trim() != "" && newLastNameTextBox.Text.Trim() != ""
+                && oldPasswordTextBox.Text.Trim() != "" && oldPasswordTextBox.Text.Trim().Equals(Session["UserPass"].ToString().Trim())
+                && newEmailTextBox.Text.Trim() != ""
+                && newStreetAddressTextBox.Text.Trim() != "" && newCityTextBox.Text.Trim() != "" && DropDownList.Text != "Select a State" && newZipCodeTextBox.Text.Trim() != "")
+            {
+                SuccesLabel.Text = "Changes Saved";
+            }
+            else if ((newNickNameTextBox.Text.Trim() != "" || newFirstNameTextBox.Text.Trim() != "" || newLastNameTextBox.Text.Trim() != ""
+                || oldPasswordTextBox.Text.Trim() != "" || oldPasswordTextBox.Text.Trim().Equals(Session["UserPass"].ToString().Trim())
+                || newEmailTextBox.Text.Trim() != ""
+                || newStreetAddressTextBox.Text.Trim() != "" || newCityTextBox.Text.Trim() != "" || DropDownList.Text != "Select a State" || newZipCodeTextBox.Text.Trim() != ""))
+            {
+                SuccesLabel.Text = "Changes Saved";
             }
             else
-                SuccesLabel.Text = "Changes Saved";
+                SuccesLabel.Text = "No Changes Saved";
 
-            // refreshes page client side to show changes
-            Response.Redirect(Request.RawUrl);
+            //Page.AutoPostBackControl();
+
         }
 
 
         protected void changeNickName()
         {
-            if (newNickNameTextBox.Text.Trim() != null)
+            if (newNickNameTextBox.Text.Trim() != "")
             {
                 // returns true if the changes are made on the SQL side
                 if (userMan.changeUserNickName(newNickNameTextBox.Text.Trim(), user.userID, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString)) ;
-                newNickNameTextBox.Text = "";
+                    newNickNameTextBox.Text = "";
             }
         }
 
@@ -100,13 +113,13 @@ namespace GeekText
             {
                 // returns true if the changes are made on the SQL side
                 if (userMan.changeUserFirstName(newFirstNameTextBox.Text.Trim(), user.userID, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString)) ;
-                newFirstNameTextBox.Text = "";
+                    newFirstNameTextBox.Text = "";
             }
         }
 
         protected void changeLastName()
         {
-            if (newLastNameTextBox.Text.Trim() != null)
+            if (newLastNameTextBox.Text.Trim() != "")
             {
                 // returns true if the changes are made on the SQL side
                 if (userMan.changeUserLastName(newLastNameTextBox.Text.Trim(), user.userID, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString)) ;
@@ -116,7 +129,7 @@ namespace GeekText
 
         protected void changePassword()
         {
-            if (oldPasswordTextBox.Text.Trim() != null && oldPasswordTextBox.Text.Trim().Equals(Session["UserPass"].ToString().Trim()))
+            if (oldPasswordTextBox.Text.Trim() != "" && oldPasswordTextBox.Text.Trim().Equals(Session["UserPass"].ToString().Trim()))
             {
 
                 // returns true if the changes are made on the SQL side
@@ -130,7 +143,7 @@ namespace GeekText
             
         protected void changeEmail()
         {
-            if (newEmailTextBox.Text.Trim() != null)
+            if (newEmailTextBox.Text.Trim() != "")
             {
                 // returns true if the changes are made on the SQL side
                 if (userMan.changeUserEmail(newEmailTextBox.Text.Trim(), user.userID, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString)) 
@@ -141,7 +154,7 @@ namespace GeekText
 
         protected void changeAddress()
         {
-            if (newStreetAddressTextBox.Text.Trim() != null && newCityTextBox.Text.Trim() != null && DropDownList.Text != "Select a State" && newZipCodeTextBox.Text.Trim() != null)
+            if (newStreetAddressTextBox.Text.Trim() != "" && newCityTextBox.Text.Trim() != "" && DropDownList.Text != "Select a State" && newZipCodeTextBox.Text.Trim() != "")
             {
                 if (userMan.changeUserAddress(newCityTextBox.Text.Trim(), DropDownList.Text.Trim(), newZipCodeTextBox.Text.Trim(), newStreetAddressTextBox.Text.Trim(), user.userID, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString))
                 {
