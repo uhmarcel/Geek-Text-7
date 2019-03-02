@@ -706,12 +706,12 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Button SubmitEditBtn;
         
         /// <summary>
-        /// SuccesLabel control.
+        /// SuccessLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SuccesLabel;
+        protected global::System.Web.UI.WebControls.Label SuccessLabel;
     }
 }

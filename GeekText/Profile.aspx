@@ -257,7 +257,7 @@
                     <div style="text-align:center;">
                         <asp:Button ID="SubmitEditBtn" runat="server" Text="Submit" OnClick="SubmitEditBtn_Click"></asp:Button>
                         <br />
-                        <asp:Label ID="SuccesLabel" runat="server" padding-bottom="10px" Text=""></asp:Label>
+                        <asp:Label ID="SuccessLabel" runat="server" padding-bottom="10px" Text=""></asp:Label>
                     </div>                    
                 </div>
             </asp:Panel>
