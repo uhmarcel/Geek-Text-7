@@ -102,9 +102,9 @@
                     <br />
                     <br />
                     <asp:Label ID="CurrEmail" runat="server" Text="Current Email:"></asp:Label>
-                    <asp:Label ID="currEmailLabel" runat="server" Text=""></asp:Label>
+                    &nbsp;<asp:Label ID="currEmailLabel" runat="server" Text=""></asp:Label>
                     &nbsp; &nbsp;
-                    <asp:Label ID="EditEmailLabel" runat="server" Text="Email:"></asp:Label>
+                    <asp:Label ID="EditEmailLabel" runat="server" Text="New Email:"></asp:Label>
                     &nbsp;
                     <asp:TextBox ID="newEmailTextBox" runat="server" Text=""></asp:TextBox>
                     <br />
