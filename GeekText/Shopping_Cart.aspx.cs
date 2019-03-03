@@ -95,7 +95,7 @@ namespace GeekText
             string ISBN = CartGridView.DataKeys[row.RowIndex].Values["ISBN"].ToString();
 
 
-            ServicesShoppingCart.SaveWishProduct(ISBN);
+            //ServicesShoppingCart.SaveWishProduct(ISBN);
             RenderGrid();
         }
         double sumFooterValue = 0;

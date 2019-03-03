@@ -21,8 +21,11 @@ namespace GeekText
             {
                 if (!this.IsPostBack)
                 {
-                    User currentUser = getSessionUser();
+                    User currentUser = new User();
                     string ISBN = Request.QueryString["ISBN"];
+
+                    if (Session["Username"] != null && Session["UserPass"] != null)
+                        currentUser = new UserManager().getUserInfo(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
 
                     DisplayBookDetails(ISBN);
                     DisplayBookReviews(ISBN);
@@ -90,22 +93,6 @@ namespace GeekText
             userReview.userID = Convert.ToInt32(Session["UserID"].ToString());
             userReview.insertIntoDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             Response.Redirect(Request.RawUrl);
-        }
-
-        protected User getSessionUser()
-        {
-            UserManager userMan = new UserManager();
-            User user = new User();
-            if (Session["Username"] != null && Session["UserPass"] != null)
-            {
-                user.userID = Convert.ToInt32(Session["UserID"].ToString());
-                user.userProfileName = Session["Username"].ToString();
-                user.userFirstName = userMan.getUserFirstName(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                user.userLastName = userMan.getUserLastName(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                user.userNickName = userMan.getUserNickName(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-                user.eMailAddress = userMan.getEmail(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-            }
-            return user;
         }
 
         protected void Book_Author_Button_Click(object sender, EventArgs e)

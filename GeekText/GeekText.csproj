@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AuthorDetailsPage.aspx" />
     <Content Include="BookDetails.aspx" />
     <Content Include="BookPage.aspx" />
     <Content Include="BookPage.js" />
@@ -175,6 +176,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="AuthorDetailsPage.aspx.cs">
+      <DependentUpon>AuthorDetailsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AuthorDetailsPage.aspx.designer.cs">
+      <DependentUpon>AuthorDetailsPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BookDetails.aspx.cs">
       <DependentUpon>BookDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

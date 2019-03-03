@@ -197,13 +197,12 @@ values (0130895725, 'The Iliad', 'The story of the war in troy featuring achille
 
 -- Users
 insert into [User] (userFirstName, userLastName, userNickName, email, userProfileName, userProfilePassword, userCity, userState, userZipCode, userStreetAddress, userCreditCard, userComment)
-values ('adminFirst', 'adminLast', 'GeekyAdmin', 'admin@email.com', 'admin', 'password','adminCity', 'adminState', 'adminZip', 'adminStreet',null, null),  -- 1
+values ('adminFirst', 'adminLast', 'GeekyAdmin', 'admin@email.com', 'admin', 'password','adminCity', 'adminState', 'adminZip', 'adminStreet',null, null),	-- 1
 	   ('John', 'Smith', 'johnSmith001', 'JSmithy@email.com', 'Jsmith', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),		-- 2
 	   ('Andre', 'Reyes', 'areyes92', 'AReyes@email.com', 'AReyes', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),			-- 3
-	   ('Mathew', 'Vega', 'vegamw13', 'Vega@email.com', 'Matty', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),			-- 4
-	   ('Catherine', 'Smith', 'cathys01', 'SmithyCat@email.com', 'catty', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),		-- 5
-	   ('Ron', 'Jackson', 'jr1991', 'JackKiller@email.com', 'ShyRonny', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null);			-- 6
-
+	   ('Mathew', 'Vega', 'vegamw13', 'Vega@email.com', 'Matty', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),				-- 4
+	   ('Catherine', 'Smith', 'cathys01', 'SmithyCat@email.com', 'catty', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),	-- 5
+	   ('Ron', 'Jackson', 'jr1991', 'JackKiller@email.com', 'ShyRonny', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null);		-- 6
 -- UserPurchases
 insert into [UserPurchases] (userID, ISBN)
 values (2, 0130284190), (2, 0135289106), (2, 0132261197),													 
@@ -230,8 +229,9 @@ values (3, 0130284190, 'This was a really entertaining book, I’d highly recommen
 	   (4, 0139163050, 'This was a really entertaining book, I’d highly recommend it. The characters were believable, the plot was interesting. Five stars!', 5, 1),
 	   (5, 0130284190, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4, 2),
 	   (5, 0132261197, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4, 2),
-	   (6, 0130284190, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1);
-
+	   (6, 0130284190, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1),
+	   (6,  014026886, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1);
+	   
 --Authors
  Insert into Author (AuthorName, ISBN, AuthorBio)
   values ('Aristotle', '130284190','Aristotle (c. 384 B.C. to 322 B.C.) was an Ancient Greek philosopher and scientist who is still considered one of the greatest thinkers in politics, psychology and ethics. When Aristotle turned 17, he enrolled in Plato’s Academy. In 338, he began tutoring Alexander the Great. In 335, Aristotle founded his own school, the Lyceum, in Athens, where he spent most of the rest of his life studying, teaching and writing.' ),
@@ -246,8 +246,40 @@ insert into [shoppingCart] (cartID, userID, bookID, qty, Price)
 values (1, 1, 0130895725, 1, 29.99);
 
 
+-- IMPORTANT
+-- Change path to the location of your BookImages folder below
 
---update Book 
---set bookCover =
---	(select BulkColumn from openrowset (bulk 'D:\School_D\CEN4083\Rhet.jfif' , Single_Blob) as image)
---where Book.ISBN = 130284190
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\Rhet.jfif', Single_Blob) as image)
+where Book.ISBN = 130284190
+
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\houseofleaves.jfif' , Single_Blob) as image)
+where Book.ISBN = 130895717
+
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\theiliad.jfif' , Single_Blob) as image)
+where Book.ISBN = 130895725
+
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\harryp.jfif' , Single_Blob) as image)
+where Book.ISBN = 132261197
+
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\calc.jpg' , Single_Blob) as image)
+where Book.ISBN = 135289106
+
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\web.jpg' , Single_Blob) as image)
+where Book.ISBN = 139163050
+
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\9780199360314.jfif' , Single_Blob) as image)
+where Book.ISBN = 14026886

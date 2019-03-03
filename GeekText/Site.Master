@@ -50,7 +50,7 @@
                     <a class="navbar-brand" runat="server" href="~/">GeekText</a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav pull-right">
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/BookDetails">Book Details</a></li>
                         <li><a runat="server" href="~/Login">Login</a></li>
