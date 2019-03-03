@@ -102,9 +102,9 @@
                     <br />
                     <br />
                     <asp:Label ID="CurrEmail" runat="server" Text="Current Email:"></asp:Label>
-                    <asp:Label ID="currEmailLabel" runat="server" Text=""></asp:Label>
+                    &nbsp;<asp:Label ID="currEmailLabel" runat="server" Text=""></asp:Label>
                     &nbsp; &nbsp;
-                    <asp:Label ID="EditEmailLabel" runat="server" Text="Email:"></asp:Label>
+                    <asp:Label ID="EditEmailLabel" runat="server" Text="New Email:"></asp:Label>
                     &nbsp;
                     <asp:TextBox ID="newEmailTextBox" runat="server" Text=""></asp:TextBox>
                     <br />
@@ -257,7 +257,7 @@
                     <div style="text-align:center;">
                         <asp:Button ID="SubmitEditBtn" runat="server" Text="Submit" OnClick="SubmitEditBtn_Click"></asp:Button>
                         <br />
-                        <asp:Label ID="SuccesLabel" runat="server" padding-bottom="10px" Text=""></asp:Label>
+                        <asp:Label ID="SuccessLabel" runat="server" padding-bottom="10px" Text=""></asp:Label>
                     </div>                    
                 </div>
             </asp:Panel>
