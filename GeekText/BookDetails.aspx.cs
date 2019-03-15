@@ -67,78 +67,60 @@ namespace GeekText
         // Modified search by title
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string bookTitle = TextBox1.Text;
-            bindGridViewByTitle(bookTitle);
+            ExecuteSearchAndSorting();
         }
 
+        // Search bar cleaned
         protected void TextBox1_TextChanged(object sender, EventArgs e)
         {
             if (TextBox1.Text == "")
             {
-                bindGridView();
+                ExecuteSearchAndSorting();
             }
-        }
-
-        protected void bindGridViewByTitle(string bookTitle)
-        {
-            var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
-            var searchManager = new BookSearch();
-            var books = searchManager.getBooksByTitle(bookTitle, connection);
-
-            BookDetailsGridView.DataSource = books;
-            BookDetailsGridView.DataBind();
         }
 
         // Modified genre filter
         protected void CheckBoxList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            List<string> genresList = searchByGenre();
-            bool isBestSeller = searchByBestSeller();
-            List<string> ratingsList = searchByRating();
-            string sortingCriteria = sortByCriteria();
-
-            // General bindGridView
-            bindGridViewByAllFilters(genresList, isBestSeller, ratingsList, sortingCriteria);
+            ExecuteSearchAndSorting();
         }
 
         // Modified best seller filter
         protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            List<string> genresList = searchByGenre();
-            bool isBestSeller = searchByBestSeller();
-            List<string> ratingsList = searchByRating();
-            string sortingCriteria = sortByCriteria();
-
-            //General bindGridView
-            bindGridViewByAllFilters(genresList, isBestSeller, ratingsList, sortingCriteria);
+            ExecuteSearchAndSorting();
         }
 
         // Modified rating filter
         protected void CheckBoxList2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<string> genresList = searchByGenre();
-            bool isBestSeller = searchByBestSeller();
-            List<string> ratingsList = searchByRating();
-            string sortingCriteria = sortByCriteria();
-
-            //General bindGridView
-            bindGridViewByAllFilters(genresList, isBestSeller, ratingsList, sortingCriteria);
+            ExecuteSearchAndSorting();
         }
 
         // Modified sorting criteria
         protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<string> genresList = searchByGenre();
-            bool isBestSeller = searchByBestSeller();
-            List<string> ratingsList = searchByRating();
-            string sortingCriteria = sortByCriteria();
-
-            //General bindGridView
-            bindGridViewByAllFilters(genresList, isBestSeller, ratingsList, sortingCriteria);
+            ExecuteSearchAndSorting();
         }
 
-        protected List<string> searchByGenre()
+        protected void ExecuteSearchAndSorting()
+        {
+            string bookTitle = CheckTitleSearchBar();
+            List<string> genresList = CheckGenreFilter();
+            bool isBestSeller = CheckBestSellerFilter();
+            List<string> ratingsList = CheckRatingFilter();
+            string sortingCriteria = CheckSortingCriteria();
+
+            BindGridViewByTitleAllFiltersAndSorted(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria);
+        }
+
+        protected string CheckTitleSearchBar()
+        {
+            string bookTitle = TextBox1.Text;
+            return bookTitle;
+        }
+
+            protected List<string> CheckGenreFilter()
         {
             List<string> genresList = new List<string>();
             foreach (ListItem li in CheckBoxList1.Items)
@@ -151,7 +133,7 @@ namespace GeekText
             return genresList;
         }
 
-        protected bool searchByBestSeller()
+        protected bool CheckBestSellerFilter()
         {
             bool value;
             if (CheckBox1.Checked)
@@ -165,7 +147,7 @@ namespace GeekText
             return value;
         }
 
-        protected List<string> searchByRating()
+        protected List<string> CheckRatingFilter()
         {
             List<string> ratingsList = new List<string>();
             foreach (ListItem li in CheckBoxList2.Items)
@@ -178,23 +160,23 @@ namespace GeekText
             return ratingsList;
         }
 
-        protected string sortByCriteria()
+        protected string CheckSortingCriteria()
         {
             string sortingCriteria = RadioButtonList1.SelectedItem.Text;
             return sortingCriteria;
         }
 
-        protected void bindGridViewByAllFilters(List<string> genresList, bool isBestSeller, List<string> ratingsList, string sortingCriteria)
+        protected void BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria)
         {
-            if(genresList.Count == 0 && isBestSeller == false && ratingsList.Count == 0 && sortingCriteria == null)
-            {
-                bindGridView();
-            }
+            if (bookTitle == "" && genresList.Count == 0 && !wantBestSeller && ratingsList.Count == 0 && sortingCriteria == "Default")
+            {       
+                bindGridView();                
+            }           
             else
             {
                 var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
                 var searchManager = new BookSearch();
-                var books = searchManager.getBooksByAllFilters(genresList, isBestSeller, ratingsList, sortingCriteria, connection);
+                var books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, connection);
 
                 BookDetailsGridView.DataSource = books;
                 BookDetailsGridView.DataBind();
