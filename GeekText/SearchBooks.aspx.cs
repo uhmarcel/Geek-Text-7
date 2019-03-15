@@ -109,7 +109,8 @@ namespace GeekText
         {
             var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
             var searchManager = new BookSearch();
-            var books = searchManager.getBooksByAllFilters(genresList, isBestSeller, ratingsList, connection);
+            string tmp = " ";
+            var books = searchManager.getBooksByAllFilters(genresList, isBestSeller, ratingsList, tmp, connection);
 
             GridView1.DataSource = books;
             GridView1.DataBind();

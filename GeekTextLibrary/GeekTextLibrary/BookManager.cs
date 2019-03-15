@@ -73,6 +73,14 @@ namespace GeekTextLibrary
                                 }
                                 curBook.price = Convert.ToDouble(reader["bookPrice"]);
                                 curBook.genre = reader["bookGenre"].ToString();
+                                if (Convert.ToInt32(reader["bestSeller"]) == 1)
+                                {
+                                    curBook.bestSeller = "Best Seller";
+                                }
+                                else
+                                {
+                                    curBook.bestSeller = "";
+                                }
                                 curBook.bookCover = (byte[])reader["bookCover"];   //to avoid exception while we dont share the images
                                 curBook.publishingInfo.publishingCompany = reader["publishingCompany"].ToString();
                                 curBook.publishingInfo.copyrightYear = Convert.ToInt32(reader["publishingYear"]);

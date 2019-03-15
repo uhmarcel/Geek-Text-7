@@ -73,7 +73,7 @@ namespace GeekTextLibrary
             }
         }
 
-        public List<Book> getBooksByAllFilters(List<string> genresList, bool value, List<string> ratings, string connectionString)
+        public List<Book> getBooksByAllFilters(List<string> genresList, bool value, List<string> ratings, string sortingCriteria, string connectionString)
         {
             try
             {
@@ -124,6 +124,32 @@ namespace GeekTextLibrary
                         }
 
                         query = query + ")";
+                    }
+
+                    if (sortingCriteria != null)
+                    {
+                        query = query + " ORDER BY ";
+
+                        switch (sortingCriteria)
+                        {
+                            case "Title":
+                                query = query + "bookTitle";
+                                break;
+                            case "Author":
+                                query = query + "bookAuthor";
+                                break;
+                            case "Price":
+                                query = query + "bookPrice";
+                                break;
+                            case "Rating":
+                                query = query + "userRating";
+                                break;
+                            case "Release Date":
+                                query = query + "publishingYear";
+                                break;
+                        }
+
+                        //query = query + " ASC";
                     }
 
                     query = query + ";";
