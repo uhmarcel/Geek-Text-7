@@ -100,6 +100,19 @@ namespace GeekText
         // Modified sorting criteria
         protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (RadioButtonList1.SelectedItem.Text == "Default")
+            {               
+                RadioButtonList2.ClearSelection();
+            }
+            else
+            {
+                RadioButtonList2.Items.FindByText("Ascending").Selected = true;
+            }
+            ExecuteSearchAndSorting();
+        }
+
+        protected void RadioButtonList2_SelectedIndexChanged(object sender, EventArgs e)
+        {
             ExecuteSearchAndSorting();
         }
 
@@ -110,8 +123,9 @@ namespace GeekText
             bool isBestSeller = CheckBestSellerFilter();
             List<string> ratingsList = CheckRatingFilter();
             string sortingCriteria = CheckSortingCriteria();
+            string sortingOrientation = CheckSortingOrientation();
 
-            BindGridViewByTitleAllFiltersAndSorted(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria);
+            BindGridViewByTitleAllFiltersAndSorted(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria, sortingOrientation);
         }
 
         protected string CheckTitleSearchBar()
@@ -166,7 +180,21 @@ namespace GeekText
             return sortingCriteria;
         }
 
-        protected void BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria)
+        protected string CheckSortingOrientation()
+        {
+            string sortingOrientation;
+            if (RadioButtonList1.SelectedItem.Text == "Default")
+            {
+                sortingOrientation = "";
+            }
+            else
+            {
+                sortingOrientation = RadioButtonList2.SelectedItem.Text;
+            }
+            return sortingOrientation;
+        }
+
+        protected void BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation)
         {
             if (bookTitle == "" && genresList.Count == 0 && !wantBestSeller && ratingsList.Count == 0 && sortingCriteria == "Default")
             {       
@@ -176,7 +204,7 @@ namespace GeekText
             {
                 var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
                 var searchManager = new BookSearch();
-                var books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, connection);
+                var books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, sortingOrientation, connection);
 
                 BookDetailsGridView.DataSource = books;
                 BookDetailsGridView.DataBind();

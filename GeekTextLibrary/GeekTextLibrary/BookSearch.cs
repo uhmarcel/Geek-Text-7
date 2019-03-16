@@ -7,51 +7,35 @@ namespace GeekTextLibrary
     public class BookSearch
     {
 
-        public List<Book> connectAndSendQuery(string query, string connectionString)
+        public List<Book> GetBooksByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool value, List<string> ratings, string sortingCriteria, string sortingOrientation, string connectionString)
         {
-            List<Book> books = new List<Book>();
-
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query))
+                List<Book> books = new List<Book>();
+
+                string myQuery = StartQuery();
+
+                if (bookTitle != "" || genresList.Count != 0 || value || ratings.Count != 0)
                 {
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-
-                        while (reader.Read())
-                        {
-                            Book curBook = new Book();
-                            curBook.publishingInfo = new PublishingInfo();
-                            curBook.bookAuthor = new Author();
-                            curBook.ISBN = reader["ISBN"].ToString();
-                            curBook.title = reader["bookTitle"].ToString();
-                            curBook.description = reader["bookDescription"].ToString();
-                            curBook.bookAuthor.authorName = reader["bookAuthor"].ToString();
-                            curBook.genre = reader["bookGenre"].ToString();
-                            if (Convert.ToInt32(reader["bestSeller"]) == 1)
-                            {
-                                curBook.bestSeller = "Best Seller";
-                            }
-                            else
-                            {
-                                curBook.bestSeller = "";
-                            }
-                            curBook.bookRating = (float)Convert.ToDouble(reader["userRating"]);
-                            curBook.price = Convert.ToDouble(reader["bookPrice"]);
-                            curBook.publishingInfo.publishingCompany = reader["publishingCompany"].ToString();
-                            curBook.publishingInfo.copyrightYear = Convert.ToInt32(reader["publishingYear"]);
-                            curBook.publishingInfo.location = reader["publishingLocation"].ToString();
-
-                            books.Add(curBook);
-                        }
-                    }
+                    myQuery = GetBooksByTitleAndAllFilters(myQuery, bookTitle, genresList, value, ratings);
                 }
-                con.Close();
+
+                if (sortingCriteria != "Default")
+                {
+                    myQuery = GetBooksSorted(myQuery, sortingCriteria, sortingOrientation);
+                }
+
+                myQuery = FinishQuery(myQuery);
+
+                books = connectAndSendQuery(myQuery, connectionString);
+
+                return books;
             }
 
-            return books;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public string StartQuery()
@@ -118,7 +102,7 @@ namespace GeekTextLibrary
             return query;
         }
 
-        public string GetBooksSorted(string query, string sortingCriteria)
+        public string GetBooksSorted(string query, string sortingCriteria, string sortingOrientation)
         {
             query = query + " ORDER BY ";
 
@@ -141,7 +125,10 @@ namespace GeekTextLibrary
                     break;
             }
 
-            //query = query + " ASC";
+            if (sortingOrientation == "Descending")
+            {
+                query = query + " DESC";
+            }
 
             return query;
         }
@@ -152,35 +139,51 @@ namespace GeekTextLibrary
             return query;
         }
 
-        public List<Book> GetBooksByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool value, List<string> ratings, string sortingCriteria, string connectionString)
+        public List<Book> connectAndSendQuery(string query, string connectionString)
         {
-            try
+            List<Book> books = new List<Book>();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                List<Book> books = new List<Book>();
-
-                string myQuery = StartQuery();
-
-                if (bookTitle != "" || genresList.Count != 0 || value || ratings.Count != 0)
+                using (SqlCommand cmd = new SqlCommand(query))
                 {
-                    myQuery = GetBooksByTitleAndAllFilters(myQuery, bookTitle, genresList, value, ratings);
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            Book curBook = new Book();
+                            curBook.publishingInfo = new PublishingInfo();
+                            curBook.bookAuthor = new Author();
+                            curBook.ISBN = reader["ISBN"].ToString();
+                            curBook.title = reader["bookTitle"].ToString();
+                            curBook.description = reader["bookDescription"].ToString();
+                            curBook.bookAuthor.authorName = reader["bookAuthor"].ToString();
+                            curBook.genre = reader["bookGenre"].ToString();
+                            if (Convert.ToInt32(reader["bestSeller"]) == 1)
+                            {
+                                curBook.bestSeller = "Best Seller";
+                            }
+                            else
+                            {
+                                curBook.bestSeller = "";
+                            }
+                            curBook.bookRating = (float)Convert.ToDouble(reader["userRating"]);
+                            curBook.price = Convert.ToDouble(reader["bookPrice"]);
+                            curBook.publishingInfo.publishingCompany = reader["publishingCompany"].ToString();
+                            curBook.publishingInfo.copyrightYear = Convert.ToInt32(reader["publishingYear"]);
+                            curBook.publishingInfo.location = reader["publishingLocation"].ToString();
+
+                            books.Add(curBook);
+                        }
+                    }
                 }
-
-                if (sortingCriteria != "Default")
-                {
-                    myQuery = GetBooksSorted(myQuery, sortingCriteria);
-                }
-
-                myQuery = FinishQuery(myQuery);
-
-                books = connectAndSendQuery(myQuery, connectionString);
-
-                return books;
+                con.Close();
             }
 
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return books;
         }
     }
 }

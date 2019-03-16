@@ -2,7 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Current Books in Inventory</h1>
-    <div id="BooksSorting" style="float: left; width: 800px; height: 71px;">
+    <div id="BooksSorting" style="float: left; width: 800px; height: 95px;">
         <asp:Label ID="Label4" runat="server" Text="Sort by: "></asp:Label>
         <asp:RadioButtonList ID="RadioButtonList1" runat="server" AutoPostBack="True" RepeatDirection="Horizontal" Width="559px" Height="23px" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged">
             <asp:ListItem Selected="True">Default</asp:ListItem>
@@ -11,6 +11,10 @@
             <asp:ListItem>Price</asp:ListItem>
             <asp:ListItem>Rating</asp:ListItem>
             <asp:ListItem>Release Date</asp:ListItem>
+        </asp:RadioButtonList>
+        <asp:RadioButtonList ID="RadioButtonList2" runat="server" AutoPostBack="True" Height="25px" OnSelectedIndexChanged="RadioButtonList2_SelectedIndexChanged" RepeatDirection="Horizontal" Width="261px">
+            <asp:ListItem>Ascending</asp:ListItem>
+            <asp:ListItem>Descending</asp:ListItem>
         </asp:RadioButtonList>
     </div>
     <br />
