@@ -104,7 +104,7 @@ namespace GeekText
             {               
                 RadioButtonList2.ClearSelection();
             }
-            else
+            else if (RadioButtonList2.SelectedItem == null)
             {
                 RadioButtonList2.Items.FindByText("Ascending").Selected = true;
             }
