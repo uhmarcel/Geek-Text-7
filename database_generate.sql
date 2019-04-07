@@ -188,7 +188,7 @@ GO
 -- Books
 insert into Book (ISBN, bookTitle, bookDescription, publishingLocation, publishingYear, publishingCompany, userRating, userComment, bookPrice, bookAuthor, bookGenre, bestSeller)
 values (0130895725, 'The Iliad', 'The story of the war in troy featuring achilles and his heel', 'Greece', 200, 'Classic Book Company', null, null, 28.99, 'Homer', 'Action', 1),
-	   (0132261197, 'Harry Potter', 'A kid finds out he is a wizard', 'London', 2001, 'Wiley', null, null, 19.99,'J.K Rowling', 'fiction', 0),
+	   (0132261197, 'Harry Potter', 'A kid finds out he is a wizard', 'London', 2001, 'Wiley', null, null, 19.99,'J.K Rowling', 'fiction', 1),
 	   (0130895717, 'House of Glass', 'A house made of glass and glass related accessories', 'Scotland', 2004, 'Harper Collins', null , null, 22.99, 'Daniel Lifeson', 'Thriller', 0),
 	   (0135289106, 'Calculus Textbook', 'An introductory Calculus textbook for high schoolers', 'Massachusets', 2008,'Education Books', null, null, 149.99, 'Isaac Newton', 'Mathematics', 0),
 	   (0139163050, 'Charlottes Web', 'A childrens book about a pig and a spider', 'Indiana', 1982, 'Prentice', null, null, 14.99, 'E.B. White', 'Adventure', 0),
