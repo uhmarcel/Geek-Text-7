@@ -14,6 +14,7 @@ namespace GeekText
 
         static int currentSection = 1;
         static int range = 2;
+        static List<Book> allBooks;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -124,13 +125,34 @@ namespace GeekText
         protected void Button2_Click(object sender, EventArgs e)
         {
             currentSection -= range;
-            ExecuteSearchAndSorting();
+
+            ShowResult();
+
+            if (allBooks == null)
+            {
+                UpdatePaginationPanel(-1);
+            }
+            else
+            {
+                UpdatePaginationPanel(allBooks.Count);
+            }
         }
 
         protected void Button3_Click(object sender, EventArgs e)
         {
             currentSection += range;
-            ExecuteSearchAndSorting();
+
+            ShowResult();
+
+            if (allBooks == null)
+            {
+                UpdatePaginationPanel(-1);
+            }
+            else
+            {
+                UpdatePaginationPanel(allBooks.Count);
+            }
+
         }
 
         protected void ExecuteSearchAndSorting()
@@ -142,9 +164,21 @@ namespace GeekText
             string sortingCriteria = CheckSortingCriteria();
             string sortingOrientation = CheckSortingOrientation();
 
-            int numberOfRowsInResult = BindGridViewByTitleAllFiltersAndSorted(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria, sortingOrientation, currentSection, range);
+            allBooks = BindGridViewByTitleAllFiltersAndSorted(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria, sortingOrientation);
 
-            UpdatePaginationPanel(numberOfRowsInResult);
+            currentSection = 1;
+
+            ShowResult();
+
+            if(allBooks == null)
+            {
+                UpdatePaginationPanel(-1);
+            }
+            else
+            {
+                UpdatePaginationPanel(allBooks.Count);
+            }
+            
         }
 
         protected string CheckTitleSearchBar()
@@ -213,29 +247,45 @@ namespace GeekText
             return sortingOrientation;
         }
 
-        protected int BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation, int rangeInit, int range)
+        protected List<Book> BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation)
         {
             if (bookTitle == "" && genresList.Count == 0 && !wantBestSeller && ratingsList.Count == 0 && sortingCriteria == "Default")
-            {       
-                bindGridView();
-                return -1;
+            {        
+                return null;            
             }           
             else
             {
                 var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
                 var searchManager = new BookSearch();
-                var books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, sortingOrientation, rangeInit, range, connection);
+                List<Book> books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, sortingOrientation, connection);
 
-                BookDetailsGridView.DataSource = books;
-                BookDetailsGridView.DataBind();
-
-                return books.Count;
+                return books;
             }            
         }
 
-        protected void UpdatePaginationPanel(int numberOfRowsInResult)
+        protected void ShowResult()
         {
-            if (numberOfRowsInResult == -1)
+            if (allBooks == null)
+            {
+                bindGridView();
+            }
+            else
+            {
+                List<Book> currentBooksToShow = new List<Book>();
+
+                for (int i = currentSection; (i <= allBooks.Count) && (i < currentSection + range); i++)
+                {
+                    currentBooksToShow.Add(allBooks[i - 1]);
+                }
+
+                BookDetailsGridView.DataSource = currentBooksToShow;
+                BookDetailsGridView.DataBind();
+            }
+        }
+
+        protected void UpdatePaginationPanel(int totalNumberOfRows)
+        {
+            if (totalNumberOfRows == -1)
             {
                 Panel1.Visible = false;
             }
@@ -253,15 +303,15 @@ namespace GeekText
                     Button2.Enabled = false;
                 }
 
-                if ((currentSection + range) < numberOfRowsInResult)
+                if ((currentSection + range - 1) < totalNumberOfRows)
                 {
                     Button3.Enabled = true;
-                    Label7.Text = (currentSection + range).ToString();
+                    Label7.Text = (currentSection + range - 1).ToString();
                 }
                 else
                 {
                     Button3.Enabled = false;
-                    Label7.Text = numberOfRowsInResult.ToString();
+                    Label7.Text = totalNumberOfRows.ToString();
                 }
             }           
         }
