@@ -6,8 +6,7 @@ namespace GeekTextLibrary
 {
     public class BookSearch
     {
-
-        public List<Book> GetBooksByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool value, List<string> ratings, string sortingCriteria, string sortingOrientation, string connectionString)
+        public List<Book> GetBooksByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool value, List<string> ratings, string sortingCriteria, string sortingOrientation, int currentSection, int range, string connectionString)
         {
             try
             {
@@ -24,6 +23,12 @@ namespace GeekTextLibrary
                 {
                     myQuery = GetBooksSorted(myQuery, sortingCriteria, sortingOrientation);
                 }
+                else
+                {
+                    myQuery = AuxOrderBy(myQuery);
+                }
+
+                myQuery = Pagination(myQuery, currentSection, range);
 
                 myQuery = FinishQuery(myQuery);
 
@@ -133,9 +138,25 @@ namespace GeekTextLibrary
             return query;
         }
 
+        public string AuxOrderBy(string query)
+        {
+            query = query + " ORDER BY (SELECT NULL)";
+
+            return query;
+        }
+
+        public string Pagination(string query, int currentSection, int range)
+        {
+            int offset = currentSection - 1;
+            query = query + " OFFSET " + offset + " ROWS FETCH NEXT " + range + " ROWS ONLY";
+
+            return query;
+        }
+
         public string FinishQuery(string query)
         {
             query = query + ";";
+
             return query;
         }
 

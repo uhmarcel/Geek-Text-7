@@ -2,7 +2,6 @@
 using System.Web.UI;
 using System.Configuration;
 using GeekTextLibrary;
-using System.Data;
 using System.Web.UI.WebControls;
 using System.Collections.Generic;
 using GeekText.Services;
@@ -12,8 +11,13 @@ namespace GeekText
 {
     public partial class About : Page
     {
+
+        static int currentSection = 1;
+        static int range = 2;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!this.IsPostBack)
             {
                 bindGridView();
@@ -66,7 +70,7 @@ namespace GeekText
 
         // Modified search by title
         protected void Button1_Click(object sender, EventArgs e)
-        {
+        {           
             ExecuteSearchAndSorting();
         }
 
@@ -116,6 +120,19 @@ namespace GeekText
             ExecuteSearchAndSorting();
         }
 
+        // Modified pagination
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            currentSection -= range;
+            ExecuteSearchAndSorting();
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            currentSection += range;
+            ExecuteSearchAndSorting();
+        }
+
         protected void ExecuteSearchAndSorting()
         {
             string bookTitle = CheckTitleSearchBar();
@@ -125,7 +142,9 @@ namespace GeekText
             string sortingCriteria = CheckSortingCriteria();
             string sortingOrientation = CheckSortingOrientation();
 
-            BindGridViewByTitleAllFiltersAndSorted(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria, sortingOrientation);
+            int numberOfRowsInResult = BindGridViewByTitleAllFiltersAndSorted(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria, sortingOrientation, currentSection, range);
+
+            UpdatePaginationPanel(numberOfRowsInResult);
         }
 
         protected string CheckTitleSearchBar()
@@ -134,7 +153,7 @@ namespace GeekText
             return bookTitle;
         }
 
-            protected List<string> CheckGenreFilter()
+        protected List<string> CheckGenreFilter()
         {
             List<string> genresList = new List<string>();
             foreach (ListItem li in CheckBoxList1.Items)
@@ -194,21 +213,57 @@ namespace GeekText
             return sortingOrientation;
         }
 
-        protected void BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation)
+        protected int BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation, int rangeInit, int range)
         {
             if (bookTitle == "" && genresList.Count == 0 && !wantBestSeller && ratingsList.Count == 0 && sortingCriteria == "Default")
             {       
-                bindGridView();                
+                bindGridView();
+                return -1;
             }           
             else
             {
                 var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
                 var searchManager = new BookSearch();
-                var books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, sortingOrientation, connection);
+                var books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, sortingOrientation, rangeInit, range, connection);
 
                 BookDetailsGridView.DataSource = books;
                 BookDetailsGridView.DataBind();
+
+                return books.Count;
             }            
+        }
+
+        protected void UpdatePaginationPanel(int numberOfRowsInResult)
+        {
+            if (numberOfRowsInResult == -1)
+            {
+                Panel1.Visible = false;
+            }
+            else
+            {
+                Panel1.Visible = true;
+                Label5.Text = currentSection.ToString();
+
+                if ((currentSection - range) >= 1)
+                {
+                    Button2.Enabled = true;
+                }
+                else
+                {
+                    Button2.Enabled = false;
+                }
+
+                if ((currentSection + range) < numberOfRowsInResult)
+                {
+                    Button3.Enabled = true;
+                    Label7.Text = (currentSection + range).ToString();
+                }
+                else
+                {
+                    Button3.Enabled = false;
+                    Label7.Text = numberOfRowsInResult.ToString();
+                }
+            }           
         }
     }
 }
