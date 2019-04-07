@@ -2,6 +2,12 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Current Books in Inventory</h1>
+    <div>
+        <p>
+            <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="277px" AutoPostBack="True" OnTextChanged="TextBox1_TextChanged" Height="25px"></asp:TextBox>
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Width="91px" Text="Search" />
+        </p>
+    </div>
     <div id="BooksSorting" style="float: left; width: 800px; height: 95px;">
         <asp:Label ID="Label4" runat="server" Text="Sort by: "></asp:Label>
         <asp:RadioButtonList ID="RadioButtonList1" runat="server" AutoPostBack="True" RepeatDirection="Horizontal" Width="559px" Height="23px" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged">
@@ -44,12 +50,6 @@
         </asp:GridView>
     </div>
     <div id="SearchAndFiltersDiv" style="float: right; height: 374px; width: 140px; margin-left: 0px;">
-        <div>
-            <p>
-                <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="277px" AutoPostBack="True" OnTextChanged="TextBox1_TextChanged" Height="25px"></asp:TextBox>
-                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Width="91px" Text="Search" />
-            </p>
-        </div>
         <h3 style="width: 90px">Filter</h3>
         <div>
             <asp:Label ID="Label2" runat="server" Text="By Genre" BorderStyle="Solid" BorderWidth="1px"></asp:Label>
