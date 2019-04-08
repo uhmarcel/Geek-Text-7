@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Configuration;
+using System.Web.UI.WebControls;
 using GeekTextLibrary;
 
 namespace GeekText
@@ -18,12 +19,19 @@ namespace GeekText
         bool changedEmail = false;
         bool changedAddress = false;
 
+        // user ID for changing credit cards and shipping address
+        int userID;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-            if (Session["Username"] != null && Session["UserPass"] != null)
+            if (Session["Username"] == null && Session["UserPass"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+            else if (Session["Username"] != null && Session["UserPass"] != null)
             {
                 user = userMan.getUserInfo(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                userID = Convert.ToInt32(Session["UserID"]);
             }
 
             if (user != null)
@@ -53,8 +61,16 @@ namespace GeekText
 
         }
 
+        
+
+        #region editing user profile information(does not include credit cards and shipping addresses) 
+
         protected void EditProfileBtn_Click(object sender, EventArgs e)
         {
+            if (Session["Username"] == null && Session["UserPass"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             ProfilePanel.Visible = false;
             EditPanel.Visible = true;
             SuccessLabel.Text = "";
@@ -86,10 +102,10 @@ namespace GeekText
             currZipCodeLabel.Text = user.userZipCode;
 
             if (changedNickName || changedFirstName || changedLastName || changedPassword || changedEmail || changedAddress)
-            { 
-               SuccessLabel.Text = "Changes Saved";
-            }  
-            else 
+            {
+                SuccessLabel.Text = "Changes Saved";
+            }
+            else
                 SuccessLabel.Text = "No Changes Saved";
         }
 
@@ -149,7 +165,7 @@ namespace GeekText
                 }
             }
         }
-            
+
         protected void changeEmail()
         {
             if (newEmailTextBox.Text.Trim() != "")
@@ -158,10 +174,10 @@ namespace GeekText
                 if (userMan.changeUserEmail(newEmailTextBox.Text.Trim(), user.userID, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString))
                 {
                     newEmailTextBox.Text = "";
-                    changedEmail = true;                   
+                    changedEmail = true;
                 }
             }
-        
+
         }
 
         protected void changeAddress()
@@ -184,6 +200,137 @@ namespace GeekText
         {
             EditPanel.Visible = false;
             ProfilePanel.Visible = true;
+        }
+        #endregion
+
+        #region showing credit cards and shipping addresses connected to user's profile
+
+        protected void viewCreditCardBttn_Click(object sender, EventArgs e)
+        {
+            
+            // see only credit cards
+            CreditCardPanel.Visible = true;
+            ProfilePanel.Visible = false;
+        }
+
+        protected void viewShipAddBttn_Click(object sender, EventArgs e)
+        {
+            ShippingPanel.Visible = true;
+            ProfilePanel.Visible = false;
+           
+        }
+
+
+        protected void backCardBttn_Click(object sender, EventArgs e)
+        {
+            // see only credit cards
+            CreditCardPanel.Visible = false;
+            ProfilePanel.Visible = true;
+            savedCardLabel.Text = "";
+
+
+        }
+
+        protected void backAddBttn_Click(object sender, EventArgs e)
+        {
+            ShippingPanel.Visible = false;
+            ProfilePanel.Visible = true;
+            savedShipLabel.Text = "";
+        }
+        
+        #endregion
+
+        #region editing crecit cards and shipping addreses connected to user's profile
+
+        
+
+        protected void GridView3_RowUpdated(object sender, System.Web.UI.WebControls.GridViewUpdatedEventArgs e)
+        {
+            if (e.AffectedRows < 1)
+            {
+                e.KeepInEditMode = true;
+                savedShipLabel.Text = "Row is not updated.";
+                savedShipLabel.ForeColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                savedShipLabel.Text = "Row updated successfully.";
+                savedShipLabel.ForeColor = System.Drawing.Color.Navy;
+            }
+        }
+
+        protected void ObjectDataSource1_Updated(object sender, System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs e)
+        {
+            if (e.ReturnValue is int && (int)e.ReturnValue > 0)
+            {
+                e.AffectedRows = (int)e.ReturnValue;
+            }
+        }
+
+        protected void GridView4_RowUpdated(object sender, System.Web.UI.WebControls.GridViewUpdatedEventArgs e)
+        {
+
+            if (e.AffectedRows < 1)
+            {
+                e.KeepInEditMode = true;
+                savedCardLabel.Text =  "Row is not updated.";
+                savedCardLabel.ForeColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                savedCardLabel.Text = "Row updated successfully.";
+                savedCardLabel.ForeColor = System.Drawing.Color.Navy;
+            }
+        }
+
+        protected void ObjectDataSource2_Updated(object sender, System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs e)
+        {
+            if (e.ReturnValue is int && (int)e.ReturnValue > 0)
+            {
+                e.AffectedRows = (int)e.ReturnValue;
+            }
+        }
+        #endregion
+
+        protected void GridView3_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
+        {
+            savedShipLabel.Text = "";
+        }
+
+        protected void GridView4_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
+        {
+            savedCardLabel.Text = "";
+        }
+
+        protected void insertAddLinkButton_Click(object sender, EventArgs e)
+        {
+            ObjectDataSource1.InsertParameters["streetAddress"].DefaultValue =
+                ((TextBox)GridView3.FooterRow.FindControl("stTextBox")).Text.Trim();
+            ObjectDataSource1.InsertParameters["city"].DefaultValue =
+                ((TextBox)GridView3.FooterRow.FindControl("cityTextBox")).Text.Trim();
+            ObjectDataSource1.InsertParameters["state"].DefaultValue =
+                ((DropDownList)GridView3.FooterRow.FindControl("InsertDropDownList")).SelectedValue;
+            ObjectDataSource1.InsertParameters["zipCode"].DefaultValue =
+                ((TextBox)GridView3.FooterRow.FindControl("zipTextBox")).Text.Trim();
+            ObjectDataSource1.InsertParameters["userID"].DefaultValue = Session["UserID"].ToString().Trim();
+
+            ObjectDataSource1.Insert();
+        }
+        protected void insertcardLinkButton_Click(object sender, EventArgs e)
+        {
+            ObjectDataSource2.InsertParameters["cardFirstName"].DefaultValue =
+                ((TextBox)GridView4.FooterRow.FindControl("firstTxtBox")).Text.Trim();
+            ObjectDataSource2.InsertParameters["cardLastName"].DefaultValue =
+                ((TextBox)GridView4.FooterRow.FindControl("lastTxtBox")).Text.Trim();
+            ObjectDataSource2.InsertParameters["creditCardNumber"].DefaultValue =
+                ((TextBox)GridView4.FooterRow.FindControl("ccTextBox")).Text.Trim();
+            ObjectDataSource2.InsertParameters["cvv"].DefaultValue =
+                ((TextBox)GridView4.FooterRow.FindControl("ccvTxtBox")).Text.Trim();
+            ObjectDataSource2.InsertParameters["expirationDate"].DefaultValue =
+                ((TextBox)GridView4.FooterRow.FindControl("expTxtBox")).Text.Trim();
+            ObjectDataSource2.InsertParameters["userID"].DefaultValue = Session["UserID"].ToString().Trim();
+
+            ObjectDataSource2.Insert();
         }
     }
 }

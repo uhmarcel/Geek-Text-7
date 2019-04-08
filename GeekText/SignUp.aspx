@@ -270,31 +270,5 @@
             </div>
             <br />
         </asp:Panel>
-        <!--<asp:Panel ID="CreditCardsPanel" runat="server" BackColor="#E4E4E4"  HorizontalAlign="Center" Width="500">
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:Label ID="CreditCardLabel" runat="server" Text="Credit Card Number"></asp:Label>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:TextBox ID="CreditCardTextBox" runat="server"></asp:TextBox>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:Label ID="CcvLabel" runat="server" Text="CCV"></asp:Label>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:TextBox ID="CcvTextBox" runat="server"></asp:TextBox>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:Label ID="ExpirationDateLabel" runat="server" Text="Expiration Date"></asp:Label>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:TextBox ID="ExpirationDateTextBox" runat="server"></asp:TextBox>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:Label ID="CcZipLabel" runat="server" Text="Zip Code"></asp:Label>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:TextBox ID="CcZipTextBox" runat="server"></asp:TextBox>
-            </div>
-            <br />
-        </asp:Panel></-->
+        
     </asp:Content>
