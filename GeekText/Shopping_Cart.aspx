@@ -78,7 +78,7 @@
         </asp:GridView>
         <br />
 
-        <asp:GridView ID="WishGridView" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False">
+        <asp:GridView ID="WishGridView" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" DataKeyNames="ISBN">
             <Columns>
                 <asp:BoundField DataField="title" HeaderText="title" ItemStyle-Width="150px">
                     <ItemStyle Width="150px"></ItemStyle>
@@ -92,6 +92,14 @@
 
                     <ItemStyle Width="150px"></ItemStyle>
                 </asp:BoundField>
+                <asp:TemplateField ItemStyle-Width="50px">
+                    <ItemTemplate>
+
+                        <asp:Button ID="AddItemtoCar" runat="server" CausesValidation="false" Text="Add to Car" OnClick="AddItemtoCar_OnClick" />
+                    </ItemTemplate>
+
+                    <ItemStyle Width="50px"></ItemStyle>
+                </asp:TemplateField>
             </Columns>
             <AlternatingRowStyle BackColor="White" />
             <EditRowStyle BackColor="#2461BF" />

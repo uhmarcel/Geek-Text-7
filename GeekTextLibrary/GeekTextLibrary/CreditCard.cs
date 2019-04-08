@@ -8,9 +8,12 @@ namespace GeekTextLibrary
 {
     public class CreditCard
     {
-        private string creditCardNumber { get; set; }
-        private int cvv { get; set; }
-        private string expirationDate { get; set; }
-        private int userId { get; set; }
+        public string CreditCardNumber { get; set; }
+        public string expirationDate { get; set; }
+        public int cvv { get; set; }        
+        public string cardFirstName { get; set; }
+        public string cardLastName { get; set; }
+        public int cardIndex { get; set; }
+
     }
 }

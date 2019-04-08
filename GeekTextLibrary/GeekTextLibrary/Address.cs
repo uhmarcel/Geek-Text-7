@@ -8,10 +8,10 @@ namespace GeekTextLibrary
 {
     public class Address
     {
-        private string street { get; set; }
-        private string state { get; set; }
-        private string city { get; set; }
-        private int zipCode { get; set; }
-        private int userId { get; set; }
+        public string streetAddress { get; set; }
+        public string state { get; set; }
+        public string city { get; set; }
+        public int zipCode { get; set; }
+        public int index { get; set; }
     }
 }

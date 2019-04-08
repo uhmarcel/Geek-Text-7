@@ -22,6 +22,24 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Label Label;
         
         /// <summary>
+        /// TextBox1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+        
+        /// <summary>
         /// BestSeller_One control.
         /// </summary>
         /// <remarks>
@@ -31,15 +49,6 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Image BestSeller_One;
         
         /// <summary>
-        /// Book_Name_One control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Book_Name_One;
-        
-        /// <summary>
         /// AuthorLabelOneBS control.
         /// </summary>
         /// <remarks>
@@ -47,6 +56,15 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label AuthorLabelOneBS;
+        
+        /// <summary>
+        /// Book_Name_One control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Book_Name_One;
         
         /// <summary>
         /// View_Book_one control.
@@ -76,15 +94,6 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Image BestSeller_Two;
         
         /// <summary>
-        /// Book_Name_Two control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Book_Name_Two;
-        
-        /// <summary>
         /// AuthorLabelTwoBS control.
         /// </summary>
         /// <remarks>
@@ -92,6 +101,15 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label AuthorLabelTwoBS;
+        
+        /// <summary>
+        /// Book_Name_Two control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Book_Name_Two;
         
         /// <summary>
         /// View_Book_two control.
@@ -121,15 +139,6 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Image BestSeller_Three;
         
         /// <summary>
-        /// Book_Name_Three control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Book_Name_Three;
-        
-        /// <summary>
         /// AuthorLabelThreeBS control.
         /// </summary>
         /// <remarks>
@@ -137,6 +146,15 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label AuthorLabelThreeBS;
+        
+        /// <summary>
+        /// Book_Name_Three control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Book_Name_Three;
         
         /// <summary>
         /// View_Book_three control.
@@ -166,15 +184,6 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Image BestSellerOneImg;
         
         /// <summary>
-        /// BestSellerOnePrice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BestSellerOnePrice;
-        
-        /// <summary>
         /// AuthorNameTROne control.
         /// </summary>
         /// <remarks>
@@ -182,6 +191,15 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label AuthorNameTROne;
+        
+        /// <summary>
+        /// BestSellerOnePrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BestSellerOnePrice;
         
         /// <summary>
         /// ViewBSOne control.
@@ -211,15 +229,6 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Image BestSellerTwoImg;
         
         /// <summary>
-        /// BestSellerTwoPrice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BestSellerTwoPrice;
-        
-        /// <summary>
         /// AuthorNameTRTwo control.
         /// </summary>
         /// <remarks>
@@ -227,6 +236,15 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label AuthorNameTRTwo;
+        
+        /// <summary>
+        /// BestSellerTwoPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BestSellerTwoPrice;
         
         /// <summary>
         /// ViewBSTwo control.
@@ -256,15 +274,6 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Image BestSellerThreeImg;
         
         /// <summary>
-        /// BestSellerThreePrice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BestSellerThreePrice;
-        
-        /// <summary>
         /// AuthorNameTRThree control.
         /// </summary>
         /// <remarks>
@@ -272,6 +281,15 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label AuthorNameTRThree;
+        
+        /// <summary>
+        /// BestSellerThreePrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BestSellerThreePrice;
         
         /// <summary>
         /// ViewBSThree control.

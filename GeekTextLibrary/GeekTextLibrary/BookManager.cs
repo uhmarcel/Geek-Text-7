@@ -102,52 +102,6 @@ namespace GeekTextLibrary
             }
         }
 
-        public List<BookReview> getBookReviewsByISBN(string bookISBN, string connectionString)
-        {
-            try
-            {
-                List<BookReview> bookReviews = new List<BookReview>();
-                string query = "SELECT [userFirstName], [userLastName], [userNickName], [reviewText], [reviewRating], [displayAs]" +
-                               "FROM [User], [BookReview]" +
-                               "WHERE [ISBN] = @bookISBN AND [User].[userID] = [BookReview].[userID];";
-
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(query))
-                    {
-                        cmd.Parameters.AddWithValue("@bookISBN", bookISBN);
-                        cmd.Connection = con;
-                        con.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                string name = reader["userFirstName"].ToString() + " " + reader["userLastName"].ToString();
-                                string nick = reader["userNickname"].ToString();
-
-                                BookReview curBookReview = new BookReview();
-                                curBookReview.reviewText = reader["reviewText"].ToString();
-                                curBookReview.reviewRating = Convert.ToInt32(reader["reviewRating"]);
-                                curBookReview.displayAs = Convert.ToInt32(reader["displayAs"]);
-                                curBookReview.setUserDisplay(name, nick);
-
-                                bookReviews.Add(curBookReview);
-                            }
-                        }
-                    }
-                    con.Close();
-                }
-
-                return bookReviews;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-
-
 
         // This function probably can be deleted
         public DataSet getBookByISBN(string bookISBN, string connectionString)
