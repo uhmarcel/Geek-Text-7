@@ -121,55 +121,28 @@ GO
 -- shoppingCard
 
 CREATE TABLE [dbo].[shoppingCart](
-
 	[userID] [int] NULL,
-
 	[bookId] [nvarchar](50) NULL,
-
 	[qty] [int] NULL,
-
 	[cartID] [int] IDENTITY(1,1) NOT NULL,
-
-PRIMARY KEY CLUSTERED 
-
-(
-
-	[cartID] ASC
-
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-
+PRIMARY KEY CLUSTERED ([cartID] ASC)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-
 GO
-
-
 
 ALTER TABLE [dbo].[shoppingCart]  WITH CHECK ADD  CONSTRAINT [FK_shoppingCart_Book] FOREIGN KEY([bookId])
-
 REFERENCES [dbo].[Book] ([ISBN])
-
 GO
-
-
 
 ALTER TABLE [dbo].[shoppingCart] CHECK CONSTRAINT [FK_shoppingCart_Book]
-
 GO
-
-
 
 ALTER TABLE [dbo].[shoppingCart]  WITH CHECK ADD  CONSTRAINT [FK_shoppingCart_User] FOREIGN KEY([userID])
-
 REFERENCES [dbo].[User] ([userID])
-
 GO
-
-
 
 ALTER TABLE [dbo].[shoppingCart] CHECK CONSTRAINT [FK_shoppingCart_User]
-
 GO
-
 
 -- BookReview
 
@@ -191,6 +164,32 @@ CREATE TABLE [dbo].[UserPurchases] (
 );
 
 GO
+
+-- wishList
+
+CREATE TABLE [dbo].[wishList](
+	[userID] [int] NULL,
+	[bookId] [nvarchar](50) NULL,
+	[wishID] [int] IDENTITY(1,1) NOT NULL,
+PRIMARY KEY CLUSTERED ([wishID] ASC)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[wishList]  WITH CHECK ADD  CONSTRAINT [FK_wishList_Book] FOREIGN KEY([bookId])
+REFERENCES [dbo].[Book] ([ISBN])
+GO
+
+ALTER TABLE [dbo].[wishList] CHECK CONSTRAINT [FK_wishList_Book]
+GO
+
+ALTER TABLE [dbo].[wishList]  WITH CHECK ADD  CONSTRAINT [FK_wishList_User] FOREIGN KEY([userID])
+REFERENCES [dbo].[User] ([userID])
+GO
+
+ALTER TABLE [dbo].[wishList] CHECK CONSTRAINT [FK_wishList_User]
+GO
+
 
 -------------- TRIGGERS --------------
 
@@ -310,51 +309,3 @@ where Book.ISBN = 14026886
 
 
 
-CREATE TABLE [dbo].[wishList](
-
-	[userID] [int] NULL,
-
-	[bookId] [nvarchar](50) NULL,
-	
-
-	[wishID] [int] IDENTITY(1,1) NOT NULL,
-
-PRIMARY KEY CLUSTERED 
-
-(
-
-	[wishID] ASC
-
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-
-) ON [PRIMARY]
-
-GO
-
-
-
-ALTER TABLE [dbo].[wishList]  WITH CHECK ADD  CONSTRAINT [FK_wishList_Book] FOREIGN KEY([bookId])
-
-REFERENCES [dbo].[Book] ([ISBN])
-
-GO
-
-
-
-ALTER TABLE [dbo].[wishList] CHECK CONSTRAINT [FK_wishList_Book]
-
-GO
-
-
-
-ALTER TABLE [dbo].[wishList]  WITH CHECK ADD  CONSTRAINT [FK_wishList_User] FOREIGN KEY([userID])
-
-REFERENCES [dbo].[User] ([userID])
-
-GO
-
-
-
-ALTER TABLE [dbo].[wishList] CHECK CONSTRAINT [FK_wishList_User]
-
-GO

@@ -14,6 +14,7 @@ namespace GeekText
     public partial class BookPageTemplate : System.Web.UI.Page
     {
         public bool currentUserOwnsBook = false;
+        public bool hasAlreadyCommented = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,6 +31,7 @@ namespace GeekText
                     DisplayBookDetails(ISBN);
                     DisplayBookReviews(ISBN);
                     DisplayCreateReview(currentUser, ISBN);
+
                 }
             }
             catch (Exception ex)
@@ -54,11 +56,11 @@ namespace GeekText
                 Book_Genre.Text = bookToBeDisplayed.genre;
                 User_Rating.Text = bookToBeDisplayed.bookRating.ToString();
 
-               // Convert Byte Array to image
-                 Book_Cover.ImageUrl = "data:image;base64," + Convert.ToBase64String(bookToBeDisplayed.bookCover); 
+                // Convert Byte Array to image
+                Book_Cover.ImageUrl = "data:image;base64," + Convert.ToBase64String(bookToBeDisplayed.bookCover);
 
 
-              Publishing_Company.Text = bookToBeDisplayed.publishingInfo.publishingCompany;
+                Publishing_Company.Text = bookToBeDisplayed.publishingInfo.publishingCompany;
                 Publishing_Location.Text = bookToBeDisplayed.publishingInfo.location;
                 Publishing_Year.Text = bookToBeDisplayed.publishingInfo.copyrightYear.ToString();
             }
@@ -70,7 +72,7 @@ namespace GeekText
 
         protected void DisplayBookReviews(string ISBN)
         {
-            List<BookReview> BookReviews = new BookManager().getBookReviewsByISBN(ISBN, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            List<BookReview> BookReviews = BookReview.getBookReviewsByISBN(ISBN, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             reviewsRepeater.DataSource = BookReviews;
             reviewsRepeater.DataBind();
         }
@@ -78,9 +80,33 @@ namespace GeekText
         protected void DisplayCreateReview(User currentUser, string ISBN)
         {
             this.currentUserOwnsBook = UserPurchases.hasUserPurchasedBook(currentUser.userID, ISBN, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            this.hasAlreadyCommented = BookReview.existsUserComment(currentUser.userID, ISBN, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             createReview_Name.Text = currentUser.userFirstName;
-            radioFullname.InnerHtml = currentUser.userFirstName + " " + currentUser.userLastName;
-            radioNickname.InnerHtml = currentUser.userNickName;
+            radioFullname.InnerText = currentUser.userFirstName + " " + currentUser.userLastName;
+            radioNickname.InnerText = currentUser.userNickName;
+            reviewWelcomeMessage.InnerText = hasAlreadyCommented ? "Edit your review of this book" : "Add a review for this book";
+            textAreaTitle.InnerText = hasAlreadyCommented ? "Modify your review" : "Write a review of the book";
+
+            if (hasAlreadyCommented)
+            {
+                BookReview lastReview = BookReview.getBookReviewsByUserAndISBN(currentUser.userID, ISBN, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                prefillReviewDisplay(lastReview);
+            }
+        }
+
+        protected void prefillReviewDisplay(BookReview review)
+        {
+            createReviewTextarea.Value = review.reviewText;
+            createReviewRating.Value = review.reviewRating.ToString();
+            createReviewDisplay.Value = review.displayAs.ToString();
+            //Page.ClientScript.RegisterStartupScript(
+            //    GetType(),
+            //    "updateDisplay",
+            //    "window.onload = function () {" +                              
+            //    "document.getElementById('ratingStar" + review.reviewRating + "').click();" +
+            //    "alert('testu2');}",
+            //    true
+            //    );
         }
 
         protected void submitUserReview(object sender, EventArgs e)
@@ -91,7 +117,12 @@ namespace GeekText
             userReview.ISBN = Request.QueryString["ISBN"];
             userReview.displayAs = Convert.ToInt32(createReviewDisplay.Value);
             userReview.userID = Convert.ToInt32(Session["UserID"].ToString());
-            userReview.insertIntoDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            bool commentExists = BookReview.existsUserComment(userReview.userID, userReview.ISBN, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+
+            if (commentExists)
+                userReview.updateIntoDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+            else
+                userReview.insertIntoDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             Response.Redirect(Request.RawUrl);
         }
 
