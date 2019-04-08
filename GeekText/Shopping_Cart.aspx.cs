@@ -95,7 +95,8 @@ namespace GeekText
             string ISBN = CartGridView.DataKeys[row.RowIndex].Values["ISBN"].ToString();
 
 
-            //ServicesShoppingCart.SaveWishProduct(ISBN);
+            ServicesShoppingCart.SaveWishProduct(ISBN);
+            ServicesShoppingCart.DeleteIteminDB(ISBN);
             RenderGrid();
         }
         double sumFooterValue = 0;
@@ -118,6 +119,22 @@ namespace GeekText
 
                 e.Row.Cells[6].Text = sumFooterValue.ToString();
             }
+        }
+
+        protected void AddItemtoCar_OnClick(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            GridViewRow row = btn.NamingContainer as GridViewRow;
+            string ISBN = WishGridView.DataKeys[row.RowIndex].Values["ISBN"].ToString();
+
+
+            ServicesShoppingCart.AddItem(new BookItem
+            {
+                ISBN = ISBN,
+                quantity = 1
+            });
+            ServicesShoppingCart.RemoveWishItem(ISBN);
+            RenderGrid();
         }
     }
 }

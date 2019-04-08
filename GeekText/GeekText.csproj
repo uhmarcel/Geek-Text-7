@@ -163,7 +163,6 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
-    <Content Include="SearchBooks.aspx" />
     <Content Include="Shopping_Cart.aspx" />
     <Content Include="SignUp.aspx" />
     <Content Include="Site.Master" />
@@ -223,13 +222,6 @@
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchBooks.aspx.cs">
-      <DependentUpon>SearchBooks.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SearchBooks.aspx.designer.cs">
-      <DependentUpon>SearchBooks.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Services\ServicesShoppingCart.cs" />
     <Compile Include="Shopping_Cart.aspx.cs">
       <DependentUpon>Shopping_Cart.aspx</DependentUpon>

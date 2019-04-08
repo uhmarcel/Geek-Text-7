@@ -78,12 +78,16 @@
 
         <% if (currentUserOwnsBook) { %>
             <p class="text-muted"><asp:Label ID="createReview_Name" Text="Hey" runat="server" />, you own this book!</p>
-            <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#createReviewDiv" aria-expanded="false" aria-controls="createReviewDiv">Add a review for this book</button>
-            <h1></h1> <%--Replace later with spacing--%>
+            <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#createReviewDiv" aria-expanded="false" aria-controls="createReviewDiv">
+                <span id="reviewWelcomeMessage" runat="server" />
+            </button>
+            <h1></h1>
 
             <div id='createReviewDiv' class="collapse">
                 <div class="card card-body">
-                    <label for="createReviewTextarea" class="inline">Write a review of the book</label>
+                    <label for="createReviewTextarea" class="inline">
+                        <span id="textAreaTitle" runat="server" />
+                    </label>
                     <span id="reviewRatingSpan" class="pull-right">
                         <label>Rating:</label>
                         <i id='ratingStar1' class="far fa-star"></i>

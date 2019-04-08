@@ -5,8 +5,8 @@
     <div id="AuthorInfoDiv" runat="server">
         <h2>
             <asp:Label ID="AuthorName_lbl" runat="server" Text ="AuthorName"></asp:Label></h2>
-        <p>
-            <asp:Label ID="AuthorShortBio_lbl" runat="server" Text ="ShortBio"></asp:Label></p>
+        
+            <asp:Label ID="AuthorShortBio_lbl" runat="server" Text ="ShortBio"></asp:Label>
     </div>
 
     <div id ="BooksByAuthorDiv" runat="server">

@@ -7,6 +7,191 @@ namespace GeekTextLibrary
     public class BookSearch
     {
 
+        //public int GetNumberOfRowsInResult(string bookTitle, List<string> genresList, bool value, List<string> ratings, string sortingCriteria, string sortingOrientation, int currentSection, int range, string connectionString)
+        //{
+        //    try
+        //    {
+        //        List<Book> books = new List<Book>();
+
+        //        string myQuery = StartQuery();
+
+        //        if (bookTitle != "" || genresList.Count != 0 || value || ratings.Count != 0)
+        //        {
+        //            myQuery = GetBooksByTitleAndAllFilters(myQuery, bookTitle, genresList, value, ratings);
+        //        }
+
+        //        if (sortingCriteria != "Default")
+        //        {
+        //            myQuery = GetBooksSorted(myQuery, sortingCriteria, sortingOrientation);
+        //        }
+
+        //        myQuery = FinishQuery(myQuery);
+
+        //        books = connectAndSendQuery(myQuery, connectionString);
+
+        //        return books.Count;
+        //    }
+
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+        public List<Book> GetBooksByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool value, List<string> ratings, string sortingCriteria, string sortingOrientation, string connectionString)
+        {
+            try
+            {
+                List<Book> books = new List<Book>();
+
+                string myQuery = StartQuery();
+
+                if (bookTitle != "" || genresList.Count != 0 || value || ratings.Count != 0)
+                {
+                    myQuery = GetBooksByTitleAndAllFilters(myQuery, bookTitle, genresList, value, ratings);
+                }
+
+                if (sortingCriteria != "Default")
+                {
+                    myQuery = GetBooksSorted(myQuery, sortingCriteria, sortingOrientation);
+                }
+                //else
+                //{
+                //    myQuery = AuxOrderBy(myQuery);
+                //}
+
+                //myQuery = Pagination(myQuery, currentSection, range);
+
+                myQuery = FinishQuery(myQuery);
+
+                books = connectAndSendQuery(myQuery, connectionString);
+
+                return books;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string StartQuery()
+        {
+            string query = "SELECT * FROM Book";
+            return query;
+        }
+
+        public string GetBooksByTitleAndAllFilters(string query, string bookTitle, List<string> genresList, bool value, List<string> ratings)
+        {
+            query = query + " WHERE ";
+
+            if (bookTitle != "")
+            {
+                query = query + "bookTitle LIKE '%" + bookTitle + "%'";
+
+                if (genresList.Count != 0 || value || ratings.Count != 0)
+                {
+                    query = query + " AND ";
+                }
+            }
+
+            if (genresList.Count != 0)
+            {
+                query = query + "(bookGenre='" + genresList[0] + "'";
+
+                for (int i = 1; i < genresList.Count; i++)
+                {
+                    query = query + " OR bookGenre='" + genresList[i] + "'";
+                }
+
+                query = query + ")";
+
+                if (value || ratings.Count != 0)
+                {
+                    query = query + " AND ";
+                }
+            }
+
+            if (value)
+            {
+                query = query + "bestSeller=1";
+
+                if (ratings.Count != 0)
+                {
+                    query = query + " AND ";
+                }
+            }
+
+            if (ratings.Count != 0)
+            {
+                string maxRange = (Convert.ToInt32(ratings[0]) + 1).ToString();
+                query = query + "((userRating>=" + ratings[0] + " AND userRating<" + maxRange + ")";
+
+                for (int i = 1; i < ratings.Count; i++)
+                {
+                    maxRange = (Convert.ToInt32(ratings[i]) + 1).ToString();
+                    query = query + " OR (userRating>=" + ratings[i] + " AND userRating<" + maxRange + ")";
+                }
+
+                query = query + ")";
+            }
+
+            return query;
+        }
+
+        public string GetBooksSorted(string query, string sortingCriteria, string sortingOrientation)
+        {
+            query = query + " ORDER BY ";
+
+            switch (sortingCriteria)
+            {
+                case "Title":
+                    query = query + "bookTitle";
+                    break;
+                case "Author":
+                    query = query + "bookAuthor";
+                    break;
+                case "Price":
+                    query = query + "bookPrice";
+                    break;
+                case "Rating":
+                    query = query + "userRating";
+                    break;
+                case "Release Date":
+                    query = query + "publishingYear";
+                    break;
+            }
+
+            if (sortingOrientation == "Descending")
+            {
+                query = query + " DESC";
+            }
+
+            return query;
+        }
+
+        //public string AuxOrderBy(string query)
+        //{
+        //    query = query + " ORDER BY (SELECT NULL)";
+
+        //    return query;
+        //}
+
+        //public string Pagination(string query, int currentSection, int range)
+        //{
+        //    int offset = currentSection - 1;
+        //    query = query + " OFFSET " + offset + " ROWS FETCH NEXT " + range + " ROWS ONLY";
+
+        //    return query;
+        //}
+
+        public string FinishQuery(string query)
+        {
+            query = query + ";";
+
+            return query;
+        }
+
         public List<Book> connectAndSendQuery(string query, string connectionString)
         {
             List<Book> books = new List<Book>();
@@ -52,92 +237,6 @@ namespace GeekTextLibrary
             }
 
             return books;
-        }
-
-        public List<Book> getBooksByTitle(string bookTitle, string connectionString)
-        {
-            try
-            {
-                List<Book> books = new List<Book>();
-
-                string query = "SELECT * FROM Book WHERE bookTitle LIKE '%" + bookTitle + "%';";
-
-                books = connectAndSendQuery(query, connectionString);
-
-                return books;
-            }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public List<Book> getBooksByAllFilters(List<string> genresList, bool value, List<string> ratings, string connectionString)
-        {
-            try
-            {
-                List<Book> books = new List<Book>();
-
-                string query = "";
-
-                if (genresList.Count != 0 || value || ratings.Count != 0)
-                {
-                    query = "SELECT * FROM Book WHERE ";
-
-                    if (genresList.Count != 0)
-                    {
-                        query = query + "(bookGenre='" + genresList[0] + "'";
-
-                        for (int i = 1; i < genresList.Count; i++)
-                        {
-                            query = query + " OR bookGenre='" + genresList[i] + "'";
-                        }
-
-                        query = query + ")";
-
-                        if (value || ratings.Count != 0)
-                        {
-                            query = query + " AND ";
-                        }
-                    }
-
-                    if (value)
-                    {
-                        query = query + "bestSeller=1";
-
-                        if (ratings.Count != 0)
-                        {
-                            query = query + " AND ";
-                        }
-                    }
-
-                    if (ratings.Count != 0)
-                    {
-                        string maxRange = (Convert.ToInt32(ratings[0]) + 1).ToString();
-                        query = query + "((userRating>=" + ratings[0] + " AND userRating<" + maxRange + ")";
-
-                        for (int i = 1; i < ratings.Count; i++)
-                        {
-                            maxRange = (Convert.ToInt32(ratings[i]) + 1).ToString();
-                            query = query + " OR (userRating>=" + ratings[i] + " AND userRating<" + maxRange + ")";
-                        }
-
-                        query = query + ")";
-                    }
-
-                    query = query + ";";
-
-                    books = connectAndSendQuery(query, connectionString);
-                }
-
-                return books;
-            }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
     }
 }

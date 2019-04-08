@@ -6,6 +6,7 @@ SET QUOTED_IDENTIFIER ON
 
 -------------- CREATE TABLES --------------
 
+DROP TABLE IF EXISTS [dbo].[wishList]
 DROP TABLE IF EXISTS [dbo].[shoppingCart]
 DROP TABLE IF EXISTS [dbo].[UserPurchases]
 DROP TABLE IF EXISTS [dbo].[BookReview]
@@ -120,15 +121,12 @@ GO
 -- shoppingCard
 
 CREATE TABLE [dbo].[shoppingCart](
-	[cartID] [int] NOT NULL,
 	[userID] [int] NULL,
 	[bookId] [nvarchar](50) NULL,
 	[qty] [int] NULL,
-	[Price] [money] NULL,
- CONSTRAINT [PK_shoppingCart] PRIMARY KEY CLUSTERED 
-(
-	[cartID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	[cartID] [int] IDENTITY(1,1) NOT NULL,
+PRIMARY KEY CLUSTERED ([cartID] ASC)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 
@@ -167,6 +165,32 @@ CREATE TABLE [dbo].[UserPurchases] (
 
 GO
 
+-- wishList
+
+CREATE TABLE [dbo].[wishList](
+	[userID] [int] NULL,
+	[bookId] [nvarchar](50) NULL,
+	[wishID] [int] IDENTITY(1,1) NOT NULL,
+PRIMARY KEY CLUSTERED ([wishID] ASC)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[wishList]  WITH CHECK ADD  CONSTRAINT [FK_wishList_Book] FOREIGN KEY([bookId])
+REFERENCES [dbo].[Book] ([ISBN])
+GO
+
+ALTER TABLE [dbo].[wishList] CHECK CONSTRAINT [FK_wishList_Book]
+GO
+
+ALTER TABLE [dbo].[wishList]  WITH CHECK ADD  CONSTRAINT [FK_wishList_User] FOREIGN KEY([userID])
+REFERENCES [dbo].[User] ([userID])
+GO
+
+ALTER TABLE [dbo].[wishList] CHECK CONSTRAINT [FK_wishList_User]
+GO
+
+
 -------------- TRIGGERS --------------
 
 CREATE or ALTER TRIGGER updateBookRating 
@@ -188,7 +212,7 @@ GO
 -- Books
 insert into Book (ISBN, bookTitle, bookDescription, publishingLocation, publishingYear, publishingCompany, userRating, userComment, bookPrice, bookAuthor, bookGenre, bestSeller)
 values (0130895725, 'The Iliad', 'The story of the war in troy featuring achilles and his heel', 'Greece', 200, 'Classic Book Company', null, null, 28.99, 'Homer', 'Action', 1),
-	   (0132261197, 'Harry Potter', 'A kid finds out he is a wizard', 'London', 2001, 'Wiley', null, null, 19.99,'J.K Rowling', 'fiction', 0),
+	   (0132261197, 'Harry Potter', 'A kid finds out he is a wizard', 'London', 2001, 'Wiley', null, null, 19.99,'J.K Rowling', 'fiction', 1),
 	   (0130895717, 'House of Glass', 'A house made of glass and glass related accessories', 'Scotland', 2004, 'Harper Collins', null , null, 22.99, 'Daniel Lifeson', 'Thriller', 0),
 	   (0135289106, 'Calculus Textbook', 'An introductory Calculus textbook for high schoolers', 'Massachusets', 2008,'Education Books', null, null, 149.99, 'Isaac Newton', 'Mathematics', 0),
 	   (0139163050, 'Charlottes Web', 'A childrens book about a pig and a spider', 'Indiana', 1982, 'Prentice', null, null, 14.99, 'E.B. White', 'Adventure', 0),
@@ -241,9 +265,6 @@ values (3, 0130284190, 'This was a really entertaining book, I’d highly recommen
 		 ('Isaac Newton', '135289106',' Isaac Newton was born at Woolsthorpe near Grantham in Lincolnshire, England on 4 January 1643. His father died before he was born and in 1645 his mother married a clergyman from North Welham in Leicestershire. She went to live with him while Isaac Newton lived with his grandmother. His mother returned to Woolsthorpe in 1656 when her second husband died and Isaac Newton went to live with her again. From the age of 12 to 14 Isaac Newton went to Grantham Grammar School. During this time he lodged with an apothecary and his family. Then in 1659 Isaac had to leave to help his mother on the family farm. Isaac was not in the slightest bit interested in running a farm and in 1660 he went to the grammar school again. In 1661 he went to Trinity College Cambridge. Isaac Newton obtained a BA in 1665. In 1666 Isaac Newton was forced to flee Cambridge because of an outbreak of the plague and he returned temporarily to Woolsthorpe. He returned to university in 1667.' ),
 		 ('E.B. White', '139163050','E.B. White was born in New York in 1899. In 1927, White joined The New Yorker magazine as writer and contributing editor—a position he would hold for the rest of his career. He wrote three books for children, including Stuart Little (1945) and Charlotte''s Web (1952). In 1959 he revised The Elements of Style by the late William Strunk Jr., which became a standard style manual for writers. White, who earned a Pulitzer Prize special citation in 1978, passed away at his home in Maine in 1985.' );
 	   
--- ShoppingCart
-insert into [shoppingCart] (cartID, userID, bookID, qty, Price)
-values (1, 1, 0130895725, 1, 29.99);
 
 
 -- IMPORTANT
@@ -283,3 +304,8 @@ update Book
 set bookCover =
 	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\9780199360314.jfif' , Single_Blob) as image)
 where Book.ISBN = 14026886
+
+
+
+
+
