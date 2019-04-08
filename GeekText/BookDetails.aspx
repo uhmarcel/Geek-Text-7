@@ -48,6 +48,13 @@
 
             </Columns>
         </asp:GridView>
+        <asp:Panel ID="Panel1" runat="server" style="float: right; " Visible="False" Width="212px">
+            <asp:Button ID="Button2" runat="server" Text="Previous" OnClick="Button2_Click" Enabled="False" />
+            <asp:Label ID="Label5" runat="server" Text="1"></asp:Label>   
+            <asp:Label ID="Label6" runat="server" Text="-"></asp:Label>
+            <asp:Label ID="Label7" runat="server" Text="2"></asp:Label>
+            <asp:Button ID="Button3" runat="server" Text="Next" OnClick="Button3_Click" Enabled="False" Width="83px" />
+        </asp:Panel>
     </div>
     <div id="SearchAndFiltersDiv" style="float: right; height: 374px; width: 140px; margin-left: 0px;">
         <h3 style="width: 90px">Filter</h3>
