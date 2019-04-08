@@ -26,6 +26,7 @@ namespace GeekText.Services
         const string SessionCar = "ShoopingCarName";
 
         const string SaveForLater = "SaveForLater";
+
         static string connectionString = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
         private static void SaveCarToDb(ShoppingCart shoppingCart)
         {
@@ -36,24 +37,46 @@ namespace GeekText.Services
 
                 foreach (var book in shoppingCart.BookList)
                 {
-                    exist = isinDB(userID, book.ISBN);
+                    exist = IsinDB(userID, book.ISBN);
 
 
                     if (exist)
                     {
-                        updateCarinDB(userID, book);
+                        UpdateCarinDB(userID, book);
                     }
                     else
                     {
-                        saveCarinDB(userID, book);
+                        SaveCarinDB(userID, book);
                     }
 
                 }
             }
-
         }
+        private static void SaveWishListToDb(List<string> wishList)
+        {
+            string userID = GetUserId();
+            if (userID != "")
+            {
+                bool exist;
 
-        private static bool updateCarinDB(string userID, BookItem book)
+                foreach (var isbn in wishList)
+                {
+                    exist = WishItemIsinDB(userID, isbn);
+
+
+                    if (exist)
+                    {
+                        // UpdateWishInDB(userID, isbn);
+                    }
+                    else
+                    {
+                        SaveWishinDB(userID, isbn);
+                    }
+
+                }
+            }
+        }
+        private static bool UpdateCarinDB(string userID, BookItem book)
         {
             bool result;
 
@@ -78,7 +101,8 @@ namespace GeekText.Services
             return result;
         }
 
-        private static bool saveCarinDB(string userID, BookItem book)
+
+        private static bool SaveCarinDB(string userID, BookItem book)
         {
             bool result = false;
 
@@ -108,8 +132,9 @@ namespace GeekText.Services
             return result;
         }
 
-        private static bool deleteIteminDB(string userID, string ISBN)
+        public static bool DeleteIteminDB(string ISBN)
         {
+            string userID = GetUserId();
             bool result = false;
             if (userID != "")
             {
@@ -136,7 +161,92 @@ namespace GeekText.Services
             return result;
         }
 
-        private static bool isinDB(string userID, string ISBN)
+
+        public static bool RemoveWishItem(string ISBN)
+        {
+            string userID = GetUserId();
+            bool result = false;
+            if (userID != "")
+            {
+
+                string sqlText =
+                    @"DELETE FROM  wishList WHERE  userId = @parameterUserId AND  bookId=@parameterBookId";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+
+                    using (SqlCommand cmd = new SqlCommand(sqlText))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@parameterUserId", userID));
+                        cmd.Parameters.Add(new SqlParameter("@parameterBookId", ISBN));
+                        cmd.Connection = con;
+                        con.Open();
+                        Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
+                        result = (count > 0);
+                    }
+
+                    con.Close();
+                }
+            }
+
+            return result;
+        }
+        private static bool UpdateWishInDB(string userID, string ISBN)
+        {
+            bool result;
+
+            string sqlText = @"UPDATE wishList SET   where UserId= @parameterUserId AND bookId= @parameterbookId";
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+
+                using (SqlCommand cmd = new SqlCommand(sqlText))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@parameterUserId", userID));
+                    cmd.Parameters.Add(new SqlParameter("@parameterbookId", ISBN));
+
+
+                    cmd.Connection = con;
+                    con.Open();
+                    Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
+                    result = (count > 0);
+                }
+                con.Close();
+            }
+
+            return result;
+        }
+
+        private static bool SaveWishinDB(string userID, string isbn)
+        {
+            bool result = false;
+
+            if (userID != "")
+            {
+                string sqlText =
+                    @"INSERT INTO  wishList ( userId, bookId) VALUES( @parameterUserId, @parameterBookId );";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+
+                    using (SqlCommand cmd = new SqlCommand(sqlText))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@parameterUserId", userID));
+                        cmd.Parameters.Add(new SqlParameter("@parameterBookId", isbn));
+
+
+                        cmd.Connection = con;
+                        con.Open();
+                        Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
+                        result = (count > 0);
+                    }
+
+                    con.Close();
+                }
+            }
+
+            return result;
+        }
+
+
+        private static bool IsinDB(string userID, string ISBN)
         {
             bool result = false;
 
@@ -144,6 +254,35 @@ namespace GeekText.Services
             {
                 string sqlText =
                     @"Select COUNT(userID) from shoppingCart where userID= @parameterUserId AND bookId= @parameterbookId";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+
+                    using (SqlCommand cmd = new SqlCommand(sqlText))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@parameterUserId", userID));
+                        cmd.Parameters.Add(new SqlParameter("@parameterbookId", ISBN));
+                        cmd.Connection = con;
+                        con.Open();
+                        Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
+                        result = (count > 0);
+                    }
+
+                    con.Close();
+                }
+            }
+
+            return result;
+        }
+
+
+        private static bool WishItemIsinDB(string userID, string ISBN)
+        {
+            bool result = false;
+
+            if (userID != "")
+            {
+                string sqlText =
+                    @"Select COUNT(userID) from wishList where userID= @parameterUserId AND bookId= @parameterbookId";
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
 
@@ -181,17 +320,17 @@ namespace GeekText.Services
                         cmd.Connection = con;
                         con.Open();
                         Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
-                        
+
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             myCart.BookList = new List<BookItem>();
-                            
+
                             while (reader.Read())
                             {
                                 BookItem item = new BookItem();
 
                                 item.ISBN = reader["bookId"].ToString();
-                                item.quantity= Convert.ToInt32(reader["qty"].ToString());
+                                item.quantity = Convert.ToInt32(reader["qty"].ToString());
                                 myCart.BookList.Add(item);
 
                             }
@@ -206,6 +345,44 @@ namespace GeekText.Services
             return myCart;
         }
 
+
+        public static List<string> LoadWishListFromDB()
+        {
+            List<string> myWishList = new List<string>();
+            string userID = GetUserId();
+            if (userID != "")
+            {
+                string sqlText = @"Select userID, bookID  from wishList where userID= @parameterUserId";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+
+                    using (SqlCommand cmd = new SqlCommand(sqlText))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@parameterUserId", userID));
+
+                        cmd.Connection = con;
+                        con.Open();
+                        Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+
+
+                            while (reader.Read())
+                            {
+                                myWishList.Add(reader["bookId"].ToString());
+                            }
+                        }
+
+                    }
+
+                    con.Close();
+                }
+            }
+
+            HttpContext.Current.Session[SaveForLater] = myWishList;
+            return myWishList;
+        }
         public static void AddItem(BookItem products)
         {
             ShoppingCart temp = GetShoopingCart();
@@ -236,7 +413,7 @@ namespace GeekText.Services
                     string userId = GetUserId();
                     if (userId != "")
                     {
-                        deleteIteminDB(userId, bookTemp.ISBN);
+                        DeleteIteminDB(bookTemp.ISBN);
                     }
                 }
 
@@ -259,7 +436,7 @@ namespace GeekText.Services
             {
                 result = (ShoppingCart)HttpContext.Current.Session[SessionCar];
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 result = new ShoppingCart();
                 SaveShoopingCart(result);
@@ -279,11 +456,13 @@ namespace GeekText.Services
             ShoppingCart mycar = GetShoopingCart();
             mycar.BookList.RemoveAll(p => p.ISBN == ISBN);
             SaveShoopingCart(mycar);
+            SaveWishListToDb(wishList);
             HttpContext.Current.Session[SaveForLater] = wishList;
         }
 
         public static List<string> GetWishList()
         {
+            LoadWishListFromDB();
             List<string> result;
             try
             {
