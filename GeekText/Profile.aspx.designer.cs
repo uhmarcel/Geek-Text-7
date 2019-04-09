@@ -634,6 +634,15 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Label listOfAddresses;
         
         /// <summary>
+        /// ListView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView ListView1;
+        
+        /// <summary>
         /// GridView3 control.
         /// </summary>
         /// <remarks>

@@ -299,20 +299,6 @@ namespace GeekText
             savedCardLabel.Text = "";
         }
 
-        protected void insertAddLinkButton_Click(object sender, EventArgs e)
-        {
-            ObjectDataSource1.InsertParameters["streetAddress"].DefaultValue =
-                ((TextBox)GridView3.FooterRow.FindControl("stTextBox")).Text.Trim();
-            ObjectDataSource1.InsertParameters["city"].DefaultValue =
-                ((TextBox)GridView3.FooterRow.FindControl("cityTextBox")).Text.Trim();
-            ObjectDataSource1.InsertParameters["state"].DefaultValue =
-                ((DropDownList)GridView3.FooterRow.FindControl("InsertDropDownList")).SelectedValue;
-            ObjectDataSource1.InsertParameters["zipCode"].DefaultValue =
-                ((TextBox)GridView3.FooterRow.FindControl("zipTextBox")).Text.Trim();
-            ObjectDataSource1.InsertParameters["userID"].DefaultValue = Session["UserID"].ToString().Trim();
-
-            ObjectDataSource1.Insert();
-        }
         protected void insertcardLinkButton_Click(object sender, EventArgs e)
         {
             ObjectDataSource2.InsertParameters["cardFirstName"].DefaultValue =

@@ -252,17 +252,223 @@
                 <asp:Label ID ="listOfAddresses" runat="server" Text="Current Shipping Addresses"></asp:Label>
                 <br />
                 <br />
-                <asp:GridView ID="GridView3" runat="server"  AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" OnRowUpdated="GridView3_RowUpdated" OnRowEditing="GridView3_RowEditing" ShowFooter="True" DataKeyNames="index">
+                <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1" InsertItemPosition="LastItem">
+                    <AlternatingItemTemplate>
+                        
+                    </AlternatingItemTemplate>
+                    <EditItemTemplate>
+                        <tr style="">
+                            <td>
+                                <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
+                                <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="streetAddressTextBox" runat="server" Text='<%# Bind("streetAddress") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="stateTextBox" runat="server" Text='<%# Bind("state") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="cityTextBox" runat="server" Text='<%# Bind("city") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="zipCodeTextBox" runat="server" Text='<%# Bind("zipCode") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="indexTextBox" runat="server" Text='<%# Bind("index") %>' />
+                            </td>
+                        </tr>
+                    </EditItemTemplate>
+                    <EmptyDataTemplate>
+                        <table runat="server" style="">
+                            <tr>
+                                <td>No data was returned.</td>
+                            </tr>
+                        </table>
+                    </EmptyDataTemplate>
+                    <InsertItemTemplate>
+                        <tr style="">
+                            <td>
+                                <asp:Button ID="InsertButton" runat="server" ValidationGroup="INSERT" CommandName="Insert" Text="Insert" />
+                                <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="streetAddressTextBox" runat="server" Text='<%# Bind("streetAddress") %>' />
+                                <asp:RequiredFieldValidator  runat="server" 
+                                    ID="rfvInsertStreet"
+                                    ValidationGroup="INSERT"
+                                    ControlToValidate="streetAddressTextBox" 
+                                    InitialValue="" 
+                                    Text="*"
+                                    ForeColor ="Red"
+                                    ErrorMessage="A street address is required. "> *
+                                    </asp:RequiredFieldValidator>
+                                <br />
+                                <asp:RegularExpressionValidator runat="server"
+                                    ValidationGroup="INSERT"
+                                    ControlToValidate="streetAddressTextBox" 
+                                    ErrorMessage="Must be alphanumeric." 
+                                    ValidationExpression="^[a-zA-Z0-9\s]+$" />
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="stateInsertDropDownList" runat="server"
+                                    SelectedValue = '<%# Bind("state") %>'>
+                                    <asp:ListItem Value="none">Select a State</asp:ListItem>
+                                    <asp:ListItem>AL</asp:ListItem>
+                                    <asp:ListItem>AK</asp:ListItem>
+                                    <asp:ListItem>AZ</asp:ListItem>
+                                    <asp:ListItem>AR</asp:ListItem>
+                                    <asp:ListItem>CA</asp:ListItem>
+                                    <asp:ListItem>CO</asp:ListItem>
+                                    <asp:ListItem>CT</asp:ListItem>
+                                    <asp:ListItem>DE</asp:ListItem>
+                                    <asp:ListItem>FL</asp:ListItem>
+                                    <asp:ListItem>GA</asp:ListItem>
+                                    <asp:ListItem>HI</asp:ListItem>
+                                    <asp:ListItem>ID</asp:ListItem>
+                                    <asp:ListItem>IL</asp:ListItem>
+                                    <asp:ListItem>IN</asp:ListItem>
+                                    <asp:ListItem>IA</asp:ListItem>
+                                    <asp:ListItem>KS</asp:ListItem>
+                                    <asp:ListItem>KY</asp:ListItem>
+                                    <asp:ListItem>LA</asp:ListItem>
+                                    <asp:ListItem>ME</asp:ListItem>
+                                    <asp:ListItem>MD</asp:ListItem>
+                                    <asp:ListItem>MA</asp:ListItem>
+                                    <asp:ListItem>MI</asp:ListItem>
+                                    <asp:ListItem>MN</asp:ListItem>
+                                    <asp:ListItem>MS</asp:ListItem>
+                                    <asp:ListItem>MO</asp:ListItem>
+                                    <asp:ListItem>MT</asp:ListItem>
+                                    <asp:ListItem>NE</asp:ListItem>
+                                    <asp:ListItem>NV</asp:ListItem>
+                                    <asp:ListItem>NH</asp:ListItem>
+                                    <asp:ListItem>NJ</asp:ListItem>
+                                    <asp:ListItem>NM</asp:ListItem>
+                                    <asp:ListItem>NY</asp:ListItem>
+                                    <asp:ListItem>NC</asp:ListItem>
+                                    <asp:ListItem>ND</asp:ListItem>
+                                    <asp:ListItem>OH</asp:ListItem>
+                                    <asp:ListItem>OK</asp:ListItem>
+                                    <asp:ListItem>OR</asp:ListItem>
+                                    <asp:ListItem>PA</asp:ListItem>
+                                    <asp:ListItem>RI</asp:ListItem>
+                                    <asp:ListItem>SC</asp:ListItem>
+                                    <asp:ListItem>SD</asp:ListItem>
+                                    <asp:ListItem>TN</asp:ListItem>
+                                    <asp:ListItem>TX</asp:ListItem>
+                                    <asp:ListItem>UT</asp:ListItem>
+                                    <asp:ListItem>VT</asp:ListItem>
+                                    <asp:ListItem>VA</asp:ListItem>
+                                    <asp:ListItem>WA</asp:ListItem>
+                                    <asp:ListItem>WV</asp:ListItem>
+                                    <asp:ListItem>WI</asp:ListItem>
+                                    <asp:ListItem>WY</asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator runat="server" 
+                                    ID="rfvInsertStateddl"
+                                    ControlToValidate="stateInsertDropDownList"
+                                    ValidationGroup="INSERT"
+                                    InitialValue="none" 
+                                    Text="*"
+                                    ForeColor ="Red"
+                                    ErrorMessage="A state is required. "> *
+                                </asp:RequiredFieldValidator>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="cityTextBox" runat="server" Text='<%# Bind("city") %>' />                                
+                                 <asp:RequiredFieldValidator   runat="server" 
+                                    ValidationGroup="INSERT"
+                                    ID="rfvInsertCityTxt"
+                                    ControlToValidate="cityTextBox" 
+                                    InitialValue="" 
+                                    Text="*"
+                                    ForeColor ="Red"
+                                    ErrorMessage="A city is required. "> *
+                                </asp:RequiredFieldValidator>
+                                <br />
+                                <asp:RegularExpressionValidator runat="server"
+                                    ValidationGroup="INSERT"
+                                    ControlToValidate="cityTextBox" 
+                                    ErrorMessage="Must be letters only." 
+                                    ValidationExpression="^[a-zA-Z]+$" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="zipCodeTextBox" runat="server" Text='<%# Bind("zipCode") %>' />
+                                <asp:RequiredFieldValidator  runat="server" 
+                                    ValidationGroup="INSERT"
+                                    ID="rfvInsertZipTxt"
+                                    ControlToValidate="zipCodeTextBox" 
+                                    InitialValue="" 
+                                    Text="*"
+                                    ForeColor ="Red"
+                                    ErrorMessage="A zipcode is required. "> *
+                                </asp:RequiredFieldValidator>
+                                <br />
+                                <asp:RegularExpressionValidator runat="server"
+                                    ValidationGroup="INSERT"
+                                    ControlToValidate="zipCodeTextBox" 
+                                    ErrorMessage="Must be numbers only." 
+                                    ValidationExpression="^\d{5}$" />  
+                            </td>
+                        </tr>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        
+                    </ItemTemplate>
+                    <LayoutTemplate>
+                        <table runat="server">
+                            <tr runat="server">
+                                <td runat="server">
+                                    <table id="itemPlaceholderContainer" runat="server" border="0" style="">
+                                        <tr runat="server" style="">
+                                            <th runat="server"></th>
+                                            <th runat="server">Street Address</th>
+                                            <th runat="server">State</th>
+                                            <th runat="server">City</th>
+                                            <th runat="server">Zipcode</th>
+                                        </tr>
+                                        <tr id="itemPlaceholder" runat="server">
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr runat="server">
+                                <td runat="server" style=""></td>
+                            </tr>
+                        </table>
+                    </LayoutTemplate>
+                    <SelectedItemTemplate>
+                        <tr style="">
+                            <td></td>
+                            <td>
+                                <asp:Label ID="streetAddressLabel" runat="server" Text='<%# Eval("streetAddress") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="stateLabel" runat="server" Text='<%# Eval("state") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="cityLabel" runat="server" Text='<%# Eval("city") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="zipCodeLabel" runat="server" Text='<%# Eval("zipCode") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="indexLabel" runat="server" Text='<%# Eval("index") %>' />
+                            </td>
+                        </tr>
+                    </SelectedItemTemplate>
+                </asp:ListView>
+                <br />
+                <asp:GridView ID="GridView3" runat="server"  AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" OnRowUpdated="GridView3_RowUpdated" OnRowEditing="GridView3_RowEditing" ShowFooter="True" DataKeyNames="index" Height="16px" Width="664px">
                     <Columns>
                         <asp:TemplateField ShowHeader="False">
                             <EditItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>
                                 &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
-                            </EditItemTemplate>
-                            <FooterTemplate>
-                                <asp:LinkButton ID="InsertLinkButton" runat="server" ValidationGroup="INSERT" OnClick="insertAddLinkButton_Click" >Insert</asp:LinkButton>
-                            </FooterTemplate>
+                            </EditItemTemplate>                         
                             <ItemTemplate>
+                            
                                 <asp:LinkButton ID="EditLinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
                                 &nbsp;<asp:LinkButton ID="DeleteLinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete"></asp:LinkButton>
                             </ItemTemplate>
@@ -294,25 +500,6 @@
                             <ItemTemplate>
                                 <asp:Label ID="Label2" runat="server" Text='<%# Bind("streetAddress") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="stTextBox" runat="server"></asp:TextBox>
-                                <asp:RequiredFieldValidator  runat="server" 
-                                    ID="rfvInsertStreet"
-                                    ValidationGroup="INSERT"
-                                    ControlToValidate="stTextBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A street address is required. "> *
-                                    </asp:RequiredFieldValidator>
-                                <br />
-                                <asp:RegularExpressionValidator runat="server"
-                                    ValidationGroup="INSERT"
-                                    ControlToValidate="stTextBox" 
-                                    ErrorMessage="Street Addresses must be alphanumeric only." 
-                                    ValidationExpression="^[a-zA-Z0-9\s]+$" />
-                                                                
-                            </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="State" SortExpression="state">
                             <EditItemTemplate>
@@ -382,70 +569,6 @@
                             <ItemTemplate>
                                 <asp:Label ID="Label3" runat="server" Text='<%# Bind("state") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:DropDownList ID="InsertDropDownList" runat="server">
-                                    <asp:ListItem Value="none">Select a State</asp:ListItem>
-                                    <asp:ListItem>AL</asp:ListItem>
-                                    <asp:ListItem>AK</asp:ListItem>
-                                    <asp:ListItem>AZ</asp:ListItem>
-                                    <asp:ListItem>AR</asp:ListItem>
-                                    <asp:ListItem>CA</asp:ListItem>
-                                    <asp:ListItem>CO</asp:ListItem>
-                                    <asp:ListItem>CT</asp:ListItem>
-                                    <asp:ListItem>DE</asp:ListItem>
-                                    <asp:ListItem>FL</asp:ListItem>
-                                    <asp:ListItem>GA</asp:ListItem>
-                                    <asp:ListItem>HI</asp:ListItem>
-                                    <asp:ListItem>ID</asp:ListItem>
-                                    <asp:ListItem>IL</asp:ListItem>
-                                    <asp:ListItem>IN</asp:ListItem>
-                                    <asp:ListItem>IA</asp:ListItem>
-                                    <asp:ListItem>KS</asp:ListItem>
-                                    <asp:ListItem>KY</asp:ListItem>
-                                    <asp:ListItem>LA</asp:ListItem>
-                                    <asp:ListItem>ME</asp:ListItem>
-                                    <asp:ListItem>MD</asp:ListItem>
-                                    <asp:ListItem>MA</asp:ListItem>
-                                    <asp:ListItem>MI</asp:ListItem>
-                                    <asp:ListItem>MN</asp:ListItem>
-                                    <asp:ListItem>MS</asp:ListItem>
-                                    <asp:ListItem>MO</asp:ListItem>
-                                    <asp:ListItem>MT</asp:ListItem>
-                                    <asp:ListItem>NE</asp:ListItem>
-                                    <asp:ListItem>NV</asp:ListItem>
-                                    <asp:ListItem>NH</asp:ListItem>
-                                    <asp:ListItem>NJ</asp:ListItem>
-                                    <asp:ListItem>NM</asp:ListItem>
-                                    <asp:ListItem>NY</asp:ListItem>
-                                    <asp:ListItem>NC</asp:ListItem>
-                                    <asp:ListItem>ND</asp:ListItem>
-                                    <asp:ListItem>OH</asp:ListItem>
-                                    <asp:ListItem>OK</asp:ListItem>
-                                    <asp:ListItem>OR</asp:ListItem>
-                                    <asp:ListItem>PA</asp:ListItem>
-                                    <asp:ListItem>RI</asp:ListItem>
-                                    <asp:ListItem>SC</asp:ListItem>
-                                    <asp:ListItem>SD</asp:ListItem>
-                                    <asp:ListItem>TN</asp:ListItem>
-                                    <asp:ListItem>TX</asp:ListItem>
-                                    <asp:ListItem>UT</asp:ListItem>
-                                    <asp:ListItem>VT</asp:ListItem>
-                                    <asp:ListItem>VA</asp:ListItem>
-                                    <asp:ListItem>WA</asp:ListItem>
-                                    <asp:ListItem>WV</asp:ListItem>
-                                    <asp:ListItem>WI</asp:ListItem>
-                                    <asp:ListItem>WY</asp:ListItem>
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator runat="server" 
-                                    ValidationGroup="INSERT"
-                                    ID="rfvInsertState"
-                                    ControlToValidate="InsertDropDownList" 
-                                    InitialValue="none" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A state is required. "> *
-                                </asp:RequiredFieldValidator>
-                            </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="City" SortExpression="city">
                             <EditItemTemplate>
@@ -466,26 +589,8 @@
                             <ItemTemplate>
                                 <asp:Label ID="Label4" runat="server" Text='<%# Bind("city") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="cityTextBox" runat="server"></asp:TextBox>
-                                 <asp:RequiredFieldValidator   runat="server" 
-                                    ValidationGroup="INSERT"
-                                    ID="rfvInsertCityTxt"
-                                    ControlToValidate="cityTextBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A city is required. "> *
-                                </asp:RequiredFieldValidator>
-                                <br />
-                                <asp:RegularExpressionValidator runat="server"
-                                    ValidationGroup="INSERT"
-                                    ControlToValidate="cityTextBox" 
-                                    ErrorMessage="A city must be letters only." 
-                                    ValidationExpression="^[a-zA-Z]+$" />
-                            </FooterTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="ZipCode" SortExpression="zipCode">
+                        <asp:TemplateField HeaderText="Zipcode" SortExpression="zipCode">
                             <EditItemTemplate>
                                 <asp:TextBox ID="shipZipTextBox" runat="server" Text='<%# Bind("zipCode") %>'></asp:TextBox>
                                 <asp:RequiredFieldValidator runat="server" 
@@ -504,27 +609,9 @@
                             <ItemTemplate>
                                 <asp:Label ID="Label5" runat="server" Text='<%# Bind("zipCode") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="zipTextBox" runat="server"></asp:TextBox>
-                                <asp:RequiredFieldValidator  runat="server" 
-                                    ValidationGroup="INSERT"
-                                    ID="rfvInsertZipTxt"
-                                    ControlToValidate="zipTextBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A zipcode is required. "> *
-                                </asp:RequiredFieldValidator>
-                                <br />
-                                <asp:RegularExpressionValidator runat="server"
-                                    ValidationGroup="INSERT"
-                                    ControlToValidate="zipTextBox" 
-                                    ErrorMessage="Zipcode must be five numbers only." 
-                                    ValidationExpression="^\d{5}$" />
-                                
-                            </FooterTemplate>
+                            
                         </asp:TemplateField>
-                    </Columns>
+                    </Columns>                    
                 </asp:GridView>
                 <br />
                 <br />
@@ -571,7 +658,7 @@
                 <br />               
                 <asp:Label ID ="currCreditCardLabel" runat="server" Text="Current Credit Cards"></asp:Label>
                 <br />
-                <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource2" OnRowUpdated="GridView4_RowUpdated" OnRowEditing="GridView4_RowEditing" ShowFooter="True" DataKeyNames="cardIndex" >
+                <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource2" OnRowUpdated="GridView4_RowUpdated" OnRowEditing="GridView4_RowEditing" ShowFooter="True" DataKeyNames="cardIndex" ShowFooterWhenEmpty="true" >
                     <Columns>
                         <asp:TemplateField ShowHeader="False">
                             <EditItemTemplate>
