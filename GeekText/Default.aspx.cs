@@ -96,5 +96,11 @@ namespace GeekText
             String ISBN = BSThreeHF.Value;
             Response.Redirect("bookPage.aspx?ISBN=" + ISBN);
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Session["SearchString"] =  TextBox1.Text;
+            Response.Redirect("BookDetails");
+        }
     }
 }
