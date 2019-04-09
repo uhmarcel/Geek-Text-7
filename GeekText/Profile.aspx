@@ -225,11 +225,6 @@
                     <asp:ListItem>WI</asp:ListItem>
                     <asp:ListItem>WY</asp:ListItem>
                 </asp:DropDownList>
-                    <asp:RequiredFieldValidator runat="server" 
-                        ControlToValidate="DropDownList" 
-                        InitialValue="none" 
-                        ErrorMessage="A state is required. "> *
-                    </asp:RequiredFieldValidator>
                     &nbsp; &nbsp;
                     <asp:Label ID="EditZipCodeLabel" runat="server" Text="Zip Code:"></asp:Label>
                     &nbsp;

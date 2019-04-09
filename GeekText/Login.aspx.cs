@@ -16,9 +16,11 @@ namespace GeekText
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["Username"] != null && Session["UserPass"] != null && Session["userID"]!= null)
+            {
+                Response.Redirect("Profile.aspx");
+            }
         }
-
         protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
         {
 

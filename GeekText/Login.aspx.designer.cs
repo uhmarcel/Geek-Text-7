@@ -22,15 +22,6 @@ namespace GeekText {
         protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
-        /// signUpBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button signUpBtn;
-        
-        /// <summary>
         /// Login1 control.
         /// </summary>
         /// <remarks>
@@ -38,5 +29,23 @@ namespace GeekText {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Login Login1;
+        
+        /// <summary>
+        /// signUplabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label signUplabel;
+        
+        /// <summary>
+        /// signUpBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button signUpBtn;
     }
 }

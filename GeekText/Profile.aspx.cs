@@ -67,10 +67,7 @@ namespace GeekText
 
         protected void EditProfileBtn_Click(object sender, EventArgs e)
         {
-            if (Session["Username"] == null && Session["UserPass"] == null)
-            {
-                Response.Redirect("Login.aspx");
-            }
+            
             ProfilePanel.Visible = false;
             EditPanel.Visible = true;
             SuccessLabel.Text = "";
