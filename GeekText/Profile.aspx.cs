@@ -299,21 +299,5 @@ namespace GeekText
             savedCardLabel.Text = "";
         }
 
-        protected void insertcardLinkButton_Click(object sender, EventArgs e)
-        {
-            ObjectDataSource2.InsertParameters["cardFirstName"].DefaultValue =
-                ((TextBox)GridView4.FooterRow.FindControl("firstTxtBox")).Text.Trim();
-            ObjectDataSource2.InsertParameters["cardLastName"].DefaultValue =
-                ((TextBox)GridView4.FooterRow.FindControl("lastTxtBox")).Text.Trim();
-            ObjectDataSource2.InsertParameters["creditCardNumber"].DefaultValue =
-                ((TextBox)GridView4.FooterRow.FindControl("ccTextBox")).Text.Trim();
-            ObjectDataSource2.InsertParameters["cvv"].DefaultValue =
-                ((TextBox)GridView4.FooterRow.FindControl("ccvTxtBox")).Text.Trim();
-            ObjectDataSource2.InsertParameters["expirationDate"].DefaultValue =
-                ((TextBox)GridView4.FooterRow.FindControl("expTxtBox")).Text.Trim();
-            ObjectDataSource2.InsertParameters["userID"].DefaultValue = Session["UserID"].ToString().Trim();
-
-            ObjectDataSource2.Insert();
-        }
     }
 }

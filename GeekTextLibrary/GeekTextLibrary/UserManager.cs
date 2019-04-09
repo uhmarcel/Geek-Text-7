@@ -491,7 +491,6 @@ namespace GeekTextLibrary
                 {
                     using (SqlCommand cmd = new SqlCommand(query))
                     {
-                        //cmd.Parameters.AddWithValue("@userID", userID);
                         cmd.Connection = con;
                         con.Open();
                         using (SqlDataReader reader = cmd.ExecuteReader())
