@@ -8,7 +8,7 @@
         <br />
         <br />
         <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="277px" AutoPostBack="True" Height="25px"></asp:TextBox>
-        <asp:Button ID="Button1" runat="server" Width="91px" Text="Search" />
+        <asp:Button ID="Button1" runat="server" Width="91px" Text="Search" OnClick="Button1_Click" />
     </div>
     <h2>BestSellers</h2>
     <div class="row">

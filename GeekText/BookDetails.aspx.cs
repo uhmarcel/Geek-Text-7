@@ -18,11 +18,18 @@ namespace GeekText
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!this.IsPostBack)
-            {
-                bindGridView();
-            }
+            {               
+                if(Session["SearchString"] != null)
+                {
+                    TextBox1.Text = Session["SearchString"].ToString();
+                    Button1_Click(sender, e);
+                }
+                else
+                {
+                    bindGridView();
+                }              
+            }        
         }
 
         protected void bindGridView()
