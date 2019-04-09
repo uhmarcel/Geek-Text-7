@@ -53,8 +53,9 @@
                     <ul class="nav navbar-nav pull-right">
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/BookDetails">Book Details</a></li>
-                        <li><a runat="server" href="~/Login">Login</a></li>
+                        <li><a runat="server" href="~/Login">Login</a></li>                        
                         <li><a runat="server" href="~/Profile">Profile</a></li>
+                        <li><a runat="server" href="~/LogOut">Logout</a></li>
                         <li><a runat="server" href="~/Shopping_Cart"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp; <%: ServicesShoppingCart.GetShoopingCart().GetTotalQuantity() %> </a></li>
                     </ul>
                 </div>
