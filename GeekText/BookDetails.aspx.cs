@@ -294,6 +294,8 @@ namespace GeekText
                 Button3.Enabled = false;
                 Label7.Text = totalNumberOfRows.ToString();
             }
+
+            Label9.Text = totalNumberOfRows.ToString();
         }
     }
 }
