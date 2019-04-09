@@ -86,8 +86,9 @@ GO
 -- Address Table
 
 CREATE TABLE [dbo].[Address](
+	[index] [int] IDENTITY(1,1) NOT NULL,
 	[City] [nvarchar](50) NULL,
-	[State] [nchar](10) NULL,
+	[State] [nchar](2) NULL,
 	[ZipCode] [nchar](10) NULL,
 	[UserID] [int] NOT NULL,
 	[streetAddress] [nvarchar](50) NULL
@@ -104,6 +105,9 @@ GO
 -- CreditCard Table
 
 CREATE TABLE [dbo].[CreditCard](
+	[cardIndex] [int] IDENTITY(1,1) NOT NULL,
+	[cardFirstName] [nvarchar](50) NULL,
+	[cardLastName] [nvarchar](50) NULL,
 	[CreditCardNumber] [nvarchar](50) NULL,
 	[cvv] [int] NULL,
 	[expirationDate] [nchar](10) NULL,
@@ -272,37 +276,37 @@ values (3, 0130284190, 'This was a really entertaining book, I’d highly recommen
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\Rhet.jfif', Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\Rhet.jfif', Single_Blob) as image)
 where Book.ISBN = 130284190
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\houseofleaves.jfif' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\houseofleaves.jfif' , Single_Blob) as image)
 where Book.ISBN = 130895717
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\theiliad.jfif' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\theiliad.jfif' , Single_Blob) as image)
 where Book.ISBN = 130895725
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\harryp.jfif' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\harryp.jfif' , Single_Blob) as image)
 where Book.ISBN = 132261197
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\calc.jpg' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\calc.jpg' , Single_Blob) as image)
 where Book.ISBN = 135289106
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\web.jpg' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\web.jpg' , Single_Blob) as image)
 where Book.ISBN = 139163050
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\BookImages\9780199360314.jfif' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\9780199360314.jfif' , Single_Blob) as image)
 where Book.ISBN = 14026886
 
 
