@@ -654,7 +654,7 @@
                                 <br />
                                  <asp:RegularExpressionValidator runat="server" 
                                     ControlToValidate="expTextBox" 
-                                    ErrorMessage="Expiration must be in MM/YYYY format." 
+                                    ErrorMessage="Expiration must be in MM/20YY format." 
                                     ValidationExpression="^((0[1-9])|(1[0-2]))\/(20[1-2][0-9])$" />
                             </EditItemTemplate>
                             <ItemTemplate>
