@@ -9,7 +9,7 @@ using GeekTextLibrary.ModelsShoppingCart;
 
 namespace GeekText
 {
-    public partial class About : Page
+    public partial class Search : Page
     {
         static int currentSection = 1;
         static int range = 10;

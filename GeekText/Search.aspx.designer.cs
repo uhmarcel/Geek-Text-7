@@ -10,7 +10,7 @@
 namespace GeekText {
     
     
-    public partial class About {
+    public partial class Search {
         
         /// <summary>
         /// SearchByTitle control.
