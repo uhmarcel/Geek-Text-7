@@ -232,8 +232,8 @@
                     &nbsp;
                     <asp:RegularExpressionValidator runat="server" 
                         ControlToValidate="newZipCodeTextBox" 
-                        ErrorMessage="Zipcode must be five numbers only." 
-                        ValidationExpression="^\d{5}$" />
+                        ErrorMessage="Must be ##### or #####-#### format." 
+                        ValidationExpression="\d{5}(-\d{4})?$" />
                     
                     <div style="text-align:center;">
                         <asp:Button ID="SubmitEditBtn" runat="server" Text="Submit" OnClick="SubmitEditBtn_Click"></asp:Button>
@@ -389,7 +389,7 @@
                                  <asp:RegularExpressionValidator runat="server" 
                                     ControlToValidate="shipZipTextBox" 
                                     ErrorMessage="Zipcode must be five numbers only." 
-                                    ValidationExpression="^\d{5}$" />
+                                    ValidationExpression="\d{5}(-\d{4})?$" />
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="Label5" runat="server" Text='<%# Bind("zipCode") %>'></asp:Label>
@@ -514,7 +514,7 @@
                                 <asp:RequiredFieldValidator ID="rfvInsertZipTxt" runat="server" ControlToValidate="zipCodeTextBox" ErrorMessage="A zipcode is required. " ForeColor="Red" InitialValue="" Text="*" ValidationGroup="INSERT"> *
                                 </asp:RequiredFieldValidator>
                                 <br />
-                                <asp:RegularExpressionValidator runat="server" ControlToValidate="zipCodeTextBox" ErrorMessage="Must be numbers only." ValidationExpression="^\d{5}$" ValidationGroup="INSERT" />
+                                <asp:RegularExpressionValidator runat="server" ControlToValidate="zipCodeTextBox" ErrorMessage="Must be ##### or #####-#### format" ValidationExpression="^\d{5}$" ValidationGroup="INSERT" />
                             </td>
                         </tr>
                     </InsertItemTemplate>
