@@ -27,11 +27,7 @@ namespace GeekText
                 }
                 else
                 {
-                    allBooks = bindGridView();
-
-                    ShowResult();
-
-                    UpdatePaginationPanel(allBooks.Count);
+                    ExecuteSearchAndSorting();
                 }              
             }        
         }
@@ -167,7 +163,7 @@ namespace GeekText
 
             currentSection = 1;
 
-            allBooks = BindGridViewByTitleAllFiltersAndSorted(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria, sortingOrientation);
+            GetListOfBooks(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria, sortingOrientation);
 
             ShowResult();
 
@@ -246,6 +242,25 @@ namespace GeekText
             return sortingOrientation;
         }
 
+        protected void GetListOfBooks(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation)
+        {
+            var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+            List<Book> books;
+
+            if (bookTitle == "" && genresList.Count == 0 && !wantBestSeller && ratingsList.Count == 0 && sortingCriteria == "Default")
+            {
+                var searchManager = new BookManager();
+                books = searchManager.getlistofAllBooksInDB(connection);                
+            }
+            else
+            {             
+                var searchManager = new BookSearch();
+                books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, sortingOrientation, connection);
+            }
+
+            allBooks = books;
+        }
+
         protected void ShowResult()
         {
             if (allBooks.Count == 0)
@@ -266,12 +281,10 @@ namespace GeekText
 
             BookDetailsGridView.DataSource = currentBooksToShow;
             BookDetailsGridView.DataBind();
-
         }
 
         protected void UpdatePaginationPanel(int totalNumberOfRows)
         {
-
             if (allBooks.Count == 0)
             {
                 Pagination1.Visible = false;
@@ -314,31 +327,6 @@ namespace GeekText
                 Label9.Text = totalNumberOfRows.ToString();
                 Label15.Text = totalNumberOfRows.ToString();
             }                     
-        }
-
-        protected List<Book> BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation)
-        {
-            if (bookTitle == "" && genresList.Count == 0 && !wantBestSeller && ratingsList.Count == 0 && sortingCriteria == "Default")
-            {
-                return bindGridView();
-            }
-            else
-            {
-                var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
-                var searchManager = new BookSearch();
-                List<Book> books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, sortingOrientation, connection);
-
-                return books;
-            }
-        }
-
-        protected List<Book> bindGridView()
-        {
-            var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
-            var searchManager = new BookManager();
-            List<Book> allBooks = searchManager.getlistofAllBooksInDB(connection);
-
-            return allBooks;
         }
     }
 }
