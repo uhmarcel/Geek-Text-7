@@ -38,7 +38,7 @@ namespace GeekText
         }
 
         // hashing for password
-        public static string GetSwcSHA1(string value)
+        protected static string GetSwcSHA1(string value)
         {
             SHA1 algorithm = SHA1.Create();
             byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));

@@ -630,10 +630,19 @@
                                     ForeColor ="Red"
                                     ErrorMessage="A Card Number is required. "> *
                                 </asp:RequiredFieldValidator>
-                                 <asp:RegularExpressionValidator runat="server" 
+                                <br />
+                                <asp:RegularExpressionValidator runat="server" 
                                     ControlToValidate="cardTextBox" 
-                                    ErrorMessage="Card Number must be numbers only." 
+                                    ErrorMessage="Must be numbers only." 
                                     ValidationExpression="^\d+$" />
+                                <asp:CustomValidator runat="server"
+                                    OnServerValidate="checkCard"
+                                    ControlToValidate="cardTextBox"
+                                    Display="Dynamic"
+                                    ValidateEmptyText="True"
+                                    ErrorMessage="Must be a valid card number."
+                                    ToolTip="Please enter a valid card number."
+                                    />
                             </EditItemTemplate>
                             
                             <ItemTemplate>
@@ -776,11 +785,22 @@
                                     ErrorMessage="A Card Number is required. "> *
                                 </asp:RequiredFieldValidator>
                                 <br />
-                                 <asp:RegularExpressionValidator runat="server"
+                                <asp:RegularExpressionValidator runat="server"
                                      ValidationGroup="INSERTCARD"
                                     ControlToValidate="CreditCardNumberTextBox" 
                                     ErrorMessage="Must be numbers only." 
                                     ValidationExpression="^\d+$" />
+                                <br />
+                                 <asp:CustomValidator runat="server"
+                                    ValidationGroup="INSERTCARD"
+                                    OnServerValidate="checkCard"
+                                    ClientValidationFunction="checkCard"
+                                    ControlToValidate="CreditCardNumberTextBox"
+                                    Display="Dynamic"
+                                    ValidateEmptyText="True"
+                                    ErrorMessage="Must be a valid card number."
+                                    ToolTip="Please enter a valid card number."
+                                    />
                             </td>
                             <td>
                                 <asp:TextBox ID="expirationDateTextBox" runat="server" Text='<%# Bind("expirationDate") %>' />
@@ -793,6 +813,7 @@
                                     ErrorMessage="A is required. "> *
                                 </asp:RequiredFieldValidator>
                                 <br />
+
                                  <asp:RegularExpressionValidator runat="server" 
                                     ValidationGroup="INSERTCARD"
                                     ControlToValidate="expirationDateTextBox" 
@@ -812,7 +833,7 @@
                                 <br />
                                  <asp:RegularExpressionValidator runat="server"
                                      ValidationGroup="INSERTCARD"
-                                    ControlToValidate="CreditCardNumberTextBox" 
+                                    ControlToValidate="cvvTextBox" 
                                     ErrorMessage="Must be numbers only." 
                                     ValidationExpression="^\d+$" />
                             </td>
