@@ -252,29 +252,20 @@
                 <asp:Label ID ="listOfAddresses" runat="server" Text="Current Shipping Addresses"></asp:Label>
                 <br />
                 <br />
-                <asp:GridView ID="GridView3" runat="server"  AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" OnRowUpdated="GridView3_RowUpdated" OnRowEditing="GridView3_RowEditing" ShowFooter="True" DataKeyNames="index">
+                <asp:GridView ID="GridView3" runat="server"  AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" OnRowUpdated="GridView3_RowUpdated" OnRowEditing="GridView3_RowEditing" ShowFooter="True" DataKeyNames="index" Height="16px" Width="664px">
                     <Columns>
                         <asp:TemplateField ShowHeader="False">
                             <EditItemTemplate>
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>
                                 &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
-                            </EditItemTemplate>
-                            <FooterTemplate>
-                                <asp:LinkButton ID="InsertLinkButton" runat="server" ValidationGroup="INSERT" OnClick="insertAddLinkButton_Click" >Insert</asp:LinkButton>
-                            </FooterTemplate>
+                            </EditItemTemplate>                         
                             <ItemTemplate>
+                            
                                 <asp:LinkButton ID="EditLinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
                                 &nbsp;<asp:LinkButton ID="DeleteLinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete"></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Index" SortExpression="index" >
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TextBox1" ReadOnly="true" runat="server" Text='<%# Bind("index") %>'></asp:TextBox>
-                            </EditItemTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="Label1" runat="server" Text='<%# Bind("index") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
+                        
                         <asp:TemplateField HeaderText="Street Address" SortExpression="streetAddress">
                             <EditItemTemplate>
                                 <asp:TextBox ID="shipStreetTextBox" runat="server" Text='<%# Bind("streetAddress") %>'></asp:TextBox>
@@ -294,25 +285,6 @@
                             <ItemTemplate>
                                 <asp:Label ID="Label2" runat="server" Text='<%# Bind("streetAddress") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="stTextBox" runat="server"></asp:TextBox>
-                                <asp:RequiredFieldValidator  runat="server" 
-                                    ID="rfvInsertStreet"
-                                    ValidationGroup="INSERT"
-                                    ControlToValidate="stTextBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A street address is required. "> *
-                                    </asp:RequiredFieldValidator>
-                                <br />
-                                <asp:RegularExpressionValidator runat="server"
-                                    ValidationGroup="INSERT"
-                                    ControlToValidate="stTextBox" 
-                                    ErrorMessage="Street Addresses must be alphanumeric only." 
-                                    ValidationExpression="^[a-zA-Z0-9\s]+$" />
-                                                                
-                            </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="State" SortExpression="state">
                             <EditItemTemplate>
@@ -382,8 +354,99 @@
                             <ItemTemplate>
                                 <asp:Label ID="Label3" runat="server" Text='<%# Bind("state") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:DropDownList ID="InsertDropDownList" runat="server">
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="City" SortExpression="city">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="shipCityTextBox" runat="server" Text='<%# Bind("city") %>'></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server"
+                                    ID="rfvEditCityTxt"
+                                    ControlToValidate="shipCityTextBox" 
+                                    InitialValue="" 
+                                    Text="*"
+                                    ForeColor ="Red"
+                                    ErrorMessage="A city is required. "> *
+                                </asp:RequiredFieldValidator>
+                                 <asp:RegularExpressionValidator runat="server" 
+                                    ControlToValidate="shipCityTextBox" 
+                                    ErrorMessage="A city must be letters only." 
+                                    ValidationExpression="^[a-zA-Z]+$" />
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label4" runat="server" Text='<%# Bind("city") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Zipcode" SortExpression="zipCode">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="shipZipTextBox" runat="server" Text='<%# Bind("zipCode") %>'></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" 
+                                    ControlToValidate="shipZipTextBox" 
+                                    InitialValue="" 
+                                    Text="*"
+                                    ForeColor ="Red"
+                                    ErrorMessage="A zipcode is required. "> *
+                                </asp:RequiredFieldValidator>
+                                
+                                 <asp:RegularExpressionValidator runat="server" 
+                                    ControlToValidate="shipZipTextBox" 
+                                    ErrorMessage="Zipcode must be five numbers only." 
+                                    ValidationExpression="^\d{5}$" />
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label5" runat="server" Text='<%# Bind("zipCode") %>'></asp:Label>
+                            </ItemTemplate>
+                            
+                        </asp:TemplateField>
+                    </Columns>                    
+                </asp:GridView>
+                <br />
+                <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1" InsertItemPosition="LastItem">
+                    <AlternatingItemTemplate>
+                    </AlternatingItemTemplate>
+                    <EditItemTemplate>
+                        <tr style="">
+                            <td>
+                                <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
+                                <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="streetAddressTextBox" runat="server" Text='<%# Bind("streetAddress") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="stateTextBox" runat="server" Text='<%# Bind("state") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="cityTextBox" runat="server" Text='<%# Bind("city") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="zipCodeTextBox" runat="server" Text='<%# Bind("zipCode") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="indexTextBox" runat="server" Text='<%# Bind("index") %>' />
+                            </td>
+                        </tr>
+                    </EditItemTemplate>
+                    <EmptyDataTemplate>
+                        <table runat="server" style="">
+                            <tr>
+                                <td>No data was returned.</td>
+                            </tr>
+                        </table>
+                    </EmptyDataTemplate>
+                    <InsertItemTemplate>
+                        <tr style="">
+                            <td>
+                                <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" ValidationGroup="INSERT" />
+                                <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="streetAddressTextBox" runat="server" Text='<%# Bind("streetAddress") %>' />
+                                <asp:RequiredFieldValidator ID="rfvInsertStreet" runat="server" ControlToValidate="streetAddressTextBox" ErrorMessage="A street address is required. " ForeColor="Red" InitialValue="" Text="*" ValidationGroup="INSERT"> *
+                                    </asp:RequiredFieldValidator>
+                                <br />
+                                <asp:RegularExpressionValidator runat="server" ControlToValidate="streetAddressTextBox" ErrorMessage="Must be alphanumeric." ValidationExpression="^[a-zA-Z0-9\s]+$" ValidationGroup="INSERT" />
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="stateInsertDropDownList" runat="server" SelectedValue='<%# Bind("state") %>'>
                                     <asp:ListItem Value="none">Select a State</asp:ListItem>
                                     <asp:ListItem>AL</asp:ListItem>
                                     <asp:ListItem>AK</asp:ListItem>
@@ -436,96 +499,70 @@
                                     <asp:ListItem>WI</asp:ListItem>
                                     <asp:ListItem>WY</asp:ListItem>
                                 </asp:DropDownList>
-                                <asp:RequiredFieldValidator runat="server" 
-                                    ValidationGroup="INSERT"
-                                    ID="rfvInsertState"
-                                    ControlToValidate="InsertDropDownList" 
-                                    InitialValue="none" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A state is required. "> *
+                                <asp:RequiredFieldValidator ID="rfvInsertStateddl" runat="server" ControlToValidate="stateInsertDropDownList" ErrorMessage="A state is required. " ForeColor="Red" InitialValue="none" Text="*" ValidationGroup="INSERT"> *
                                 </asp:RequiredFieldValidator>
-                            </FooterTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="City" SortExpression="city">
-                            <EditItemTemplate>
-                                <asp:TextBox ID="shipCityTextBox" runat="server" Text='<%# Bind("city") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator runat="server"
-                                    ID="rfvEditCityTxt"
-                                    ControlToValidate="shipCityTextBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A city is required. "> *
-                                </asp:RequiredFieldValidator>
-                                 <asp:RegularExpressionValidator runat="server" 
-                                    ControlToValidate="shipCityTextBox" 
-                                    ErrorMessage="A city must be letters only." 
-                                    ValidationExpression="^[a-zA-Z]+$" />
-                            </EditItemTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="Label4" runat="server" Text='<%# Bind("city") %>'></asp:Label>
-                            </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="cityTextBox" runat="server"></asp:TextBox>
-                                 <asp:RequiredFieldValidator   runat="server" 
-                                    ValidationGroup="INSERT"
-                                    ID="rfvInsertCityTxt"
-                                    ControlToValidate="cityTextBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A city is required. "> *
+                            </td>
+                            <td>
+                                <asp:TextBox ID="cityTextBox" runat="server" Text='<%# Bind("city") %>' />
+                                <asp:RequiredFieldValidator ID="rfvInsertCityTxt" runat="server" ControlToValidate="cityTextBox" ErrorMessage="A city is required. " ForeColor="Red" InitialValue="" Text="*" ValidationGroup="INSERT"> *
                                 </asp:RequiredFieldValidator>
                                 <br />
-                                <asp:RegularExpressionValidator runat="server"
-                                    ValidationGroup="INSERT"
-                                    ControlToValidate="cityTextBox" 
-                                    ErrorMessage="A city must be letters only." 
-                                    ValidationExpression="^[a-zA-Z]+$" />
-                            </FooterTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="ZipCode" SortExpression="zipCode">
-                            <EditItemTemplate>
-                                <asp:TextBox ID="shipZipTextBox" runat="server" Text='<%# Bind("zipCode") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator runat="server" 
-                                    ControlToValidate="shipZipTextBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A zipcode is required. "> *
-                                </asp:RequiredFieldValidator>
-                                
-                                 <asp:RegularExpressionValidator runat="server" 
-                                    ControlToValidate="shipZipTextBox" 
-                                    ErrorMessage="Zipcode must be five numbers only." 
-                                    ValidationExpression="^\d{5}$" />
-                            </EditItemTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="Label5" runat="server" Text='<%# Bind("zipCode") %>'></asp:Label>
-                            </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="zipTextBox" runat="server"></asp:TextBox>
-                                <asp:RequiredFieldValidator  runat="server" 
-                                    ValidationGroup="INSERT"
-                                    ID="rfvInsertZipTxt"
-                                    ControlToValidate="zipTextBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A zipcode is required. "> *
+                                <asp:RegularExpressionValidator runat="server" ControlToValidate="cityTextBox" ErrorMessage="Must be letters only." ValidationExpression="^[a-zA-Z]+$" ValidationGroup="INSERT" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="zipCodeTextBox" runat="server" Text='<%# Bind("zipCode") %>' />
+                                <asp:RequiredFieldValidator ID="rfvInsertZipTxt" runat="server" ControlToValidate="zipCodeTextBox" ErrorMessage="A zipcode is required. " ForeColor="Red" InitialValue="" Text="*" ValidationGroup="INSERT"> *
                                 </asp:RequiredFieldValidator>
                                 <br />
-                                <asp:RegularExpressionValidator runat="server"
-                                    ValidationGroup="INSERT"
-                                    ControlToValidate="zipTextBox" 
-                                    ErrorMessage="Zipcode must be five numbers only." 
-                                    ValidationExpression="^\d{5}$" />
-                                
-                            </FooterTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
+                                <asp:RegularExpressionValidator runat="server" ControlToValidate="zipCodeTextBox" ErrorMessage="Must be numbers only." ValidationExpression="^\d{5}$" ValidationGroup="INSERT" />
+                            </td>
+                        </tr>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                    </ItemTemplate>
+                    <LayoutTemplate>
+                        <table runat="server">
+                            <tr runat="server">
+                                <td runat="server">
+                                    <table id="itemPlaceholderContainer" runat="server" border="0" style="">
+                                        <tr runat="server" style="">
+                                            <th runat="server"></th>
+                                            <th runat="server">Street Address</th>
+                                            <th runat="server">State</th>
+                                            <th runat="server">City</th>
+                                            <th runat="server">Zipcode</th>
+                                        </tr>
+                                        <tr id="itemPlaceholder" runat="server">
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr runat="server">
+                                <td runat="server" style=""></td>
+                            </tr>
+                        </table>
+                    </LayoutTemplate>
+                    <SelectedItemTemplate>
+                        <tr style="">
+                            <td></td>
+                            <td>
+                                <asp:Label ID="streetAddressLabel" runat="server" Text='<%# Eval("streetAddress") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="stateLabel" runat="server" Text='<%# Eval("state") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="cityLabel" runat="server" Text='<%# Eval("city") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="zipCodeLabel" runat="server" Text='<%# Eval("zipCode") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="indexLabel" runat="server" Text='<%# Eval("index") %>' />
+                            </td>
+                        </tr>
+                    </SelectedItemTemplate>
+                </asp:ListView>
                 <br />
                 <br />
                 <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="getAddressByID" TypeName="GeekTextLibrary.UserManager" UpdateMethod="updateShipAddress" OnUpdated="ObjectDataSource1_Updated" DeleteMethod="deleteAddress" InsertMethod="addUserAddress">
@@ -571,7 +608,7 @@
                 <br />               
                 <asp:Label ID ="currCreditCardLabel" runat="server" Text="Current Credit Cards"></asp:Label>
                 <br />
-                <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource2" OnRowUpdated="GridView4_RowUpdated" OnRowEditing="GridView4_RowEditing" ShowFooter="True" DataKeyNames="cardIndex" >
+                <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource2" OnRowUpdated="GridView4_RowUpdated" OnRowEditing="GridView4_RowEditing" ShowFooter="True" DataKeyNames="cardIndex" ShowFooterWhenEmpty="true" >
                     <Columns>
                         <asp:TemplateField ShowHeader="False">
                             <EditItemTemplate>
@@ -582,9 +619,6 @@
                                 <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
                                 &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete"></asp:LinkButton>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:LinkButton ID="insertCardLinkButton" OnClick="insertcardLinkButton_Click" ValidationGroup="INSERTCARD" runat="server">Insert</asp:LinkButton>
-                            </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Card Number" SortExpression="CreditCardNumber">
                             <EditItemTemplate>
@@ -605,24 +639,7 @@
                             <ItemTemplate>
                                 <asp:Label ID="cardLabel" runat="server" Text='<%# Bind("CreditCardNumber") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="ccTextBox" runat="server"></asp:TextBox>
-                                <asp:RequiredFieldValidator runat="server"
-                                    ValidationGroup="INSERTCARD"
-                                    ControlToValidate="ccTextBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A Card Number is required. "> *
-                                </asp:RequiredFieldValidator>
-                                <br />
-                                 <asp:RegularExpressionValidator runat="server"
-                                     ValidationGroup="INSERTCARD"
-                                    ControlToValidate="ccTextBox" 
-                                    ErrorMessage="Card Number must be numbers only." 
-                                    ValidationExpression="^\d+$" />
-                                                                
-                            </FooterTemplate>
+                            
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Expiration Date" SortExpression="expirationDate">
                             <EditItemTemplate>
@@ -637,29 +654,13 @@
                                 <br />
                                  <asp:RegularExpressionValidator runat="server" 
                                     ControlToValidate="expTextBox" 
-                                    ErrorMessage="Expiration must be in MM/YYYY format." 
+                                    ErrorMessage="Expiration must be in MM/20YY format." 
                                     ValidationExpression="^((0[1-9])|(1[0-2]))\/(20[1-2][0-9])$" />
                             </EditItemTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="expLabel" runat="server" Text='<%# Bind("expirationDate") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="expTxtBox" runat="server"></asp:TextBox>
-                                <asp:RequiredFieldValidator runat="server"
-                                    ValidationGroup="INSERTCARD"
-                                    ControlToValidate="expTxtBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A is required. "> *
-                                </asp:RequiredFieldValidator>
-                                <br />
-                                 <asp:RegularExpressionValidator runat="server" 
-                                    ControlToValidate="expTxtBox" 
-                                    ErrorMessage="Expiration must be in MM/YYYY format." 
-                                    ValidationExpression="^((0[1-9])|(1[0-2]))\/(20[1-2][0-9])$" />
-                                                                
-                            </FooterTemplate>
+                            
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="CCV" SortExpression="cvv">
                             <EditItemTemplate>
@@ -679,22 +680,7 @@
                             <ItemTemplate>
                                 <asp:Label ID="ccvLabel" runat="server" Text='<%# Bind("cvv") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="ccvTxtBox" runat="server" Text='<%# Bind("cvv") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator runat="server"
-                                    ValidationGroup="INSERTCARD"
-                                    ControlToValidate="ccvTxtBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A CCV is required. "> *
-                                </asp:RequiredFieldValidator>
-                                <br />
-                                 <asp:RegularExpressionValidator runat="server" 
-                                    ControlToValidate="ccvTxtBox" 
-                                    ErrorMessage="CCV must be numbers only." 
-                                    ValidationExpression="^\d+$" />
-                            </FooterTemplate>
+                            
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="First Name" SortExpression="cardFirstName">
                             <EditItemTemplate>
@@ -714,22 +700,7 @@
                             <ItemTemplate>
                                 <asp:Label ID="firstLabel" runat="server" Text='<%# Bind("cardFirstName") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="firstTxtBox" runat="server" Text='<%# Bind("cardFirstName") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator runat="server"
-                                    ValidationGroup="INSERTCARD"
-                                    ControlToValidate="firstTxtBox" 
-                                    InitialValue="" 
-                                    Text="*"
-                                    ForeColor ="Red"
-                                    ErrorMessage="A first name is required. "> *
-                                </asp:RequiredFieldValidator>
-                                <br />
-                                 <asp:RegularExpressionValidator runat="server" 
-                                    ControlToValidate="firstTxtBox" 
-                                    ErrorMessage="A first name must be letters." 
-                                    ValidationExpression="^[a-zA-Z]+$" />
-                            </FooterTemplate>
+                            
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Name" SortExpression="cardLastName">
                             <EditItemTemplate>
@@ -749,11 +720,124 @@
                             <ItemTemplate>
                                 <asp:Label ID="lastLabel" runat="server" Text='<%# Bind("cardLastName") %>'></asp:Label>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="lastTxtBox" runat="server" Text='<%# Bind("cardFirstName") %>'></asp:TextBox>                                    
+                            
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+                <br />
+                <asp:ListView ID="ListView2" runat="server" DataSourceID="ObjectDataSource2" InsertItemPosition="LastItem">
+                    <AlternatingItemTemplate>
+                       
+                    </AlternatingItemTemplate>
+                    <EditItemTemplate>
+                        <tr style="">
+                            <td>
+                                <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
+                                <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="CreditCardNumberTextBox" runat="server" Text='<%# Bind("CreditCardNumber") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="expirationDateTextBox" runat="server" Text='<%# Bind("expirationDate") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="cvvTextBox" runat="server" Text='<%# Bind("cvv") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="cardFirstNameTextBox" runat="server" Text='<%# Bind("cardFirstName") %>' />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="cardLastNameTextBox" runat="server" Text='<%# Bind("cardLastName") %>' />
+                            </td>
+                        </tr>
+                    </EditItemTemplate>
+                    <EmptyDataTemplate>
+                        <table runat="server" style="">
+                            <tr>
+                                <td>No data was returned.</td>
+                            </tr>
+                        </table>
+                    </EmptyDataTemplate>
+                    <InsertItemTemplate>
+                        <tr style="">
+                            <td>
+                                <asp:Button ID="InsertButton" ValidationGroup="INSERTCARD" runat="server" CommandName="Insert" Text="Insert" />
+                                <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="CreditCardNumberTextBox" runat="server" Text='<%# Bind("CreditCardNumber") %>' />
                                 <asp:RequiredFieldValidator runat="server"
                                     ValidationGroup="INSERTCARD"
-                                    ControlToValidate="lastTxtBox" 
+                                    ControlToValidate="CreditCardNumberTextBox" 
+                                    InitialValue="" 
+                                    Text="*"
+                                    ForeColor ="Red"
+                                    ErrorMessage="A Card Number is required. "> *
+                                </asp:RequiredFieldValidator>
+                                <br />
+                                 <asp:RegularExpressionValidator runat="server"
+                                     ValidationGroup="INSERTCARD"
+                                    ControlToValidate="CreditCardNumberTextBox" 
+                                    ErrorMessage="Must be numbers only." 
+                                    ValidationExpression="^\d+$" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="expirationDateTextBox" runat="server" Text='<%# Bind("expirationDate") %>' />
+                                <asp:RequiredFieldValidator runat="server"
+                                    ValidationGroup="INSERTCARD"
+                                    ControlToValidate="expirationDateTextBox" 
+                                    InitialValue="" 
+                                    Text="*"
+                                    ForeColor ="Red"
+                                    ErrorMessage="A is required. "> *
+                                </asp:RequiredFieldValidator>
+                                <br />
+                                 <asp:RegularExpressionValidator runat="server" 
+                                    ValidationGroup="INSERTCARD"
+                                    ControlToValidate="expirationDateTextBox" 
+                                    ErrorMessage="Must be in MM/20YY format." 
+                                    ValidationExpression="^((0[1-9])|(1[0-2]))\/(20[1-2][0-9])$" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="cvvTextBox" runat="server" Text='<%# Bind("cvv") %>' />
+                                <asp:RequiredFieldValidator runat="server"
+                                    ValidationGroup="INSERTCARD"
+                                    ControlToValidate="cvvTextBox" 
+                                    InitialValue="" 
+                                    Text="*"
+                                    ForeColor ="Red"
+                                    ErrorMessage="A CCV is required. "> *
+                                </asp:RequiredFieldValidator>
+                                <br />
+                                 <asp:RegularExpressionValidator runat="server"
+                                     ValidationGroup="INSERTCARD"
+                                    ControlToValidate="CreditCardNumberTextBox" 
+                                    ErrorMessage="Must be numbers only." 
+                                    ValidationExpression="^\d+$" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="cardFirstNameTextBox" runat="server" Text='<%# Bind("cardFirstName") %>' />
+                                <asp:RequiredFieldValidator runat="server"
+                                    ValidationGroup="INSERTCARD"
+                                    ControlToValidate="cardFirstNameTextBox" 
+                                    InitialValue="" 
+                                    Text="*"
+                                    ForeColor ="Red"
+                                    ErrorMessage="A first name is required. "> *
+                                </asp:RequiredFieldValidator>
+                                <br />
+                                 <asp:RegularExpressionValidator runat="server" 
+                                     ValidationGroup="INSERTCARD"
+                                    ControlToValidate="cardFirstNameTextBox" 
+                                    ErrorMessage="Must be letters only." 
+                                    ValidationExpression="^[a-zA-Z]+$" />
+                            </td>
+                            <td>
+                                <asp:TextBox ID="cardLastNameTextBox" runat="server" Text='<%# Bind("cardLastName") %>' />
+                                <asp:RequiredFieldValidator runat="server"
+                                    ValidationGroup="INSERTCARD"
+                                    ControlToValidate="cardLastNameTextBox" 
                                     InitialValue="" 
                                     Text="*"
                                     ForeColor ="Red"
@@ -761,13 +845,64 @@
                                 </asp:RequiredFieldValidator>
                                 <br />
                                  <asp:RegularExpressionValidator runat="server" 
-                                    ControlToValidate="lastTxtBox" 
-                                    ErrorMessage="A last name must be letters." 
+                                     ValidationGroup="INSERTCARD"
+                                    ControlToValidate="cardLastNameTextBox" 
+                                    ErrorMessage="Must be letters only." 
                                     ValidationExpression="^[a-zA-Z]+$" />
-                            </FooterTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
+                            </td>
+                        </tr>
+                    </InsertItemTemplate>
+                    <ItemTemplate>
+                        
+                    </ItemTemplate>
+                    <LayoutTemplate>
+                        <table runat="server">
+                            <tr runat="server">
+                                <td runat="server">
+                                    <table id="itemPlaceholderContainer" runat="server" border="0" style="">
+                                        <tr runat="server" style="">
+                                            <th runat="server"></th>
+                                            <th runat="server">Card Number</th>
+                                            <th runat="server">Expiration Date</th>
+                                            <th runat="server">CCV</th>
+                                            <th runat="server">First Name</th>
+                                            <th runat="server">Last Name</th>
+                                        </tr>
+                                        <tr id="itemPlaceholder" runat="server">
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr runat="server">
+                                <td runat="server" style=""></td>
+                            </tr>
+                        </table>
+                    </LayoutTemplate>
+                    <SelectedItemTemplate>
+                        <tr style="">
+                            <td></td>
+                            <td>
+                                <asp:Label ID="CreditCardNumberLabel" runat="server" Text='<%# Eval("CreditCardNumber") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="expirationDateLabel" runat="server" Text='<%# Eval("expirationDate") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="cvvLabel" runat="server" Text='<%# Eval("cvv") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="cardFirstNameLabel" runat="server" Text='<%# Eval("cardFirstName") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="cardLastNameLabel" runat="server" Text='<%# Eval("cardLastName") %>' />
+                            </td>
+                            <td>
+                                <asp:Label ID="cardIndexLabel" runat="server" Text='<%# Eval("cardIndex") %>' />
+                            </td>
+                        </tr>
+                    </SelectedItemTemplate>
+                </asp:ListView>
+                <br />
                 <br />
                 <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="getCardsByID" TypeName="GeekTextLibrary.UserManager" UpdateMethod="updateCreditcard" OnUpdated="ObjectDataSource2_Updated" DeleteMethod="deleteCard" InsertMethod="addUserCard">
                     <DeleteParameters>

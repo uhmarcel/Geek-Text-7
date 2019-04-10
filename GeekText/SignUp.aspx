@@ -47,7 +47,7 @@
                 <asp:Label ID="PasswordLabel1" runat="server" Text="Password"></asp:Label>
             </div>
             <div style="height:30px;line-height:30px; vertical-align:middle; float:left; padding-left:10px;">
-                <asp:TextBox ID="PasswordTextBox1" runat="server"></asp:TextBox>
+                <asp:TextBox ID="PasswordTextBox1" runat="server" TextMode="Password"></asp:TextBox>
             
                 <asp:RequiredFieldValidator runat="server" 
                     ControlToValidate="PasswordTextBox1"
@@ -79,7 +79,7 @@
                 <asp:Label ID="PasswordLabel2" runat="server" Text="Re-enter Password"></asp:Label>
             </div>
             <div style="height:30px;line-height:30px; float:left; padding-left:10px;">
-                <asp:TextBox ID="PasswordTextBox2" runat="server"></asp:TextBox>
+                <asp:TextBox ID="PasswordTextBox2" runat="server" TextMode="Password"></asp:TextBox>
                 <asp:RequiredFieldValidator runat="server" 
                     ControlToValidate="PasswordTextBox2"
                     ErrorMessage="Re-enter password is required."> *
