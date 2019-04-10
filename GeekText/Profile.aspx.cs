@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Configuration;
+using System.Linq;
 using System.Web.UI.WebControls;
 using GeekTextLibrary;
 
@@ -12,12 +13,14 @@ namespace GeekText
         User user = new User();
 
         // changed items
-        bool changedNickName = false;
-        bool changedFirstName = false;
-        bool changedLastName = false;
-        bool changedPassword = false;
-        bool changedEmail = false;
-        bool changedAddress = false;
+        private bool changedNickName = false;
+        private bool changedFirstName = false;
+        private bool changedLastName = false;
+        private bool changedPassword = false;
+        private bool changedEmail = false;
+        private bool changedAddress = false;
+
+        private string creditCardNumVal = "";
 
         // user ID for changing credit cards and shipping address
         int userID;
@@ -299,5 +302,31 @@ namespace GeekText
             savedCardLabel.Text = "";
         }
 
+        // make sure valid card number is entered using Luhn algorithm
+        public void checkCard(object source, ServerValidateEventArgs args)
+        {       
+           
+            int sum = 0;
+            int n;
+            bool alternate = false;
+            char[] nx = args.Value.Trim().ToArray();
+            for (int i = args.Value.Trim().Length - 1; i >= 0; i--)
+            {
+                n = int.Parse(nx[i].ToString());
+
+                if (alternate)
+                {
+                    n *= 2;
+
+                    if (n > 9)
+                    {
+                        n = (n % 10) + 1;
+                    }
+                }
+                sum += n;
+                alternate = !alternate;
+            }
+            args.IsValid = (sum % 10 == 0);
+        }
     }
 }
