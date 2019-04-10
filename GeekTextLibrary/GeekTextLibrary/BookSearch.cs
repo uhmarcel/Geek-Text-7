@@ -172,6 +172,7 @@ namespace GeekTextLibrary
                             }
                             curBook.bookRating = (float)Convert.ToDouble(reader["userRating"]);
                             curBook.price = Convert.ToDouble(reader["bookPrice"]);
+                            curBook.bookCover = (byte[])(reader["bookCover"]);
                             curBook.publishingInfo.publishingCompany = reader["publishingCompany"].ToString();
                             curBook.publishingInfo.copyrightYear = Convert.ToInt32(reader["publishingYear"]);
                             curBook.publishingInfo.location = reader["publishingLocation"].ToString();
