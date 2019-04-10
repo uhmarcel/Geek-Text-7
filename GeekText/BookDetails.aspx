@@ -6,7 +6,7 @@
         <br />
         <div id="LeftDivision" style="float: left; width: 900px;">
             <asp:Panel ID="SearchByTitle" runat="server">
-                <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="423px" AutoPostBack="True" OnTextChanged="TextBox1_TextChanged" Height="25px"></asp:TextBox>
+                <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="529px" AutoPostBack="True" OnTextChanged="TextBox1_TextChanged" Height="25px"></asp:TextBox>
                 <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Width="91px" Text="Search" />
             </asp:Panel>
             <asp:Panel ID="BooksSorting" runat="server">
@@ -23,6 +23,17 @@
                     <asp:ListItem>Ascending</asp:ListItem>
                     <asp:ListItem>Descending</asp:ListItem>
                 </asp:RadioButtonList>
+            </asp:Panel>
+            <asp:Panel ID="Pagination2" runat="server" Style="float: right;" Width="214px">
+                <asp:Button ID="Button4" runat="server" Text="Previous" OnClick="Button2_Click" Enabled="False" />
+                <asp:Label ID="Label11" runat="server" Text="1"></asp:Label>
+                <asp:Label ID="Label12" runat="server" Text="-"></asp:Label>
+                <asp:Label ID="Label13" runat="server" Text="2"></asp:Label>
+                <asp:Label ID="Label14" runat="server" Text="|"></asp:Label>
+                <asp:Label ID="Label15" runat="server" Text="3"></asp:Label>
+                <asp:Button ID="Button5" runat="server" Text="Next" OnClick="Button3_Click" Enabled="False" Width="83px" />
+                <br />
+                <br />
             </asp:Panel>
             <asp:Panel ID="BookDisplayDetailsDiv" runat="server">
                 <asp:GridView ID="BookDetailsGridView" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="False" DataKeyNames="ISBN,title,price" DataMember="ISBN">
@@ -61,7 +72,7 @@
                     </Columns>
                 </asp:GridView>
             </asp:Panel>
-            <asp:Panel ID="Pagination" runat="server" Style="float: right;" Width="214px">
+            <asp:Panel ID="Pagination1" runat="server" Style="float: right;" Width="214px">
                 <asp:Button ID="Button2" runat="server" Text="Previous" OnClick="Button2_Click" Enabled="False" />
                 <asp:Label ID="Label5" runat="server" Text="1"></asp:Label>
                 <asp:Label ID="Label6" runat="server" Text="-"></asp:Label>
