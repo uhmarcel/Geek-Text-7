@@ -105,6 +105,15 @@ namespace GeekText
             ExecuteSearchAndSorting();
         }
 
+        // Reset filters
+        protected void Button6_Click(object sender, EventArgs e)
+        {
+            CheckBoxList1.ClearSelection();
+            CheckBox1.Checked = false;
+            CheckBoxList2.ClearSelection();
+            ExecuteSearchAndSorting();
+        }
+
         // Modified sorting criteria
         protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
         {

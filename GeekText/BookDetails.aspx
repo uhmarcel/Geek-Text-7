@@ -5,8 +5,8 @@
         <h1>Current Books in Inventory</h1>
         <br />
         <div id="LeftDivision" style="float: left; width: 900px;">
-            <asp:Panel ID="SearchByTitle" runat="server">
-                <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="529px" AutoPostBack="True" OnTextChanged="TextBox1_TextChanged" Height="25px"></asp:TextBox>
+            <asp:Panel ID="SearchByTitle" runat="server" Width="896px">
+                <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="675px" AutoPostBack="True" OnTextChanged="TextBox1_TextChanged" Height="25px"></asp:TextBox>
                 <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Width="91px" Text="Search" />
             </asp:Panel>
             <asp:Panel ID="BooksSorting" runat="server">
@@ -108,6 +108,10 @@
                     <asp:ListItem Value="4">4 stars</asp:ListItem>
                     <asp:ListItem Value="5">5 stars</asp:ListItem>
                 </asp:CheckBoxList>
+                <br />
+            </asp:Panel>
+            <asp:Panel ID="ResetFilters" runat="server">
+                <asp:Button ID="Button6" runat="server" Text="Reset Filters" OnClick="Button6_Click" />
             </asp:Panel>
         </div>
     </div>
