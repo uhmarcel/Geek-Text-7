@@ -225,12 +225,12 @@ values (0130895725, 'The Iliad', 'The story of the war in troy featuring achille
 
 -- Users
 insert into [User] (userFirstName, userLastName, userNickName, email, userProfileName, userProfilePassword, userCity, userState, userZipCode, userStreetAddress, userCreditCard, userComment)
-values ('adminFirst', 'adminLast', 'GeekyAdmin', 'admin@email.com', 'admin', 'password','adminCity', 'adminState', 'adminZip', 'adminStreet',null, null),	-- 1
-	   ('John', 'Smith', 'johnSmith001', 'JSmithy@email.com', 'Jsmith', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),		-- 2
-	   ('Andre', 'Reyes', 'areyes92', 'AReyes@email.com', 'AReyes', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),			-- 3
-	   ('Mathew', 'Vega', 'vegamw13', 'Vega@email.com', 'Matty', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),				-- 4
-	   ('Catherine', 'Smith', 'cathys01', 'SmithyCat@email.com', 'catty', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),	-- 5
-	   ('Ron', 'Jackson', 'jr1991', 'JackKiller@email.com', 'ShyRonny', 'password', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null);		-- 6
+values ('adminFirst', 'adminLast', 'GeekyAdmin', 'admin@email.com', 'admin', 'B21A05CC21998CE89E23B234A3644548446F5988','adminCity', 'adminState', 'adminZip', 'adminStreet',null, null),	-- 1
+	   ('John', 'Smith', 'johnSmith001', 'JSmithy@email.com', 'Jsmith', 'B21A05CC21998CE89E23B234A3644548446F5988', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),		-- 2
+	   ('Andre', 'Reyes', 'areyes92', 'AReyes@email.com', 'AReyes', 'B21A05CC21998CE89E23B234A3644548446F5988', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),			-- 3
+	   ('Mathew', 'Vega', 'vegamw13', 'Vega@email.com', 'Matty', 'B21A05CC21998CE89E23B234A3644548446F5988', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),				-- 4
+	   ('Catherine', 'Smith', 'cathys01', 'SmithyCat@email.com', 'catty', 'B21A05CC21998CE89E23B234A3644548446F5988', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null),	-- 5
+	   ('Ron', 'Jackson', 'jr1991', 'JackKiller@email.com', 'ShyRonny', 'B21A05CC21998CE89E23B234A3644548446F5988', 'adminCity', 'adminState', 'adminZip', 'adminStreet', null, null);		-- 6
 -- UserPurchases
 insert into [UserPurchases] (userID, ISBN)
 values (2, 0130284190), (2, 0135289106), (2, 0132261197),													 
