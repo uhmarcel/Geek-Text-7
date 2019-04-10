@@ -42,7 +42,7 @@
                 <asp:TemplateField HeaderText="Cover">
                     <ItemTemplate>
                         <asp:Image ID="Image1" runat="server" Height="100px" Width="100px"
-                            ImageUrl='<%#"data:Image/png;base64," + Convert.ToBase64String((byte[])Eval("bookCover"))%>' />
+                            ImageUrl='<%#"data:Image/jpeg;base64," + Convert.ToBase64String((byte[])Eval("bookCover"))%>' />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField ShowHeader="false" ItemStyle-Width="80px">
