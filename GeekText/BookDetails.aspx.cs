@@ -248,6 +248,15 @@ namespace GeekText
 
         protected void ShowResult()
         {
+            if (allBooks.Count == 0)
+            {
+                Label16.Visible = true;
+            }
+            else
+            {
+                Label16.Visible = false;               
+            }
+
             List<Book> currentBooksToShow = new List<Book>();
 
             for (int i = currentSection; (i <= allBooks.Count) && (i < currentSection + range); i++)
@@ -257,41 +266,54 @@ namespace GeekText
 
             BookDetailsGridView.DataSource = currentBooksToShow;
             BookDetailsGridView.DataBind();
+
         }
 
         protected void UpdatePaginationPanel(int totalNumberOfRows)
         {
-            Label5.Text = currentSection.ToString();
-            Label11.Text = currentSection.ToString();
 
-            if ((currentSection - range) >= 1)
+            if (allBooks.Count == 0)
             {
-                Button2.Enabled = true;
-                Button4.Enabled = true;
+                Pagination1.Visible = false;
+                Pagination2.Visible = false;
             }
             else
             {
-                Button2.Enabled = false;
-                Button4.Enabled = false;
-            }
+                Pagination1.Visible = true;
+                Pagination2.Visible = true;
 
-            if ((currentSection + range - 1) < totalNumberOfRows)
-            {
-                Button3.Enabled = true;
-                Button5.Enabled = true;
-                Label7.Text = (currentSection + range - 1).ToString();
-                Label13.Text = (currentSection + range - 1).ToString();
-            }
-            else
-            {
-                Button3.Enabled = false;
-                Button5.Enabled = false;
-                Label7.Text = totalNumberOfRows.ToString();
-                Label13.Text = totalNumberOfRows.ToString();
-            }
+                Label5.Text = currentSection.ToString();
+                Label11.Text = currentSection.ToString();
 
-            Label9.Text = totalNumberOfRows.ToString();
-            Label15.Text = totalNumberOfRows.ToString();
+                if ((currentSection - range) >= 1)
+                {
+                    Button2.Enabled = true;
+                    Button4.Enabled = true;
+                }
+                else
+                {
+                    Button2.Enabled = false;
+                    Button4.Enabled = false;
+                }
+
+                if ((currentSection + range - 1) < totalNumberOfRows)
+                {
+                    Button3.Enabled = true;
+                    Button5.Enabled = true;
+                    Label7.Text = (currentSection + range - 1).ToString();
+                    Label13.Text = (currentSection + range - 1).ToString();
+                }
+                else
+                {
+                    Button3.Enabled = false;
+                    Button5.Enabled = false;
+                    Label7.Text = totalNumberOfRows.ToString();
+                    Label13.Text = totalNumberOfRows.ToString();
+                }
+
+                Label9.Text = totalNumberOfRows.ToString();
+                Label15.Text = totalNumberOfRows.ToString();
+            }                     
         }
 
         protected List<Book> BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation)
