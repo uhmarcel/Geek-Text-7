@@ -12,7 +12,7 @@ namespace GeekText
     public partial class About : Page
     {
         static int currentSection = 1;
-        static int range = 2;
+        static int range = 10;
         static List<Book> allBooks;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -253,28 +253,36 @@ namespace GeekText
         protected void UpdatePaginationPanel(int totalNumberOfRows)
         {
             Label5.Text = currentSection.ToString();
+            Label11.Text = currentSection.ToString();
 
             if ((currentSection - range) >= 1)
             {
                 Button2.Enabled = true;
+                Button4.Enabled = true;
             }
             else
             {
                 Button2.Enabled = false;
+                Button4.Enabled = false;
             }
 
             if ((currentSection + range - 1) < totalNumberOfRows)
             {
                 Button3.Enabled = true;
+                Button5.Enabled = true;
                 Label7.Text = (currentSection + range - 1).ToString();
+                Label13.Text = (currentSection + range - 1).ToString();
             }
             else
             {
                 Button3.Enabled = false;
+                Button5.Enabled = false;
                 Label7.Text = totalNumberOfRows.ToString();
+                Label13.Text = totalNumberOfRows.ToString();
             }
 
             Label9.Text = totalNumberOfRows.ToString();
+            Label15.Text = totalNumberOfRows.ToString();
         }
 
         protected List<Book> BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation)
