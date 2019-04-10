@@ -112,7 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthorDetailsPage.aspx" />
-    <Content Include="BookDetails.aspx" />
+    <Content Include="Search.aspx">
+      <BrowseToURL>~/Search.aspx</BrowseToURL>
+    </Content>
     <Content Include="BookPage.aspx" />
     <Content Include="BookPage.js" />
     <Content Include="Login.aspx" />
@@ -175,6 +177,7 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="AuthorDetailsPage.aspx.cs">
       <DependentUpon>AuthorDetailsPage.aspx</DependentUpon>
@@ -183,12 +186,12 @@
     <Compile Include="AuthorDetailsPage.aspx.designer.cs">
       <DependentUpon>AuthorDetailsPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BookDetails.aspx.cs">
-      <DependentUpon>BookDetails.aspx</DependentUpon>
+    <Compile Include="Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BookDetails.aspx.designer.cs">
-      <DependentUpon>BookDetails.aspx</DependentUpon>
+    <Compile Include="Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BookPage.aspx.cs">

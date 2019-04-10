@@ -52,7 +52,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav pull-right">
                         <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/BookDetails">Search Books</a></li>
+                        <li><a runat="server" href="~/Search">Search Books</a></li>
                         <li><a runat="server" href="~/Login">Login</a></li>                        
                         <li><a runat="server" href="~/Profile">Profile</a></li>
                         <li><a runat="server" href="~/LogOut">Logout</a></li>

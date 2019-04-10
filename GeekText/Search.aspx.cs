@@ -24,6 +24,8 @@ namespace GeekText
                     TextBox1.Text = Session["SearchString"].ToString();
 
                     Button1_Click(sender, e);
+
+                    Session["SearchString"] = null;
                 }
                 else
                 {
