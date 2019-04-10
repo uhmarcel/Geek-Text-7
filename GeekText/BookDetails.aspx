@@ -18,32 +18,45 @@
             <asp:ListItem>Rating</asp:ListItem>
             <asp:ListItem>Release Date</asp:ListItem>
         </asp:RadioButtonList>
-        <asp:RadioButtonList ID="RadioButtonList2" runat="server" AutoPostBack="True" Height="25px" OnSelectedIndexChanged="RadioButtonList2_SelectedIndexChanged" RepeatDirection="Horizontal" Width="261px">
+        <asp:RadioButtonList ID="RadioButtonList2" runat="server" AutoPostBack="True" Height="25px" OnSelectedIndexChanged="RadioButtonList2_SelectedIndexChanged" RepeatDirection="Horizontal" Width="261px" Visible="False">
             <asp:ListItem>Ascending</asp:ListItem>
             <asp:ListItem>Descending</asp:ListItem>
         </asp:RadioButtonList>
     </div>
     <br />
     <div id="BookDisplayDetailsDiv" style="float: left">
-        <asp:GridView ID="BookDetailsGridView" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="false" DataKeyNames="ISBN,title,price" DataMember="ISBN">
+        <asp:GridView ID="BookDetailsGridView" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="False" DataKeyNames="ISBN,title,price" DataMember="ISBN">
             <Columns>
-                <asp:BoundField DataField="ISBN" HeaderText="ISBN" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden" />
+                <asp:BoundField DataField="ISBN" HeaderText="ISBN" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden">
+                    <HeaderStyle CssClass="hidden"></HeaderStyle>
+
+                    <ItemStyle CssClass="hidden"></ItemStyle>
+                </asp:BoundField>
                 <%--Hidden ISBN--%>
                 <asp:BoundField DataField="title" HeaderText="Title" />
                 <asp:BoundField DataField="bookAuthor.authorName" HeaderText="Author" />
-                <asp:BoundField DataField="price" HeaderText="Price" />
                 <asp:BoundField DataField="genre" HeaderText="Genre" />
                 <asp:BoundField DataField="bestSeller" HeaderText="Best Seller" />
+                <asp:BoundField DataField="price" HeaderText="Price" />
                 <asp:BoundField DataField="bookRating" HeaderText="Rating" />
+                <asp:TemplateField HeaderText="Cover">
+                    <ItemTemplate>
+                        <asp:Image ID="Image1" runat="server" Height="100px" Width="100px"
+                            ImageUrl='<%#"data:Image/png;base64," + Convert.ToBase64String((byte[])Eval("bookCover"))%>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField ShowHeader="false" ItemStyle-Width="80px">
                     <ItemTemplate>
                         <asp:Button ID="ViewButton" runat="server" CausesValidation="false" Text="View Book Details" OnClick="ViewButton_Click" />
                     </ItemTemplate>
+                    <ItemStyle Width="80px"></ItemStyle>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText='<a href="/Shopping_Cart"><span class="glyphicon glyphicon-shopping-cart"></span></a>' ItemStyle-Width="50px">
                     <ItemTemplate>
                         <asp:Button ID="AddButton" runat="server" CausesValidation="false" Text="Add to cart" OnClick="AddButton_OnClick" />
                     </ItemTemplate>
+
+                    <ItemStyle Width="50px"></ItemStyle>
                 </asp:TemplateField>
 
             </Columns>
