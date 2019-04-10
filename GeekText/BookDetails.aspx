@@ -71,6 +71,7 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
+                <asp:Label ID="Label16" runat="server" Text="This search returned no results." Visible="False"></asp:Label>
             </asp:Panel>
             <asp:Panel ID="Pagination1" runat="server" Style="float: right;" Width="214px">
                 <asp:Button ID="Button2" runat="server" Text="Previous" OnClick="Button2_Click" Enabled="False" />
