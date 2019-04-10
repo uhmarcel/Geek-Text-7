@@ -19,8 +19,7 @@ namespace GeekText
         private bool changedPassword = false;
         private bool changedEmail = false;
         private bool changedAddress = false;
-
-        private string creditCardNumVal = "";
+        
 
         // user ID for changing credit cards and shipping address
         int userID;
