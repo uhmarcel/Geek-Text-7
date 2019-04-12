@@ -77,10 +77,14 @@
             <SortedDescendingHeaderStyle BackColor="#820000" />
         </asp:GridView>
         <br />
+        <br />
+        <asp:Label ID="Label1" runat="server" Text="Wich List" Font-Size="18pt"></asp:Label>
+        <br />
+
 
         <asp:GridView ID="WishGridView" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" DataKeyNames="ISBN">
             <Columns>
-                <asp:BoundField DataField="title" HeaderText="title" ItemStyle-Width="150px">
+                <asp:BoundField DataField="title" HeaderText="Title" ItemStyle-Width="150px">
                     <ItemStyle Width="150px"></ItemStyle>
                 </asp:BoundField>
                 <asp:BoundField DataField="ISBN" HeaderText="ISBN" ItemStyle-Width="150px">
