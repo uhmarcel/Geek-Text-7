@@ -5,9 +5,9 @@
         <h1>Current Books in Inventory</h1>
         <br />
         <div id="LeftDivision" style="float: left; width: 900px;">
-            <asp:Panel ID="SearchByTitle" runat="server" Width="896px">
-                <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="675px" AutoPostBack="True" OnTextChanged="TextBox1_TextChanged" Height="25px"></asp:TextBox>
-                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Width="91px" Text="Search" />
+            <asp:Panel ID="SearchByTitle" runat="server" Width="900px" class="form-inline">
+                <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="800px" AutoPostBack="True" OnTextChanged="TextBox1_TextChanged" Height="28px" CssClass="form-control form-control-lg" placeholder="Enter book title"></asp:TextBox>
+                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Width="91px" Text="Search" CssClass="btn btn-primary" />
             </asp:Panel>
             <asp:Panel ID="BooksSorting" runat="server">
                 <asp:Label ID="Label4" runat="server" Text="Sort by:" Font-Bold="true" Font-Size="Smaller"></asp:Label>
@@ -24,19 +24,19 @@
                     <asp:ListItem>Descending</asp:ListItem>
                 </asp:RadioButtonList>
             </asp:Panel>
-            <asp:Panel ID="Pagination2" runat="server" Style="float: right;" Width="214px">
-                <asp:Button ID="Button4" runat="server" Text="Previous" OnClick="Button2_Click" Enabled="False" />
+            <asp:Panel ID="Pagination2" runat="server" Style="float: right;" Width="276px">
+                <asp:Button ID="Button4" runat="server" Text="Previous" OnClick="Button2_Click" Enabled="False" CssClass="btn btn-secondary" />
                 <asp:Label ID="Label11" runat="server" Text="1"></asp:Label>
                 <asp:Label ID="Label12" runat="server" Text="-"></asp:Label>
                 <asp:Label ID="Label13" runat="server" Text="2"></asp:Label>
                 <asp:Label ID="Label14" runat="server" Text="|"></asp:Label>
                 <asp:Label ID="Label15" runat="server" Text="3"></asp:Label>
-                <asp:Button ID="Button5" runat="server" Text="Next" OnClick="Button3_Click" Enabled="False" Width="83px" />
+                <asp:Button ID="Button5" runat="server" Text="Next" OnClick="Button3_Click" Enabled="False" Width="83px" CssClass="btn btn-secondary" />
                 <br />
                 <br />
             </asp:Panel>
             <asp:Panel ID="BookDisplayDetailsDiv" runat="server">
-                <asp:GridView ID="BookDetailsGridView" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="False" DataKeyNames="ISBN,title,price" DataMember="ISBN">
+                <asp:GridView ID="BookDetailsGridView" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="False" DataKeyNames="ISBN,title,price" DataMember="ISBN" >
                     <Columns>
                         <asp:BoundField DataField="ISBN" HeaderText="ISBN" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden">
                             <HeaderStyle CssClass="hidden"></HeaderStyle>
@@ -58,13 +58,13 @@
                         </asp:TemplateField>
                         <asp:TemplateField ShowHeader="false" ItemStyle-Width="80px">
                             <ItemTemplate>
-                                <asp:Button ID="ViewButton" runat="server" CausesValidation="false" Text="View Book Details" OnClick="ViewButton_Click" />
+                                <asp:Button ID="ViewButton" runat="server" CausesValidation="false" Text="View Book Details" OnClick="ViewButton_Click" CssClass="btn btn-secondary" />
                             </ItemTemplate>
                             <ItemStyle Width="80px"></ItemStyle>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText='<a href="/Shopping_Cart"><span class="glyphicon glyphicon-shopping-cart"></span></a>' ItemStyle-Width="50px">
                             <ItemTemplate>
-                                <asp:Button ID="AddButton" runat="server" CausesValidation="false" Text="Add to cart" OnClick="AddButton_OnClick" />
+                                <asp:Button ID="AddButton" runat="server" CausesValidation="false" Text="Add to cart" OnClick="AddButton_OnClick" CssClass="btn btn-secondary" />
                             </ItemTemplate>
 
                             <ItemStyle Width="50px"></ItemStyle>
@@ -73,14 +73,14 @@
                 </asp:GridView>
                 <asp:Label ID="Label16" runat="server" Text="This search returned no results." Visible="False"></asp:Label>
             </asp:Panel>
-            <asp:Panel ID="Pagination1" runat="server" Style="float: right;" Width="214px">
-                <asp:Button ID="Button2" runat="server" Text="Previous" OnClick="Button2_Click" Enabled="False" />
+            <asp:Panel ID="Pagination1" runat="server" Style="float: right;" Width="272px">
+                <asp:Button ID="Button2" runat="server" Text="Previous" OnClick="Button2_Click" Enabled="False" CssClass="btn btn-secondary" />
                 <asp:Label ID="Label5" runat="server" Text="1"></asp:Label>
                 <asp:Label ID="Label6" runat="server" Text="-"></asp:Label>
                 <asp:Label ID="Label7" runat="server" Text="2"></asp:Label>
                 <asp:Label ID="Label8" runat="server" Text="|"></asp:Label>
                 <asp:Label ID="Label9" runat="server" Text="3"></asp:Label>
-                <asp:Button ID="Button3" runat="server" Text="Next" OnClick="Button3_Click" Enabled="False" Width="83px" />
+                <asp:Button ID="Button3" runat="server" Text="Next" OnClick="Button3_Click" Enabled="False" Width="83px" CssClass="btn btn-secondary" />
             </asp:Panel>
         </div>
         <div id="RightDivision" style="float: right; width: 178px;">
@@ -89,7 +89,7 @@
             <br />
             <asp:Panel ID="FilterByGenre" runat="server">
                 <asp:Label ID="Label2" runat="server" Text="Genre"></asp:Label>
-                <asp:CheckBoxList ID="CheckBoxList1" runat="server" DataSourceID="GeekTextBookGenre1" DataTextField="bookGenre" DataValueField="bookGenre" AutoPostBack="True" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChanged" Height="21px"></asp:CheckBoxList>
+                <asp:CheckBoxList ID="CheckBoxList1" runat="server" DataSourceID="GeekTextBookGenre1" DataTextField="bookGenre" DataValueField="bookGenre" AutoPostBack="True" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChanged" Height="21px" class="form-check-input"></asp:CheckBoxList>
                 <asp:SqlDataSource ID="GeekTextBookGenre1" runat="server" ConnectionString="<%$ ConnectionStrings:GeekTextConnectionString %>" SelectCommand="SELECT DISTINCT [bookGenre] FROM [Book] ORDER BY [bookGenre]"></asp:SqlDataSource>
                 <br />
             </asp:Panel>
@@ -112,7 +112,7 @@
                 <br />
             </asp:Panel>
             <asp:Panel ID="ResetFilters" runat="server">
-                <asp:Button ID="Button6" runat="server" Text="Reset Filters" OnClick="Button6_Click" />
+                <asp:Button ID="Button6" runat="server" Text="Reset Filters" OnClick="Button6_Click" CssClass="btn btn-secondary" />
             </asp:Panel>
         </div>
     </div>
