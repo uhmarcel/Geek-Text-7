@@ -78,7 +78,7 @@
         </asp:GridView>
         <br />
         <br />
-        <asp:Label ID="Label1" runat="server" Text="Wich List" Font-Size="18pt"></asp:Label>
+        <asp:Label ID="Label1" runat="server" Text="Wish List" Font-Size="18pt"></asp:Label>
         <br />
 
 
@@ -99,7 +99,7 @@
                 <asp:TemplateField ItemStyle-Width="50px">
                     <ItemTemplate>
 
-                        <asp:Button ID="AddItemtoCar" runat="server" CausesValidation="false" Text="Add to Car" OnClick="AddItemtoCar_OnClick" />
+                        <asp:Button ID="AddItemtoCar" runat="server" CausesValidation="false" Text="Add to Cart" OnClick="AddItemtoCar_OnClick" />
                     </ItemTemplate>
 
                     <ItemStyle Width="50px"></ItemStyle>

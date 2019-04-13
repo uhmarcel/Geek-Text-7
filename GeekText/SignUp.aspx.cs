@@ -33,7 +33,8 @@ namespace GeekText
                 // need to add password validations and email validations later on.
                 if (dbSavedPersonalInfo)
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + "Successful sign up! Now login!" + "');", true);
-                //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Successful sign up! Now login!" + "');", true);
+
+                Response.Redirect("Profile.aspx");
             }
         }
 
