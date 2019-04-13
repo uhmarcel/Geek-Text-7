@@ -7,8 +7,10 @@
         <asp:Label ID="Label" runat="server" Text="GeekText is an online web store that is the one stop shopping experience for all your book needs." Font-Size="Large"></asp:Label>
         <br />
         <br />
-        <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="277px" AutoPostBack="True" Height="25px"></asp:TextBox>
-        <asp:Button ID="Button1" runat="server" Width="91px" Text="Search" />
+        <div class="form-inline">
+            <asp:TextBox ID="TextBox1" runat="server" Font-Italic="True" ForeColor="#666666" Width="277px" AutoPostBack="True" Height="25px" CssClass="form-control form-control-lg" placeholder="Enter book title"></asp:TextBox>
+            <asp:Button ID="Button1" runat="server" Width="91px" Text="Search" OnClick="Button1_Click" CssClass="btn btn-primary" />
+        </div>
     </div>
     <h2>BestSellers</h2>
     <div class="row">

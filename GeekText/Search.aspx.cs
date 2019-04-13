@@ -9,29 +9,30 @@ using GeekTextLibrary.ModelsShoppingCart;
 
 namespace GeekText
 {
-    public partial class About : Page
+    public partial class Search : Page
     {
-
         static int currentSection = 1;
-        static int range = 2;
+        static int range = 10;
         static List<Book> allBooks;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!this.IsPostBack)
-            {
-                bindGridView();
-            }
-        }
+            {               
+                if(Session["SearchString"] != null)
+                {
+                    TextBox1.Text = Session["SearchString"].ToString();
 
-        protected void bindGridView()
-        {
-            List<Book> allBooks = new BookManager().getlistofAllBooksInDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
-            BookDetailsGridView.DataSource = allBooks;
-            BookDetailsGridView.DataBind();
-        }
+                    Button1_Click(sender, e);
 
+                    Session["SearchString"] = null;
+                }
+                else
+                {
+                    ExecuteSearchAndSorting();
+                }              
+            }        
+        }
 
         protected void ViewButton_Click(object sender, EventArgs e)
         {
@@ -102,17 +103,30 @@ namespace GeekText
             ExecuteSearchAndSorting();
         }
 
+        // Reset filters
+        protected void Button6_Click(object sender, EventArgs e)
+        {
+            CheckBoxList1.ClearSelection();
+            CheckBox1.Checked = false;
+            CheckBoxList2.ClearSelection();
+            ExecuteSearchAndSorting();
+        }
+
         // Modified sorting criteria
         protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (RadioButtonList1.SelectedItem.Text == "Default")
             {               
-                RadioButtonList2.ClearSelection();
+                RadioButtonList2.Visible = false;
             }
-            else if (RadioButtonList2.SelectedItem == null)
+            else
             {
-                RadioButtonList2.Items.FindByText("Ascending").Selected = true;
-            }
+                RadioButtonList2.Visible = true;
+                if (RadioButtonList2.SelectedItem == null)
+                {
+                    RadioButtonList2.Items.FindByText("Ascending").Selected = true;
+                }
+            }          
             ExecuteSearchAndSorting();
         }
 
@@ -128,14 +142,7 @@ namespace GeekText
 
             ShowResult();
 
-            if (allBooks == null)
-            {
-                UpdatePaginationPanel(-1);
-            }
-            else
-            {
-                UpdatePaginationPanel(allBooks.Count);
-            }
+            UpdatePaginationPanel(allBooks.Count);
         }
 
         protected void Button3_Click(object sender, EventArgs e)
@@ -144,15 +151,7 @@ namespace GeekText
 
             ShowResult();
 
-            if (allBooks == null)
-            {
-                UpdatePaginationPanel(-1);
-            }
-            else
-            {
-                UpdatePaginationPanel(allBooks.Count);
-            }
-
+            UpdatePaginationPanel(allBooks.Count);
         }
 
         protected void ExecuteSearchAndSorting()
@@ -164,32 +163,24 @@ namespace GeekText
             string sortingCriteria = CheckSortingCriteria();
             string sortingOrientation = CheckSortingOrientation();
 
-            allBooks = BindGridViewByTitleAllFiltersAndSorted(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria, sortingOrientation);
-
             currentSection = 1;
+
+            GetListOfBooks(bookTitle, genresList, isBestSeller, ratingsList, sortingCriteria, sortingOrientation);
 
             ShowResult();
 
-            if(allBooks == null)
-            {
-                UpdatePaginationPanel(-1);
-            }
-            else
-            {
-                UpdatePaginationPanel(allBooks.Count);
-            }
-            
+            UpdatePaginationPanel(allBooks.Count);
         }
 
         protected string CheckTitleSearchBar()
         {
-            string bookTitle = TextBox1.Text;
-            return bookTitle;
+            return TextBox1.Text;
         }
 
         protected List<string> CheckGenreFilter()
         {
             List<string> genresList = new List<string>();
+
             foreach (ListItem li in CheckBoxList1.Items)
             {
                 if (li.Selected == true)
@@ -197,12 +188,14 @@ namespace GeekText
                     genresList.Add(li.Text);
                 }
             }
+
             return genresList;
         }
 
         protected bool CheckBestSellerFilter()
         {
             bool value;
+
             if (CheckBox1.Checked)
             {
                 value = true;
@@ -211,12 +204,14 @@ namespace GeekText
             {
                 value = false;
             }
+
             return value;
         }
 
         protected List<string> CheckRatingFilter()
         {
             List<string> ratingsList = new List<string>();
+
             foreach (ListItem li in CheckBoxList2.Items)
             {
                 if (li.Selected == true)
@@ -224,18 +219,19 @@ namespace GeekText
                     ratingsList.Add(li.Value);
                 }
             }
+
             return ratingsList;
         }
 
         protected string CheckSortingCriteria()
         {
-            string sortingCriteria = RadioButtonList1.SelectedItem.Text;
-            return sortingCriteria;
+            return RadioButtonList1.SelectedItem.Text;
         }
 
         protected string CheckSortingOrientation()
         {
             string sortingOrientation;
+
             if (RadioButtonList1.SelectedItem.Text == "Default")
             {
                 sortingOrientation = "";
@@ -244,76 +240,95 @@ namespace GeekText
             {
                 sortingOrientation = RadioButtonList2.SelectedItem.Text;
             }
+
             return sortingOrientation;
         }
 
-        protected List<Book> BindGridViewByTitleAllFiltersAndSorted(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation)
+        protected void GetListOfBooks(string bookTitle, List<string> genresList, bool wantBestSeller, List<string> ratingsList, string sortingCriteria, string sortingOrientation)
         {
-            if (bookTitle == "" && genresList.Count == 0 && !wantBestSeller && ratingsList.Count == 0 && sortingCriteria == "Default")
-            {        
-                return null;            
-            }           
-            else
-            {
-                var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
-                var searchManager = new BookSearch();
-                List<Book> books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, sortingOrientation, connection);
+            var connection = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+            List<Book> books;
 
-                return books;
-            }            
+            if (bookTitle == "" && genresList.Count == 0 && !wantBestSeller && ratingsList.Count == 0 && sortingCriteria == "Default")
+            {
+                var searchManager = new BookManager();
+                books = searchManager.getlistofAllBooksInDB(connection);                
+            }
+            else
+            {             
+                var searchManager = new BookSearch();
+                books = searchManager.GetBooksByTitleAllFiltersAndSorted(bookTitle, genresList, wantBestSeller, ratingsList, sortingCriteria, sortingOrientation, connection);
+            }
+
+            allBooks = books;
         }
 
         protected void ShowResult()
         {
-            if (allBooks == null)
+            if (allBooks.Count == 0)
             {
-                bindGridView();
+                Label16.Visible = true;
             }
             else
             {
-                List<Book> currentBooksToShow = new List<Book>();
-
-                for (int i = currentSection; (i <= allBooks.Count) && (i < currentSection + range); i++)
-                {
-                    currentBooksToShow.Add(allBooks[i - 1]);
-                }
-
-                BookDetailsGridView.DataSource = currentBooksToShow;
-                BookDetailsGridView.DataBind();
+                Label16.Visible = false;               
             }
+
+            List<Book> currentBooksToShow = new List<Book>();
+
+            for (int i = currentSection; (i <= allBooks.Count) && (i < currentSection + range); i++)
+            {
+                currentBooksToShow.Add(allBooks[i - 1]);
+            }
+
+            BookDetailsGridView.DataSource = currentBooksToShow;
+            BookDetailsGridView.DataBind();
         }
 
         protected void UpdatePaginationPanel(int totalNumberOfRows)
         {
-            if (totalNumberOfRows == -1)
+            if (allBooks.Count == 0)
             {
-                Panel1.Visible = false;
+                Pagination1.Visible = false;
+                Pagination2.Visible = false;
             }
             else
             {
-                Panel1.Visible = true;
+                Pagination1.Visible = true;
+                Pagination2.Visible = true;
+
                 Label5.Text = currentSection.ToString();
+                Label11.Text = currentSection.ToString();
 
                 if ((currentSection - range) >= 1)
                 {
                     Button2.Enabled = true;
+                    Button4.Enabled = true;
                 }
                 else
                 {
                     Button2.Enabled = false;
+                    Button4.Enabled = false;
                 }
 
                 if ((currentSection + range - 1) < totalNumberOfRows)
                 {
                     Button3.Enabled = true;
+                    Button5.Enabled = true;
                     Label7.Text = (currentSection + range - 1).ToString();
+                    Label13.Text = (currentSection + range - 1).ToString();
                 }
                 else
                 {
                     Button3.Enabled = false;
+                    Button5.Enabled = false;
                     Label7.Text = totalNumberOfRows.ToString();
+                    Label13.Text = totalNumberOfRows.ToString();
                 }
-            }           
+
+                Label9.Text = totalNumberOfRows.ToString();
+                Label15.Text = totalNumberOfRows.ToString();
+            }                     
         }
     }
 }

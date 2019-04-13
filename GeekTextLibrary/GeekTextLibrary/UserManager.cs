@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -79,7 +81,7 @@ namespace GeekTextLibrary
             try
             {
                 string query = "INSERT INTO [User](userFirstName, userLastName,userNickName,email,userProfileName,userProfilePassword, userCity, userState, userZipCode, userStreetAddress) values('" + userFirstName + "','" + userLastName + "','" + userNickName + "','" + userEmail + "','" + userName + "','" + userPassword + "','" + userCity + "','" + userState + "','" + userZipCode + "','" + userStreetAddress + "') ; ";
-                User curUser = new User();
+                
                 int rowsChanged = 0;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -119,7 +121,7 @@ namespace GeekTextLibrary
             try
             {
                 string query = "INSERT INTO [User]() values('" + city + "','" + state + "','" + zipCode + "','" + streetAddress + "') ; ";
-                User curUser = new User();
+                
                 int rowsChanged = 0;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -234,157 +236,7 @@ namespace GeekTextLibrary
         }
 
         
-        // for profile
-        public string getUserFirstName(string username, string password, string connectionString)
-        {
-            try
-            {
-                string query = "SELECT [userProfileName], [userProfilePassword], [userFirstName] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(query))
-                    {
-                        cmd.Connection = con;
-                        con.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                User curUser = new User();
-                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
-                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
-                                curUser.userFirstName = reader["userFirstName"].ToString().Trim();
-                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
-                                    return curUser.userFirstName;
-                                else
-                                    return "";
-                            }
-                        }
-                        con.Close();
-                    }
-                }
-                return "";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
-        // for profile
-        public string getUserLastName(string username, string password, string connectionString)
-        {
-            try
-            {
-                string query = "SELECT [userProfileName], [userProfilePassword], [userLastName] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(query))
-                    {
-                        cmd.Connection = con;
-                        con.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                User curUser = new User();
-                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
-                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
-                                curUser.userLastName = reader["userLastName"].ToString().Trim();
-                                // checking username and passwords together make it more secure
-                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
-                                    return curUser.userLastName;
-                                else
-                                    return "";
-                            }
-                        }
-                        con.Close();
-                    }
-                }
-                return "";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
-        // for profile
-        public string getUserNickName(string username, string password, string connectionString)
-        {
-            try
-            {
-                string query = "SELECT [userProfileName], [userProfilePassword],[userNickName] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(query))
-                    {
-                        cmd.Connection = con;
-                        con.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                User curUser = new User();
-                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
-                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
-                                curUser.userNickName = reader["userNickName"].ToString().Trim();
-                                // checking username and passwords together make it more secure
-                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
-                                    return curUser.userNickName;
-                                else
-                                    return "";
-                            }
-                        }
-                        con.Close();
-                    }
-                }
-                return "";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
-        // for profile
-        public string getEmail(string username, string password, string connectionString)
-        {
-            try
-            {
-                string query = "SELECT [userProfileName], [userProfilePassword], [email] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(query))
-                    {
-                        cmd.Connection = con;
-                        con.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                User curUser = new User();
-                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
-                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
-                                curUser.eMailAddress = reader["email"].ToString().Trim();
-                                // checking username and passwords together make it more secure
-                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
-                                    return curUser.eMailAddress;
-                                else
-                                    return "";
-                            }
-                        }
-                        con.Close();
-                    }
-                }
-                return "";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
+        
         
 
         // for profile first name change
@@ -394,7 +246,7 @@ namespace GeekTextLibrary
             try
             {
                 string query = "UPDATE [User] SET [userFirstName] = '" + name + "' WHERE [userID] = " + userID + " ; ";
-                User curUser = new User();
+                
                 int rowsChanged = 0;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -425,7 +277,7 @@ namespace GeekTextLibrary
             try
             {
                 string query = "UPDATE [User] SET userLastName = '" + name + "' WHERE [userID] = " + userID + " ; ";
-                User curUser = new User();
+                
                 int rowsChanged = 0;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -456,7 +308,7 @@ namespace GeekTextLibrary
             try
             {
                 string query = "UPDATE [User] SET userNickName = '" + name + "' WHERE [userID] = " + userID + " ; ";
-                User curUser = new User();
+                
                 int rowsChanged = 0;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -487,7 +339,7 @@ namespace GeekTextLibrary
             try
             {
                 string query = "UPDATE [User] SET email = '" + email + "' WHERE [userID] = " + userID + " ; ";
-                User curUser = new User();
+                
                 int rowsChanged = 0;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -518,7 +370,7 @@ namespace GeekTextLibrary
             try
             {
                 string query = "UPDATE [User] SET userProfilePass = '" + pass + "' WHERE [userID] = " + userID + " ; ";
-                User curUser = new User();
+                
                 int rowsChanged = 0;
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
@@ -578,19 +430,271 @@ namespace GeekTextLibrary
             }
         }
 
+        // for profile viewing all credit cards connected to user
+        public List<CreditCard> getCardsByID(string userID)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
 
+            try
+            {
+                List<CreditCard> cards = new List<CreditCard>();
+                string query = "SELECT [cardFirstName], [cardLastName], [CreditCardNumber], [cvv], [expirationDate], [cardIndex]" +
+                               "FROM [User], [CreditCard]" +
+                               "WHERE [User].[userID] =  " + Convert.ToInt32(userID.Trim()) + " AND [User].[userID] = [CreditCard].[userID];";
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+
+                                CreditCard curCreditCard = new CreditCard();
+                                curCreditCard.CreditCardNumber = reader["CreditCardNumber"].ToString().Trim();
+                                curCreditCard.cvv = Convert.ToInt32(reader["cvv"].ToString().Trim());
+                                curCreditCard.expirationDate = reader["expirationDate"].ToString().Trim();
+                                curCreditCard.cardFirstName = reader["cardFirstName"].ToString();
+                                curCreditCard.cardLastName = reader["cardLastName"].ToString();
+                                curCreditCard.cardIndex = Convert.ToInt32(reader["cardIndex"].ToString().Trim());
+
+                                cards.Add(curCreditCard);
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+
+                return cards;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        // for profile viewing all shipping addresses connected to user
+        public List<Address> getAddressByID(string userID)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+            try
+            {
+                List<Address> addresses = new List<Address>();
+                string query = "SELECT [City], [State], [ZipCode], [streetAddress], [index]" +
+                               "FROM [User], [Address]" +
+                               "WHERE [User].[userID] =  " + Convert.ToInt32(userID.Trim()) + " AND [User].[userID] = [Address].[UserID];";
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+
+                                Address curShipAddress = new Address();
+                                curShipAddress.city = reader["City"].ToString().Trim();                                
+                                curShipAddress.state = reader["State"].ToString().Trim();
+                                curShipAddress.zipCode = Convert.ToInt32(reader["ZipCode"].ToString().Trim());
+                                curShipAddress.streetAddress = reader["streetAddress"].ToString().Trim();
+                                curShipAddress.index = Convert.ToInt32(reader["index"].ToString().Trim());
+
+                                addresses.Add(curShipAddress);
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+
+                return addresses;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
 
         #region needs working/editing or haven't tested yet
-        public bool addUserAddress(string city, string state, string zipCode, int userID,string streetAddress, string connectionString)
+
+        public int updateCreditcard(string cardFirstName, string cardLastName, string CreditCardNumber, int cvv, string expirationDate, int cardIndex, string userID)
         {
+            string connectionString = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+
+            int rowsChanged = 0;
+            try
+            {
+                string query = "UPDATE [CreditCard] SET [cardFirstName] = '" + cardFirstName.Trim() + "', [cardLastName] = '" + cardLastName.Trim() + "', [CreditCardNumber] = '" + CreditCardNumber.Trim() + "', [cvv] = '" + cvv + "', [expirationDate] = '" + expirationDate + "' WHERE [userID] = " + Convert.ToInt32(userID.Trim()) + " AND [cardIndex] = " + cardIndex + " ; ";
+                
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@cardIndex", cardIndex);
+                        cmd.Parameters.AddWithValue("@cardFirstName", cardFirstName.Trim());
+                        cmd.Parameters.AddWithValue("@cardLastName", cardLastName.Trim());
+                        cmd.Parameters.AddWithValue("@CreditCardNumber", CreditCardNumber.Trim());
+                        cmd.Parameters.AddWithValue("@cvv", cvv);
+                        cmd.Parameters.AddWithValue("@expirationDate", expirationDate.Trim());
+                        cmd.Parameters.AddWithValue("@userID", Convert.ToInt32(userID.Trim()));
+                        rowsChanged = cmd.ExecuteNonQuery();
+                        
+                    }
+
+                    con.Close();
+                    return rowsChanged;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int updateShipAddress(string streetAddress, string city, string state, string zipCode, int index, string userID)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+            int rowsChanged = 0;
+            try
+            {
+                string query = "UPDATE [Address] SET [City] = '" + city + "', [State] = '" + state + "', [ZipCode] = '" + zipCode + "', [streetAddress] = '" + streetAddress + "' WHERE [UserID] = " + Convert.ToInt32(userID.Trim()) + " AND [index] = " + index + "; ";
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@index", index);
+                        cmd.Parameters.AddWithValue("@City", city.Trim());
+                        cmd.Parameters.AddWithValue("@State", state.Trim());
+                        cmd.Parameters.AddWithValue("@ZipCode", zipCode.Trim());
+                        cmd.Parameters.AddWithValue("@streetAddress", streetAddress.Trim());
+                        cmd.Parameters.AddWithValue("@UserID", Convert.ToInt32(userID.Trim()));
+                        rowsChanged = cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                    return rowsChanged;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void deleteCard(int cardIndex, string userID)
+        {
+
+            string connectionString = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+
+            
+            try
+            {
+                string query = "DELETE FROM [CreditCard] WHERE [userID] = " + Convert.ToInt32(userID.Trim()) +" AND [cardIndex] = " + cardIndex + "; ";
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@cardIndex", cardIndex);
+                        cmd.Parameters.AddWithValue("@userID", Convert.ToInt32(userID.Trim()));
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void deleteAddress(int index, string userID)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+            
+            try
+            {
+                string query = "DELETE FROM [Address] WHERE [UserID] = " + Convert.ToInt32(userID.Trim()) + " AND [index] = " + index + "; ";
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@index", index);
+                        cmd.Parameters.AddWithValue("@UserID", Convert.ToInt32(userID.Trim()));
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                   
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void addUserCard(string cardFirstName, string cardLastName, string creditCardNumber, int cvv, string expirationDate, string userID)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
 
             try
             {
-                string query = "INSERT INTO [Address](City, State, ZipCode,StreetAddress) values('" + city + "','" + state + "','" + zipCode + "'," + userID + ",'" + streetAddress + "') ; ";
-                User curUser = new User();
-                int rowsChanged = 0;
+                string query = "INSERT INTO [CreditCard](cardFirstName, cardLastName, CreditCardNumber, cvv, expirationDate, userID) values('" + cardFirstName + "','" + cardLastName + "','" + creditCardNumber + "',"+ cvv + ",'" + expirationDate + "'," + Convert.ToInt32(userID.Trim()) + ") ; ";
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+
+                        cmd.Parameters.AddWithValue("@cardFirstName", cardFirstName.Trim());
+                        cmd.Parameters.AddWithValue("@cardLastName", cardLastName.Trim());
+                        cmd.Parameters.AddWithValue("@CreditCardNumber", creditCardNumber.Trim());
+                        cmd.Parameters.AddWithValue("@cvv", cvv);
+                        cmd.Parameters.AddWithValue("@expirationDate", expirationDate.Trim());
+                        cmd.Parameters.AddWithValue("@userID", Convert.ToInt32(userID.Trim()));
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void addUserAddress(string city, string state, string zipCode, string userID, string streetAddress)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString;
+
+            try
+            {
+                string query = "INSERT INTO [Address](City, State, ZipCode, UserID, streetAddress) values('" + city + "','" + state + "','" + zipCode + "'," + Convert.ToInt32(userID.Trim()) + ",'" + streetAddress + "') ; ";
+                
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
@@ -601,16 +705,14 @@ namespace GeekTextLibrary
                         cmd.Parameters.AddWithValue("@City", city.Trim());
                         cmd.Parameters.AddWithValue("@State", state.Trim());
                         cmd.Parameters.AddWithValue("@ZipCode", zipCode.Trim());
-                        cmd.Parameters.AddWithValue("@UserID", userID);
+                        cmd.Parameters.AddWithValue("@UserID", Convert.ToInt32(userID.Trim()));
                         cmd.Parameters.AddWithValue("@StreetAddress", streetAddress.Trim());
-                        rowsChanged = cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
+
                     }
 
                     con.Close();
-                    if (rowsChanged > 0)
-                        return true;
                 }
-                return false;
             }
             catch (Exception ex)
             {
@@ -884,6 +986,158 @@ namespace GeekTextLibrary
 
         }
 
+
+        // for profile
+        public string getUserFirstName(string username, string password, string connectionString)
+        {
+            try
+            {
+                string query = "SELECT [userProfileName], [userProfilePassword], [userFirstName] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                User curUser = new User();
+                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
+                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
+                                curUser.userFirstName = reader["userFirstName"].ToString().Trim();
+                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
+                                    return curUser.userFirstName;
+                                else
+                                    return "";
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        // for profile
+        public string getUserLastName(string username, string password, string connectionString)
+        {
+            try
+            {
+                string query = "SELECT [userProfileName], [userProfilePassword], [userLastName] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                User curUser = new User();
+                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
+                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
+                                curUser.userLastName = reader["userLastName"].ToString().Trim();
+                                // checking username and passwords together make it more secure
+                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
+                                    return curUser.userLastName;
+                                else
+                                    return "";
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        // for profile
+        public string getUserNickName(string username, string password, string connectionString)
+        {
+            try
+            {
+                string query = "SELECT [userProfileName], [userProfilePassword],[userNickName] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                User curUser = new User();
+                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
+                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
+                                curUser.userNickName = reader["userNickName"].ToString().Trim();
+                                // checking username and passwords together make it more secure
+                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
+                                    return curUser.userNickName;
+                                else
+                                    return "";
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        // for profile
+        public string getEmail(string username, string password, string connectionString)
+        {
+            try
+            {
+                string query = "SELECT [userProfileName], [userProfilePassword], [email] FROM [User] WHERE [userProfileName]='" + username + "' AND [userProfilePassword]='" + password + "';";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                User curUser = new User();
+                                curUser.userProfileName = reader["userProfileName"].ToString().Trim();
+                                curUser.userPassword = reader["userProfilePassword"].ToString().Trim();
+                                curUser.eMailAddress = reader["email"].ToString().Trim();
+                                // checking username and passwords together make it more secure
+                                if (curUser.userProfileName.Trim().Equals(username.Trim()) && curUser.userPassword.Trim().Equals(password.Trim()))
+                                    return curUser.eMailAddress;
+                                else
+                                    return "";
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
 
         #endregion
     }

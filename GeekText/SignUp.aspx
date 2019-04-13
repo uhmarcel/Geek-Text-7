@@ -47,7 +47,7 @@
                 <asp:Label ID="PasswordLabel1" runat="server" Text="Password"></asp:Label>
             </div>
             <div style="height:30px;line-height:30px; vertical-align:middle; float:left; padding-left:10px;">
-                <asp:TextBox ID="PasswordTextBox1" runat="server"></asp:TextBox>
+                <asp:TextBox ID="PasswordTextBox1" runat="server" TextMode="Password"></asp:TextBox>
             
                 <asp:RequiredFieldValidator runat="server" 
                     ControlToValidate="PasswordTextBox1"
@@ -79,7 +79,7 @@
                 <asp:Label ID="PasswordLabel2" runat="server" Text="Re-enter Password"></asp:Label>
             </div>
             <div style="height:30px;line-height:30px; float:left; padding-left:10px;">
-                <asp:TextBox ID="PasswordTextBox2" runat="server"></asp:TextBox>
+                <asp:TextBox ID="PasswordTextBox2" runat="server" TextMode="Password"></asp:TextBox>
                 <asp:RequiredFieldValidator runat="server" 
                     ControlToValidate="PasswordTextBox2"
                     ErrorMessage="Re-enter password is required."> *
@@ -149,6 +149,10 @@
                         ControlToValidate="FirstNameTextBox" 
                         ErrorMessage="A first name is required."> *
                     </asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator runat="server" 
+                                    ControlToValidate="FirstNameTextBox" 
+                                    ErrorMessage=" Must be letters only." 
+                                    ValidationExpression="^[a-zA-Z]+$" />
             </div>
             <br />
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
@@ -160,6 +164,10 @@
                         ControlToValidate="LastNameTextBox" 
                         ErrorMessage="A last name is required."> *
                     </asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator runat="server" 
+                                    ControlToValidate="LastNameTextBox" 
+                                    ErrorMessage=" Must be letters only." 
+                                    ValidationExpression="^[a-zA-Z]+$" />
             </div>
         </asp:Panel>
         <asp:Panel ID="AddressesPanel" runat="server" BackColor="#E4E4E4" HorizontalAlign="left" Width="450px">
@@ -173,6 +181,10 @@
                         ControlToValidate="StreetAddressTextBox" 
                         ErrorMessage="A street address is required."> *
                     </asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator runat="server" 
+                                    ControlToValidate="StreetAddressTextBox" 
+                                    ErrorMessage=" Must be alphanumeric only." 
+                                    ValidationExpression="^[a-zA-Z0-9\s]+$" />
             </div>
             <br />
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
@@ -184,6 +196,10 @@
                         ControlToValidate="CityTextBox" 
                         ErrorMessage="A city is required."> *
                     </asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator runat="server" 
+                                    ControlToValidate="CityTextBox" 
+                                    ErrorMessage=" Must be letters only." 
+                                    ValidationExpression="^[a-zA-Z]+$" />
             </div>
             <br />
             <div style="height:30px;line-height:30px; padding-left:10px;padding-right:10px">
@@ -260,9 +276,9 @@
                         ErrorMessage="A zipcode is required."> *
                     </asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator runat="server" 
-                    ControlToValidate="ZipTextBox" 
-                    ErrorMessage="Zipcode must be numbers only." 
-                    ValidationExpression="^\d+$" />
+                        ControlToValidate="ZipTextBox" 
+                        ErrorMessage="Must be ##### or #####-#### format." 
+                        ValidationExpression="\d{5}(-\d{4})?$" />
             </div>
             <br />
             <div style="height:30px;line-height:30px; padding-bottom:10px;padding-right:10px; text-align:center;">
@@ -270,31 +286,5 @@
             </div>
             <br />
         </asp:Panel>
-        <!--<asp:Panel ID="CreditCardsPanel" runat="server" BackColor="#E4E4E4"  HorizontalAlign="Center" Width="500">
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:Label ID="CreditCardLabel" runat="server" Text="Credit Card Number"></asp:Label>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:TextBox ID="CreditCardTextBox" runat="server"></asp:TextBox>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:Label ID="CcvLabel" runat="server" Text="CCV"></asp:Label>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:TextBox ID="CcvTextBox" runat="server"></asp:TextBox>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:Label ID="ExpirationDateLabel" runat="server" Text="Expiration Date"></asp:Label>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:TextBox ID="ExpirationDateTextBox" runat="server"></asp:TextBox>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:Label ID="CcZipLabel" runat="server" Text="Zip Code"></asp:Label>
-            </div>
-            <div style="height:30px;line-height:30px; text-align:center;">
-                <asp:TextBox ID="CcZipTextBox" runat="server"></asp:TextBox>
-            </div>
-            <br />
-        </asp:Panel></-->
+        
     </asp:Content>

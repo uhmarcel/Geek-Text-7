@@ -1,6 +1,8 @@
 ﻿
 using System;
 using System.Configuration;
+using System.Linq;
+using System.Web.UI.WebControls;
 using GeekTextLibrary;
 
 namespace GeekText
@@ -11,19 +13,27 @@ namespace GeekText
         User user = new User();
 
         // changed items
-        bool changedNickName = false;
-        bool changedFirstName = false;
-        bool changedLastName = false;
-        bool changedPassword = false;
-        bool changedEmail = false;
-        bool changedAddress = false;
+        private bool changedNickName = false;
+        private bool changedFirstName = false;
+        private bool changedLastName = false;
+        private bool changedPassword = false;
+        private bool changedEmail = false;
+        private bool changedAddress = false;
+        
+
+        // user ID for changing credit cards and shipping address
+        int userID;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-            if (Session["Username"] != null && Session["UserPass"] != null)
+            if (Session["Username"] == null && Session["UserPass"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+            else if (Session["Username"] != null && Session["UserPass"] != null)
             {
                 user = userMan.getUserInfo(Session["Username"].ToString().Trim(), Session["UserPass"].ToString().Trim(), ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+                userID = Convert.ToInt32(Session["UserID"]);
             }
 
             if (user != null)
@@ -53,8 +63,13 @@ namespace GeekText
 
         }
 
+        
+
+        #region editing user profile information(does not include credit cards and shipping addresses) 
+
         protected void EditProfileBtn_Click(object sender, EventArgs e)
         {
+            
             ProfilePanel.Visible = false;
             EditPanel.Visible = true;
             SuccessLabel.Text = "";
@@ -86,10 +101,10 @@ namespace GeekText
             currZipCodeLabel.Text = user.userZipCode;
 
             if (changedNickName || changedFirstName || changedLastName || changedPassword || changedEmail || changedAddress)
-            { 
-               SuccessLabel.Text = "Changes Saved";
-            }  
-            else 
+            {
+                SuccessLabel.Text = "Changes Saved";
+            }
+            else
                 SuccessLabel.Text = "No Changes Saved";
         }
 
@@ -149,7 +164,7 @@ namespace GeekText
                 }
             }
         }
-            
+
         protected void changeEmail()
         {
             if (newEmailTextBox.Text.Trim() != "")
@@ -158,10 +173,10 @@ namespace GeekText
                 if (userMan.changeUserEmail(newEmailTextBox.Text.Trim(), user.userID, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString))
                 {
                     newEmailTextBox.Text = "";
-                    changedEmail = true;                   
+                    changedEmail = true;
                 }
             }
-        
+
         }
 
         protected void changeAddress()
@@ -184,6 +199,133 @@ namespace GeekText
         {
             EditPanel.Visible = false;
             ProfilePanel.Visible = true;
+        }
+        #endregion
+
+        #region showing credit cards and shipping addresses connected to user's profile
+
+        protected void viewCreditCardBttn_Click(object sender, EventArgs e)
+        {
+            
+            // see only credit cards
+            CreditCardPanel.Visible = true;
+            ProfilePanel.Visible = false;
+        }
+
+        protected void viewShipAddBttn_Click(object sender, EventArgs e)
+        {
+            ShippingPanel.Visible = true;
+            ProfilePanel.Visible = false;
+           
+        }
+
+
+        protected void backCardBttn_Click(object sender, EventArgs e)
+        {
+            // see only credit cards
+            CreditCardPanel.Visible = false;
+            ProfilePanel.Visible = true;
+            savedCardLabel.Text = "";
+
+
+        }
+
+        protected void backAddBttn_Click(object sender, EventArgs e)
+        {
+            ShippingPanel.Visible = false;
+            ProfilePanel.Visible = true;
+            savedShipLabel.Text = "";
+        }
+        
+        #endregion
+
+        #region editing crecit cards and shipping addreses connected to user's profile
+
+        
+
+        protected void GridView3_RowUpdated(object sender, System.Web.UI.WebControls.GridViewUpdatedEventArgs e)
+        {
+            if (e.AffectedRows < 1)
+            {
+                e.KeepInEditMode = true;
+                savedShipLabel.Text = "Row is not updated.";
+                savedShipLabel.ForeColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                savedShipLabel.Text = "Row updated successfully.";
+                savedShipLabel.ForeColor = System.Drawing.Color.Navy;
+            }
+        }
+
+        protected void ObjectDataSource1_Updated(object sender, System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs e)
+        {
+            if (e.ReturnValue is int && (int)e.ReturnValue > 0)
+            {
+                e.AffectedRows = (int)e.ReturnValue;
+            }
+        }
+
+        protected void GridView4_RowUpdated(object sender, System.Web.UI.WebControls.GridViewUpdatedEventArgs e)
+        {
+
+            if (e.AffectedRows < 1)
+            {
+                e.KeepInEditMode = true;
+                savedCardLabel.Text =  "Row is not updated.";
+                savedCardLabel.ForeColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                savedCardLabel.Text = "Row updated successfully.";
+                savedCardLabel.ForeColor = System.Drawing.Color.Navy;
+            }
+        }
+
+        protected void ObjectDataSource2_Updated(object sender, System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs e)
+        {
+            if (e.ReturnValue is int && (int)e.ReturnValue > 0)
+            {
+                e.AffectedRows = (int)e.ReturnValue;
+            }
+        }
+        #endregion
+
+        protected void GridView3_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
+        {
+            savedShipLabel.Text = "";
+        }
+
+        protected void GridView4_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
+        {
+            savedCardLabel.Text = "";
+        }
+
+        // make sure valid card number is entered using Luhn algorithm
+        public void checkCard(object source, ServerValidateEventArgs args)
+        {       
+           
+            int sum = 0;
+            int n;
+            bool alternate = false;
+            char[] nx = args.Value.Trim().ToArray();
+            for (int i = args.Value.Trim().Length - 1; i >= 0; i--)
+            {
+                n = int.Parse(nx[i].ToString());
+
+                if (alternate)
+                {
+                    n *= 2;
+
+                    if (n > 9)
+                    {
+                        n = (n % 10) + 1;
+                    }
+                }
+                sum += n;
+                alternate = !alternate;
+            }
+            args.IsValid = (sum % 10 == 0);
         }
     }
 }

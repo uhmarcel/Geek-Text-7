@@ -112,7 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthorDetailsPage.aspx" />
-    <Content Include="BookDetails.aspx" />
+    <Content Include="Search.aspx">
+      <BrowseToURL>~/Search.aspx</BrowseToURL>
+    </Content>
     <Content Include="BookPage.aspx" />
     <Content Include="BookPage.js" />
     <Content Include="Login.aspx" />
@@ -134,6 +136,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="LogOut.aspx" />
     <Content Include="Profile.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -174,6 +177,7 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="AuthorDetailsPage.aspx.cs">
       <DependentUpon>AuthorDetailsPage.aspx</DependentUpon>
@@ -182,12 +186,12 @@
     <Compile Include="AuthorDetailsPage.aspx.designer.cs">
       <DependentUpon>AuthorDetailsPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BookDetails.aspx.cs">
-      <DependentUpon>BookDetails.aspx</DependentUpon>
+    <Compile Include="Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BookDetails.aspx.designer.cs">
-      <DependentUpon>BookDetails.aspx</DependentUpon>
+    <Compile Include="Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BookPage.aspx.cs">
@@ -213,6 +217,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="LogOut.aspx.cs">
+      <DependentUpon>LogOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LogOut.aspx.designer.cs">
+      <DependentUpon>LogOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
