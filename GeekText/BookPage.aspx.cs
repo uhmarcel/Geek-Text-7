@@ -84,7 +84,7 @@ namespace GeekText
             createReview_Name.Text = currentUser.userFirstName;
             radioFullname.InnerText = currentUser.userFirstName + " " + currentUser.userLastName;
             radioNickname.InnerText = currentUser.userNickName;
-            reviewWelcomeMessage.InnerText = hasAlreadyCommented ? "Edit your review of this book" : "Add a review for this book";
+            reviewWelcomeMessage.InnerText = hasAlreadyCommented ? "Edit your review" : "Add a review for this book";
             textAreaTitle.InnerText = hasAlreadyCommented ? "Modify your review" : "Write a review of the book";
 
             if (hasAlreadyCommented)
@@ -99,30 +99,30 @@ namespace GeekText
             createReviewTextarea.Value = review.reviewText;
             createReviewRating.Value = review.reviewRating.ToString();
             createReviewDisplay.Value = review.displayAs.ToString();
-            //Page.ClientScript.RegisterStartupScript(
-            //    GetType(),
-            //    "updateDisplay",
-            //    "window.onload = function () {" +                              
-            //    "document.getElementById('ratingStar" + review.reviewRating + "').click();" +
-            //    "alert('testu2');}",
-            //    true
-            //    );
         }
 
         protected void submitUserReview(object sender, EventArgs e)
         {
+            if (createReviewRating.Value == "")
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Missing book rating value')", true);
+                return;
+            }
+
             BookReview userReview = new BookReview();
             userReview.reviewText = createReviewTextarea.Value;
             userReview.reviewRating = Convert.ToInt32(createReviewRating.Value);
             userReview.ISBN = Request.QueryString["ISBN"];
             userReview.displayAs = Convert.ToInt32(createReviewDisplay.Value);
             userReview.userID = Convert.ToInt32(Session["UserID"].ToString());
+
             bool commentExists = BookReview.existsUserComment(userReview.userID, userReview.ISBN, ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
 
             if (commentExists)
                 userReview.updateIntoDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
             else
                 userReview.insertIntoDB(ConfigurationManager.ConnectionStrings["GeekTextConnection"].ConnectionString);
+
             Response.Redirect(Request.RawUrl);
         }
 
