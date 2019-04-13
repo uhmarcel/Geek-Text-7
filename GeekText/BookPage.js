@@ -5,7 +5,7 @@ var ratingStars = document.getElementById('reviewRatingSpan').querySelectorAll("
 var ratingInput = document.getElementById('MainContent_createReviewRating');
 
 window.onload = function () {
-    
+
     ratingStars[0].addEventListener("click", function () {
         ratingStarRemoveAll(ratingStars);
         ratingStars[0].classList.remove('far');
@@ -60,6 +60,11 @@ window.onload = function () {
         ratingStars[4].classList.add('fa');
         ratingInput.value = "5";
     });
+
+    if (ratingInput.value != 0) {
+        ratingStars[ratingInput.value - 1].click();
+    }
+
 };
 
 function ratingStarRemoveAll(ratingStars) {
