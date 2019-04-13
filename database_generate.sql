@@ -221,7 +221,11 @@ values (0130895725, 'The Iliad', 'The story of the war in troy featuring achille
 	   (0135289106, 'Calculus Textbook', 'An introductory Calculus textbook for high schoolers', 'Massachusets', 2008,'Education Books', null, null, 149.99, 'Isaac Newton', 'Mathematics', 0),
 	   (0139163050, 'Charlottes Web', 'A childrens book about a pig and a spider', 'Indiana', 1982, 'Prentice', null, null, 14.99, 'E.B. White', 'Adventure', 0),
 	   (0130284190, 'Rhetoric', 'Lectures by Aristotle concerning the use of rhetoric', 'Rome', 1202, 'Random House', null, null, 20.99, 'Aristotle', 'History', 0),
-	   (014026886, 'The Odyssey', 'The story of Odysseus journey home after the war', 'Greece', 1992, 'Penguin Classics', null, null, 22.99, 'Homer', 'Action', 1);
+	   (014026886, 'The Odyssey', 'The story of Odysseus journey home after the war', 'Greece', 1992, 'Penguin Classics', null, null, 22.99, 'Homer', 'Action', 1),
+	   (0654605465, 'Harry Potter and The Chamber of Secrets', 'A kid who is a wizard finds a chamber that has some secrets', 'London', 2005, 'Wiley', null, null, 22.99, 'J.K Rowling', 'fiction', 0),
+	   (0986759545, 'Harry Potter and The Prisoner of Azkaban', 'A kid who is a wizard finds out there is a prisoner from azkaban', 'London', 2004, 'Wiley', null, null, 21.99, 'J.K Rowling', 'fiction', 0),
+	   (0998762195, 'Harry Potter and The Order of the Phoenix', 'A kid who is a wizard finds out there is an order of people who do things and stuff together', 'London', 2004, 'Wiley', null, null, 27.99, 'J.K Rowling', 'fiction', 0),
+	   (0984908452, 'Black Beauty', 'A story about a horse that goes on adventures and does horse like things', 'New York', 2014, 'Illustrated Classics', null, null, 18.45, 'Homer', 'History', 0);
 
 -- Users
 insert into [User] (userFirstName, userLastName, userNickName, email, userProfileName, userProfilePassword, userCity, userState, userZipCode, userStreetAddress, userCreditCard, userComment)
@@ -258,7 +262,12 @@ values (3, 0130284190, 'This was a really entertaining book, I’d highly recommen
 	   (5, 0130284190, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4, 2),
 	   (5, 0132261197, 'This had me hooked from the first page. It was a great story from a brilliant writer; you should definitely check this one out.', 4, 2),
 	   (6, 0130284190, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1),
-	   (6,  014026886, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1);
+	   (6,  014026886, 'What a sweet, lovely story, with a such a beautiful ending. I will definitely seek out the author’s other works.', 3, 1),
+	   (4, 0654605465, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 4, 1),
+	   (3, 0986759545, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 4, 2),
+	   (4, 0998762195, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 4, 3),
+	   (2, 0984908452, 'The characters are well developed with a storyline that flows from the pages and right into your heart. It had all the elements of a great love story.', 4, 2);
+
 	   
 --Authors
  Insert into Author (AuthorName, ISBN, AuthorBio)
@@ -268,7 +277,6 @@ values (3, 0130284190, 'This was a really entertaining book, I’d highly recommen
 		 ('J.K Rowling', '132261197','Joanne Rowling (born July 31, 1965), who goes by the pen name J.K. Rowling, is a British author and screenwriter best known for her seven-book Harry Potter children''s book series. J.K. Rowling was living in Edinburgh, Scotland, and struggling to get by as a single mom before her first book, Harry Potter and the Sorcerer''s Stone, was published. The children''s fantasy novel became an international hit and Rowling became an international literary sensation in 1999 when the first three installments of Harry Potter took over the top three slots of The New York Times best-seller list after achieving similar success in her native United Kingdom. ' ),
 		 ('Isaac Newton', '135289106',' Isaac Newton was born at Woolsthorpe near Grantham in Lincolnshire, England on 4 January 1643. His father died before he was born and in 1645 his mother married a clergyman from North Welham in Leicestershire. She went to live with him while Isaac Newton lived with his grandmother. His mother returned to Woolsthorpe in 1656 when her second husband died and Isaac Newton went to live with her again. From the age of 12 to 14 Isaac Newton went to Grantham Grammar School. During this time he lodged with an apothecary and his family. Then in 1659 Isaac had to leave to help his mother on the family farm. Isaac was not in the slightest bit interested in running a farm and in 1660 he went to the grammar school again. In 1661 he went to Trinity College Cambridge. Isaac Newton obtained a BA in 1665. In 1666 Isaac Newton was forced to flee Cambridge because of an outbreak of the plague and he returned temporarily to Woolsthorpe. He returned to university in 1667.' ),
 		 ('E.B. White', '139163050','E.B. White was born in New York in 1899. In 1927, White joined The New Yorker magazine as writer and contributing editor—a position he would hold for the rest of his career. He wrote three books for children, including Stuart Little (1945) and Charlotte''s Web (1952). In 1959 he revised The Elements of Style by the late William Strunk Jr., which became a standard style manual for writers. White, who earned a Pulitzer Prize special citation in 1978, passed away at his home in Maine in 1985.' );
-	   
 
 
 -- IMPORTANT
@@ -276,40 +284,58 @@ values (3, 0130284190, 'This was a really entertaining book, I’d highly recommen
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\Rhet.jfif', Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\Rhet.jfif', Single_Blob) as image)
 where Book.ISBN = 130284190
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\houseofleaves.jfif' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\houseofleaves.jfif' , Single_Blob) as image)
 where Book.ISBN = 130895717
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\theiliad.jfif' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\theiliad.jfif' , Single_Blob) as image)
 where Book.ISBN = 130895725
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\harryp.jfif' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\harryp.jfif' , Single_Blob) as image)
 where Book.ISBN = 132261197
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\calc.jpg' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\calc.jpg' , Single_Blob) as image)
 where Book.ISBN = 135289106
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\web.jpg' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\web.jpg' , Single_Blob) as image)
 where Book.ISBN = 139163050
 
 update Book 
 set bookCover =
-	(select BulkColumn from openrowset (bulk 'C:\Users\Nessy\source\repos\SoftWareEngTeam7\Bookimages\9780199360314.jfif' , Single_Blob) as image)
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\9780199360314.jfif' , Single_Blob) as image)
 where Book.ISBN = 14026886
 
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\hp2.jpg' , Single_Blob) as image)
+where Book.ISBN = 0654605465
 
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\hp3.jpg' , Single_Blob) as image)
+where Book.ISBN = 0986759545
+
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\hp4.jpg' , Single_Blob) as image)
+where Book.ISBN = 0998762195
+
+update Book 
+set bookCover =
+	(select BulkColumn from openrowset (bulk 'C:\Users\Red_K\Desktop\GeekText\Bookimages\bb1.jpg' , Single_Blob) as image)
+where Book.ISBN = 0984908452
 
 
 
